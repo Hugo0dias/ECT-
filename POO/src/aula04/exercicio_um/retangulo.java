@@ -23,7 +23,9 @@ public class retangulo {
     }
 
     public void setComprimento(double comprimento) {
-        this.comprimento = comprimento;
+        do {
+            this.comprimento = comprimento;
+        } while (comprimento < 0);
     }
 
     public double getAltura() {
@@ -31,7 +33,9 @@ public class retangulo {
     }
 
     public void setAltura(double altura) {
-        this.altura = altura;
+        do {
+            this.altura = altura;
+        } while (altura < 0);
     }
 
     public double Area() {
@@ -41,7 +45,7 @@ public class retangulo {
 
     public double Perimetro() {
         double perimetro = altura * 2 + comprimento * 2;
-        
+
         return perimetro;
 
     }

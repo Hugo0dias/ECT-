@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class Product {
     private String name;
     private double price;
@@ -21,15 +23,46 @@ class Product {
         return price;
     }
 
-    public int  getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
-}
 
+}
 
 class CashRegister {
 
-    // TODO: completar implementação da classe
+    private final Product[] Caixa = new Product[5];
+
+    public void addProduct(Product p) {
+        for (int i = 0; i < Caixa.length; i++) {
+            if (Caixa[i] == null) {
+                Caixa[i] = p;
+                break;
+            }
+        }
+    }
+
+    public double TotalValue() {
+        double total = 0;
+        for (Product p : Caixa) {
+            if (p != null) {
+                total = total + p.getTotalValue();
+            }
+        }
+        return total;
+    }
+
+    public String toString() {
+        String result = String.format("%-15s %10s %10s %7s\n", "Product", "Price", "Quantity", "Total");
+        for (Product product : Caixa) {
+            if (product != null) {
+                result += String.format("%-15s %10.2f %10d %7.2f\n", product.getName(), product.getPrice(),
+                        product.getQuantity(), product.getTotalValue());
+            }
+        }
+        result += String.format("%s %.2f\n", "Total value: ", TotalValue());
+        return result;
+    }
 
 }
 
@@ -44,9 +77,9 @@ public class CashRegisterDemo {
         cr.addProduct(new Product("Headphones", 29.99, 2));
         cr.addProduct(new Product("Notebook", 19.99, 5));
         cr.addProduct(new Product("Phone case", 5.99, 1));
-        
+
         // TODO: Listar o conteúdo e valor total
-        System.out.println(cr);
+        System.out.println(cr.toString());
 
     }
 }
