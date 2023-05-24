@@ -6,11 +6,7 @@ public class DateYMD {
 
     @Override
     public String toString() {
-        return "{" +
-                " month='" + getMonth() + "'" +
-                ", year='" + getYear() + "'" +
-                ", day='" + getDay() + "'" +
-                "}";
+        return String.format("Data: %02d / %02d / %04d", day, month, year);
     }
 
     public DateYMD(int day, int month, int year) {
@@ -71,25 +67,27 @@ public class DateYMD {
 
         int[] days = { 31, 28, 30 };
 
-        if (leapYear(year) == true) {
-            days[1] = 29;
-        }
-
         switch (month) {
             case 1, 3, 5, 7, 8, 10, 12:
                 return days[0];
             case 2:
-                return days[1];
+                if (leapYear(year) == true) {
+
+                    return days[1] = 29;
+                } else {
+                    return days[1];
+                }
             case 4, 6, 9, 11:
                 return days[2];
+            default:
+                return 0;
         }
-        return 0;
 
     }
 
     public static boolean leapYear(int year) {
 
-        if (year % 4 == 0 && year % 100 != 0 && year % 400 == 0) {
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
             return true;
         }
         return false;
@@ -98,11 +96,47 @@ public class DateYMD {
 
     public static boolean valid(int day, int month, int year) {
 
-        if (validMonth(month) == true && validYear(year) == true) {
+        if (validMonth(month) == true && validYear(year) == true && day < monthDays(month, year) == true) {
             return true;
         }
         return false;
 
+    }
+
+    public void increment(int days) {
+
+        if (day == monthDays(month, year)) {
+
+            day = 0;
+
+            if (month == 12) {
+                month = 1;
+                year++;
+            } else {
+                month++;
+            }
+
+        }
+
+        day++;
+
+    }
+
+    public void decrement() {
+
+        if (day == 1) {
+
+            if (month == 1) {
+                month = 12;
+                year--;
+            } else {
+                month--;
+            }
+
+            day = monthDays(month, year) + 1;
+
+        }
+        day--;
     }
 
 }
