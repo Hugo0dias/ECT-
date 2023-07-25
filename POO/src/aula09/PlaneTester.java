@@ -137,7 +137,5 @@ public class PlaneTester {
 
 }
 
-// ajeitar o numero id -- done
 // ajeitar tostring
-// ajeitar remove (numero id nao encontrado)
-// ajeitar search (numero id nao encontrado)
+// ajeitar to string do remove
