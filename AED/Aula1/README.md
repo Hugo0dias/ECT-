@@ -1,5 +1,5 @@
-<h3>Detalhes 
-<h5>
+<h2>Detalhes 
+<h4>
 Exercício 4 ✓
 
 Exercício 5
@@ -12,4 +12,4 @@ Exercício 6
 Exercício 7
     - Erro
 
-</h5>
+</h4>
