@@ -2,14 +2,14 @@
 <h4>
 Exercício 4 ✓
 
-Exercício 5
-    - Valores do Cosseno e do Seno nào estào corretos
-    - Escrita em um ficheiro está a faltar
+<br /> Exercício 5 <br />
+    - Valores do Cosseno e do Seno nào estào corretos <br />
+    - Escrita em um ficheiro está a faltar 
 
-Exercício 6
+Exercício 6 <br />
     - Arquitetura 64 bits ????
     
-Exercício 7
+Exercício 7 <br />
     - Erro
 
 </h4>
