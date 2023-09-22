@@ -14,7 +14,7 @@ int main() {
 void printArray(char s[], int a[]) {
 
     printf("%s :\n", s);
-    for (int i = 0; i<sizeof(a), i++){
+    for (int i = 0; i<sizeof(a), i++) {
         printf("%d ", a[i]);    
     }
     printf("\n");
