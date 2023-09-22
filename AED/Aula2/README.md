@@ -1,6 +1,7 @@
-<h3> Detalhes
-<h5>
+<h2> Detalhes
+<h4>
 Exercício 2
-    - Resolver a concatenação
+     <br />
+    - Resolver a concatenação <br />
 ...
-</h5>
+</h4>
