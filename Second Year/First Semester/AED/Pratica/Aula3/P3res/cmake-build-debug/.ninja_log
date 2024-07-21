@@ -1,0 +1,5 @@
+# ninja log v5
+1	136	7176099463126285	CMakeFiles/P3res.dir/functions_iterations_count.c.obj	fe54e2ca09cf3dcc
+10	196	7176099463736858	CMakeFiles/P3res.dir/examples.c.obj	260904bc6f4167be
+19	1267	7176099474434930	CMakeFiles/P3res.dir/functions_timing.c.obj	d32d78592002b8e2
+2	313	7181284752203765	CMakeFiles/P3res.dir/functions_iterations_count.c.obj	fe54e2ca09cf3dcc
