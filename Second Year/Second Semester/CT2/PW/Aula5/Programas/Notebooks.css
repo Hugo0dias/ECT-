@@ -1,0 +1,30 @@
+table {
+    border-radius: 10px;
+    padding: 3px;
+    border-color: rgb(218, 104, 84);
+    border-style:dotted;
+    height: 400px;
+    width: 100%;
+}
+
+.Header {
+    border-radius: 15px;
+}
+
+.cell{
+    border: 1.5px;
+    border-color: rgb(218, 104, 84);
+    border-style:dotted;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.cellName{
+    border: 1.5px;
+    border-color: rgb(218, 104, 84);
+    border-style:dotted;
+    border-radius: 12px;
+    color: tomato;
+    text-align: center;
+}
+
