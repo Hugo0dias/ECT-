@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Onebox</title>
+    <link rel="stylesheet" href="../css/checkout.css">
+    <!-- sync data between pages! -->
+    <script src="../js/syncData.js"></script>
+    <script src="../js/checkout.js" defer></script>
+</head>
+<body>
+    <header class="header">
+        <a href="../html/index.html"><img src="../images/onebox-logo.png" alt="Onebox Logo"></a>
+        <nav>
+            <a href="manual.html" id="manual">Manual</a>
+            <a href="map.html" id="map-page">Map</a>
+            <a href="lockers.html" id="lockers">Lockers</a>
+            <a href="about.html" id="about">About us</a>
+            <a href="myProfile.html" class="account" id="your-account">Your account</a>
+        </nav>
+    </header>
+
+    <div class="checkout-container">
+        <div class="checkout-left">
+            <h1>Checkout</h1>
+            <h3>Choose a payment type:</h3>
+            <form>
+                <input type="radio" name="payment" value="MBWay" id="mbway">
+                <label for="mbway">MBWay</label><br>
+                <input type="radio" name="payment" value="PayPal" id="paypal">
+                <label for="paypal">PayPal</label><br>
+                <input type="radio" name="payment" value="credit-card" id="credit-card">
+                <label for="credit-card">Credit / Debit Card</label>
+
+                <div id="paypal-field" style="display: none;">
+                    <h3>PayPal Account</h3>
+                    <input type="email" name="paypal-account" placeholder="PayPal Email" required>
+                </div>
+
+                <div id="card-fields" style="display: none;">
+                    <h3>Credit / Debit Card Information</h3>
+                    <input type="text" name="card-number" placeholder="Card Number" required>
+                    <input type="text" name="card-cvc" placeholder="CVC" required>
+                </div>
+
+                <h3>Contact information</h3>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="tel" id="phone" name="phone" placeholder="Phone" required>
+                <div>
+                    <input type="checkbox" id="news-offers">
+                    <label for="news-offers">Email me to get the news and offers</label>
+                </div>
+
+                <h3>Shipping address</h3>
+                <input type="text" id="first-name" name="first-name" placeholder="First Name" required>
+                <input type="text" id="last-name" name="last-name" placeholder="Last Name" required><br>
+                <input type="text" id="company" name="company" placeholder="Company (optional)">
+                <input type="text" id="address" name="address" placeholder="Address" required><br>
+                <input type="text" id="city" name="city" placeholder="City" required>
+                <select id="country" name="country" required>
+                    <option value="">Country/region</option>
+                    <!-- Add more country options as needed -->
+                    <option value="AR">Argentina</option>
+                    <option value="AU">Australia</option>
+                    <option value="AT">Austria</option>
+                    <option value="BE">Belgium</option>
+                    <option value="BR">Brazil</option>
+                    <option value="CA">Canada</option>
+                    <option value="CN">China</option>
+                    <option value="DK">Denmark</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                    <option value="GR">Greece</option>
+                    <option value="IN">India</option>
+                    <option value="ID">Indonesia</option>
+                    <option value="IR">Iran</option>
+                    <option value="IE">Ireland</option>
+                    <option value="IL">Israel</option>
+                    <option value="IT">Italy</option>
+                    <option value="JP">Japan</option>
+                    <option value="MY">Malaysia</option>
+                    <option value="MX">Mexico</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="NZ">New Zealand</option>
+                    <option value="NG">Nigeria</option>
+                    <option value="NO">Norway</option>
+                    <option value="PK">Pakistan</option>
+                    <option value="PL">Poland</option>
+                    <option value="PT">Portugal</option>
+                    <option value="RU">Russia</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="KR">South Korea</option>
+                    <option value="ES">Spain</option>
+                    <option value="SE">Sweden</option>
+                    <option value="CH">Switzerland</option>
+                    <option value="TH">Thailand</option>
+                    <option value="TR">Turkey</option>
+                    <option value="AE">United Arab Emirates</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="US">United States</option>
+                </select>
+            </form>
+        </div>
+        <div class="checkout-right">
+            <h2>In your cart</h2>
+            <div class="cart-item">
+                <img id="locker-image" src="../images/big-locker.png" alt="Big Locker">
+                <div>
+                    <p><strong id="locker-type">Large Locker (200cmx150)</strong></p>
+                    <p id="dates">2 days</p>
+                    <p id="unit">0,70 €</p>
+                </div>
+            </div>
+            <hr>
+            <p id="subtotal">Subtotal: </p>
+            <input type="text" id="client-card" placeholder="ClientCard">
+            <div id="card-notification"></div>
+            <input type="submit" id="submit-card" value="APPLY">
+
+            <input type="text" id="promo-code" placeholder="PromoCode">
+            <div id="code-notification"></div>
+            <input type="submit" id="submit-code" value="APPLY">
+            <hr>
+            <p><strong id="total">Total: 1,40 €</strong></p>
+            <input type="submit" id="submit" value="Pay" onclick="">
+        </div>
+    </div>
+
+    <div class="footer">
+        <div>
+            <img src="../images/onebox-logo.png" alt="OneBox Logo">
+            <div class="social-icons">
+                <a href="https://www.facebook.com/"><img src="../images/facebook.png" alt="Facebook" style="width: 35px; height: 30px;"></a>
+                <a href="https://x.com/i/flow/login"><img src="../images/twitter.png" alt="Twitter" style="width: 35px; height: 30px;"></a>
+                <a href="https://www.youtube.com/"><img src="../images/youtube.png" alt="YouTube" style="width: 35px; height: 30px;"></a>
+                <a href="https://www.instagram.com/"><img src="../images/instagram.png" alt="Instagram" style="width: 35px; height: 30px;"></a>
+            </div>
+        </div>
+        <div class="footer-left">
+            <p>&copy; 2024 OneBox. All rights reserved.</p>
+        </div>
+        <div class="footer-right">
+            <div class="contact-info">
+                <a href="#">Help</a> | <a href="#">Contact us</a>
+                <p>+123 456 789 123</p>
+                <p>support@onebox.com</p>
+                <p>support.onebox.com</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

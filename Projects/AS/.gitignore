@@ -1,0 +1,9 @@
+# Exclude IDE files
+.idea
+.vscode
+
+# Exclude backup files
+*.vpp.bak*
+
+# Exclude custom scripts
+clear-bak.sh

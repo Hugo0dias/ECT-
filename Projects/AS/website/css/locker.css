@@ -1,0 +1,383 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e6f0ff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-bottom: 2px solid #014482;
+}
+
+.header img {
+    height: 50px;
+}
+
+.nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #014482;
+    font-weight: bold;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+.GD {
+    display: flex;
+    margin-top: 20px;
+}
+
+.container-left {
+    flex: 1;
+    padding: 20px;
+    background-color: #e7ecf3;
+    border: 2px solid #014482;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-right: 20px;
+    text-align: center;
+}
+
+.container-left h3 {
+    color: #014482;
+    margin-bottom: 10px;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.image-container {
+    border: 2px solid #014482;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f7f9fc;
+    display: inline-block;
+}
+
+.container-left img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.container-right {
+    width: 40%;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    color: #014482;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.calendar {
+    margin-top: 50px;
+    height: 300px;
+    background-color: #fff;
+    width: 400px;
+    border-radius: 20px;
+}
+
+h1 {
+    font-weight: 600;
+}
+
+h3 {
+    font-weight: 600;
+    text-align: center;
+    color: #014482;
+    margin-bottom: 2rem;
+    margin-right: 50px;
+}
+
+.calendar {
+    margin-bottom: 100px;
+    width: 100%;
+    height: 57px;
+    max-width: 380px;
+    padding: 5px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    margin-bottom: 350px;
+    box-sizing: border-box;
+}
+
+.calendar header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #014482;
+    color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-radius: 10px;
+    height: 50px;
+}
+
+.calendar header h3 {
+    color: white;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.calendar nav {
+    display: flex;
+    align-items: center;
+}
+
+.calendar nav button {
+    background: #014482;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.calendar nav button:hover {
+    background-color: #012f62;
+}
+
+.calendar ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.calendar ul li {
+    width: calc(100% / 7);
+    margin-top: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+#prev,
+#next {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    border: none;
+    background: #014482;
+    cursor: pointer;
+}
+
+#prev::before,
+#next::before {
+    content: "";
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    border-color: #fff;
+}
+
+#next::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+#prev::before {
+    transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+#prev:hover::before,
+#next:hover::before {
+    border-color: #cccccc;
+}
+
+.days {
+    font-weight: 600;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.dates {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.dates li.today {
+    color: #fff;
+}
+
+.dates li.today::before {
+    content: "";
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #000;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.dates li.inactive {
+    color: #ccc;
+}
+
+.dates li.selected {
+    background-color: #69a1d5;
+    color: #ffffff;
+    border-radius: 20%;
+}
+
+@keyframes to-top {
+    0% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(100%);
+        opacity: 1;
+    }
+}
+
+@keyframes to-left {
+    0% {
+        transform: translatex(230%);
+        opacity: 1;
+    }
+    100% {
+        transform: translatex(0);
+        opacity: 1;
+    }
+}
+
+@keyframes to-right {
+    10% {
+        transform: translatex(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translatex(-150%);
+        opacity: 1;
+    }
+}
+
+@keyframes showtime {
+    0% {
+        transform: translatex(250%);
+        opacity: 1;
+    }
+    100% {
+        transform: translatex(0%);
+        opacity: 1;
+    }
+}
+
+@keyframes hidetime {
+    0% {
+        transform: translatex(0%);
+        opacity: 1;
+    }
+    100% {
+        transform: translatex(-370%);
+        opacity: 1;
+    }
+}
+
+.butao, .butao2 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.butao button {
+    padding: 10px 40px;
+    background-color: #014482;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.butao2 button {
+    padding: 10px 100px;
+    background-color: #014482;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+
+}
+
+.butao button:hover, .butao2 button:hover {
+    background-color: #012f62;
+}
+
+.Description {
+    margin-left: 20px;
+}
+
+.Description h3 {
+    color: #014482;
+}
+
+.Description p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f7f7f7;
+}
+
+.footer-left, .footer-right {
+    display: flex;
+    align-items: center;
+}
+
+.footer-left .social-icons a {
+    margin-right: 10px;
+}
+
+.footer-right .contact-info, .footer-right .footer-links {
+    margin-left: 20px;
+}
+
+.footer-right .contact-info a, .footer-right .footer-links a {
+    text-decoration: none;
+    color: black;
+    padding: 0 10px;
+}
+
+.footer-right .contact-info a:hover, .footer-right .footer-links a:hover {
+    text-decoration: underline;
+}
+
+.dates li.red {
+    background-color: red;
+    color: white;
+}

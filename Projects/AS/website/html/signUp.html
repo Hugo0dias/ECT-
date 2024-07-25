@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Onebox</title>
+    <link rel="stylesheet" href="../css/signUp.css">
+    <!-- sync data between pages! -->
+    <script src="../js/syncData.js"></script>
+    <script src="../js/signUp.js"></script>
+</head>
+<body>
+    <div class="signup-container">
+        <img src="../images/onebox-logo.png" alt="Onebox Logo">
+        <h2>Create your account</h2>
+        <form action="/signup" method="POST">
+            <input type="text" id="name" name="name" placeholder="Full Name" required>
+            <input type="email" id="email" name="email" placeholder="email@domain.com" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="submit" id="sign-up" value="Sign Up">
+        </form>
+        <p class="terms">By signing up, you agree to our <a href="termsAndPrivacy.html">Terms of Service</a> and <a href="termsAndPrivacy.html">Privacy Policy</a></p>
+    </div>
+</body>
+</html>

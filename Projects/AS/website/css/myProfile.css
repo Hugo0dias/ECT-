@@ -1,0 +1,83 @@
+body {
+    font-family: Inter, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    padding: 1%;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header img {
+    height: 50px;
+}
+.nav {
+    display: flex;
+    gap: 30px;
+}
+.nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+.nav a:hover {
+    text-decoration: underline;
+}
+.profile-edit {
+    padding: 5% 30% 20%;
+}
+.profile-edit h2 {
+    margin-bottom: 20px;
+}
+.profile-edit .form-group {
+    margin-bottom: 15px;
+}
+.profile-edit .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+.profile-edit .form-group input,
+.profile-edit .form-group textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+.profile-edit .form-group input:focus,
+.profile-edit .form-group textarea:focus {
+    border-color: #333;
+}
+.profile-edit .buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+.profile-edit  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.profile-edit .buttons .save {
+    background-color: black;
+    color: white;
+}
+.profile-edit .buttons .revert {
+    background-color: red;
+    color: white;
+}
+.profile-edit .logout {
+    background-color: #333;
+    color: white;
+    margin-top: 20px;
+    display: block;
+    text-align: center;
+}

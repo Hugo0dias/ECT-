@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="../css/myProfile.css">
+    <!-- sync data between pages! -->
+    <script src="../js/syncData.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="../html/index.html"><img src="../images/onebox-logo.png" alt="OneBox Logo"></a>
+            <nav class="nav">
+                <a href="manual.html" id="manual">Manual</a>
+                <a href="map.html" id="map-page">Map</a>
+                <a href="lockers.html" id="lockers">Lockers</a>
+                <a href="about.html" id="about">About us</a>
+                <a href="myProfile.html" class="account" id="your-account">Your account</a>
+            </nav>
+        </div>
+        <div class="profile-edit">
+            <h2>Edit profile</h2>
+            <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" disabled="disabled" id="email" name="email" placeholder="email@domain.com">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" name="bio" rows="5" placeholder="Some custom bio."></textarea>
+                </div>
+                <div class="buttons">
+                    <button type="submit" id="save" name="save" class="save">Save changes</button>
+                    <button type="submit" id="revert" name="revert" class="revert">Revert Changes</button>
+                </div>
+            </form>
+            <button type="submit" name="logout" id="logout" class="logout">Log Out</button>
+        </div>
+    </div>
+</body>
+<script src="../js/myProfile.js"></script>
+</html>
