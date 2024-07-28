@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900&display=swap');
+*
+{
+    margin: 5;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body
+{
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: linear-gradient(#000000,#000000 )
+    
+
+
+}
+
+header
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10000;
+    box-shadow: none;
+    background: #252525;
+    -webkit-box-shadow: 0px 32px 66px 28px rgba(0,0,0,0.77);
+-moz-box-shadow: 0px 32px 66px 28px rgba(0,0,0,0.77);
+box-shadow: 0px 32px 66px 28px rgba(0,0,0,0.77);
+}
+
+
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background: #0f0f0f;
+    overflow-x: hidden;
+
+
+    background-image: url('home page/game_table.png');
+    background-size: cover;
+    background-position: center;
+    background-size: 107%;
+    background-repeat: no-repeat;
+
+}
+
+#dealer-cards img{
+    height: 120px;
+    width: 80px;
+    margin: 3px;
+    margin-top: 0%;
+}
+
+#your-cards img {
+ 
+    height: 120px;
+    width: 80px;
+    margin: 3px;
+    margin-top: 12.5%;
+    
+}
+
+#hidden {
+    height: 120px;
+    width: 80px;
+
+}
+
+
+
+
+
+
+#hit {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    text-decoration: none;
+    padding: 6px 15px;
+    color:#F8F8FF ;
+    border-radius: 20px;
+    background-color: rgb(54, 54, 54);
+    border: 0px solid rgb(54, 54, 54);
+    color: rgb(204, 204, 204);
+}
+
+#stay {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    text-decoration: none;
+    padding: 6px 15px;
+    color:#F8F8FF ;
+    border-radius: 20px;
+    background-color: rgb(54, 54, 54);
+    border: 0px solid rgb(54, 54, 54);
+    color: rgb(204, 204, 204);
+}
+
+
+#sair {
+    width: 100px;
+    height: 50px;
+    font-size: 20px;
+    text-decoration: none;
+    padding: 6px 15px;
+    color:#F8F8FF ;
+    border-radius: 20px;
+    background-color: rgb(54, 54, 54);
+    border: 0px solid rgb(54, 54, 54);
+    color: rgb(204, 204, 204);
+}
+
+#logo {
+    
+}
+
+style="display: flex; justify-content: center; align-items: center;"
+
+#botom {
+    align-items: flex-start;
+}
+
+
+
+
+header ul
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header ul li
+{
+    list-style: none;
+    margin-left: 20px;
+}
+
+header ul li a
+{
+    text-decoration: none;
+    padding: 6px 15px;
+    color:#F8F8FF ;
+    border-radius: 20px;
+}
+
+.first {
+    background-color: rgb(54, 54, 54);
+    border: 0px solid rgb(54, 54, 54);
+    color: rgb(204, 204, 204);
+}
+
+header ul li a:hover, 
+header ul li a.active
+{
+    background: rgb(90, 90, 90);
+    color:#ffffff ;
+}

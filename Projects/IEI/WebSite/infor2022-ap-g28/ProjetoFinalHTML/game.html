@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>blackjack 21</title>
+        <link rel="stylesheet" href="BJstyle.css">
+        <script src="blackjack.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    </head>
+ 
+    <header>
+        <img id="logo" src="home page/logo.png" alt="Logo" style="width: 140px; height: 80px;">
+        <ul>
+            <li><a id="botom" class="first" href="index and about.html">Home</a></li>
+
+            <li><a class="first" href="historia.html">História</a></li>
+            <li><a class="first" href="regras.html">Regras</a></li>
+        </ul>
+
+    </header>
+      
+        
+    <body style="margin-top: 150px;">
+        <div id="dealer-cards">
+            <img id="hidden" src="./cards/H-D.png" >
+            
+
+        </div>
+        <h2 style="color: aliceblue;">Dealer: <span id="dealer-sum"></span></h2>
+
+
+
+
+         
+
+        <div id="your-cards"></div>
+        <div id="dialog">
+        </div>
+          
+        <h2 style="color: aliceblue;">You: <span id="your-sum"></span></h2>
+        <br>
+    
+        <button id="hit">Hit</button>
+        <button id="stay">Stay</button>
+
+        <div id="hidden-card">
+        </div>
+        
+
+        <p id="results"></p>
+    </body>
+
+
+</html>

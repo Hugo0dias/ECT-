@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="indexStyle.css">
+    </head>
+    <body>
+        <header>
+            <img id="logo" src="home page/logo.png" style="width: 250px; height: 150px;">
+            <ul>
+                <li><a class="first" href="index and about.html">Home</a></li>
+                <li><a class="first" href="game.html">Play</a></li>
+                <li><a class="first" href="historia.html">História</a></li>   
+                <li><a class="first" href="regras.html">Regras</a></li>   
+            </ul>
+            
+        </header>
+        <section>
+            <img src="home page/fundo.jpg" id="fundo">
+        </section>
+            
+            <h2 class="titulo">História do blackjack</h2><br><br>
+            <p class="texto"> &nbsp; &nbsp; &nbsp; Não se sabe ao certo a real origem do BlackJack, porém acredita-se que tenha sido inventado na Espanha. A primeira referência escrita encontra-se num livro do autor espanhol Miguel de Cervantes. Cervantes era um jogador, e os protagonistas de "Rinconete y Cortadillo", são jogadores desonestos em Sevilha. Estes são fraudulentos profissionais em “veintiuna” (espanhol para "vinte e um") que posteriormente viria a ser conhecido como Blackjack. Para além disso afirmam que o objetivo do jogo é chegar a 21 pontos sem ultrapassar.
+                
+                <p class="texto"> &nbsp; &nbsp; &nbsp; "Rinconete y Cortadillo" foi escrito entre 1601 e 1602, sugerindo que a “ventiuna” era tocada em Castela desde o início do século XVII ou antes. Referências posteriores a este jogo são encontradas na França e na Espanha.</p>
+                 
+                <p class="texto"> &nbsp; &nbsp; &nbsp; O primeiro registo do jogo na França ocorreu em 1888 e na Grã-Bretanha durante as décadas de 1770 e 1780, mas as primeiras regras apareceram na Grã-Bretanha em 1800. Twenty-One, ainda conhecido como Vingt-Un, apareceu nos Estados Unidos no início do século XIX. As primeiras regras americanas foram uma reimpressão de 1825 das regras inglesas de 1800. O Vingt-Un inglês mais tarde se desenvolveu em uma variante americana por si só, que foi renomeada como blackjack por volta de 1899.</p>
+                 
+                <p class="texto"> &nbsp; &nbsp; &nbsp; De acordo com o mito popular, quando o Vingt-Un foi introduzido nos Estados Unidos, os locais de jogo ofereciam pagamentos de bónus para aumentar o interesse dos jogadores no Vingt-Un. Um desses bónus era um pagamento de dez para um se a mão do jogador consistisse em um "Ás" de espadas e um valete preto (o valete de paus ou o valete de espadas). Essa mão foi chamada de "blackjack" e o nome continuou mesmo após a remoção desse bónus.</p>
+            
+                <p class="texto"> &nbsp; &nbsp; &nbsp; Em setembro de 1956, Roger Baldwin, Wilbert Cantey, Herbert Maisel e James McDermott (também conhecidos como 3 dos 4 “Cavaleiros de Aberdeen”), publicaram um artigo intitulado “The Optimum Strategy in Blackjack” no jornal da associação de estatística americana, a primeira estratégia ótima de blackjack matematicamente sólida. Este documento tornou-se a base de futuros esforços para vencer o blackjack. Ed Thorp usou os cálculos da mão de Baldwin para verificar a estratégia básica e posteriormente publicou (em 1963) "Beat the Dealer".</p>
+                 
+                            
+                <br><br>
+                <button onclick="topFunction()" id="topBtn" title="Go to top" class="topBtn">Voltar ao topo</button>
+                <script>
+                    window.onscroll = function() {scrollFunction()};
+                
+                    function scrollFunction() {
+                        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                            document.getElementById("topBtn").style.display = "block";
+                        } else {
+                            document.getElementById("topBtn").style.display = "none";
+                        }
+                    }
+                    function topFunction() {
+                        document.body.scrollTop = 0; 
+                        document.documentElement.scrollTop = 0; 
+                    }
+                </script>
+    </body>
+</html>

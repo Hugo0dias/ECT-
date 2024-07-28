@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="indexStyle.css">
+    </head>
+    <body>
+        <header>
+            <img id="logo" src="home page/logo.png" style="width: 250px; height: 150px;">
+            <ul>
+                <li><a class="first" href="index and about.html">Home</a></li>
+                <li><a class="first" href="game.html">Play</a></li>
+                <li><a class="first" href="historia.html">História</a></li>   
+                <li><a class="first" href="regras.html">Regras</a></li>   
+            </ul>
+            
+        </header>
+        <section>
+            <img src="home page/fundo.jpg" id="fundo">
+        </section>
+            
+            <h2 class="titulo">Regras do blackjack</h2><br><br>
+            <p class="texto"> &nbsp; &nbsp; &nbsp; Em uma mesa de blackjack, o dealer enfrenta de cinco a nove posições de jogo atrás de uma mesa em forma de meia-lua. São necessários entre um e oito baralhos padrão de 52 cartas que vão ser baralhados juntos. Para iniciar cada rodada, os jogadores fazem apostas no local ao qual têm direito a colocar as suas fichas, a chamada “caixa de apostas”. Em jurisdições que permitem apostas a favor, é permitido somente até 3 jogadores estarem nas suas respetivas posições. O jogador cuja aposta está na frente da caixa de apostas controla a posição, e o dealer consulta o jogador controlador para decisões de jogo; os outros apostadores "jogam atrás". Um jogador geralmente pode controlar ou apostar em quantas caixas desejar em uma única mesa, porém um indivíduo não pode jogar em mais de uma mesa ao mesmo tempo ou fazer apostas múltiplas em uma única caixa.
+                
+                <p class="texto"> &nbsp; &nbsp; &nbsp; O dealer negocia da esquerda para a extrema direita, em outras palavras, da ("primeira base") para ("terceira base"). Cada caixa recebe uma mão inicial de duas cartas visíveis para as pessoas que jogam nela. A mão do dealer recebe sua primeira carta virada para cima e, em jogos "hole card", imediatamente obtém uma segunda carta virada para baixo, que o dealer espia, mas só revela quando faz da mão do dealer um blackjack. Às vezes, os jogos de cartas hole são jogados em mesas com algumas medidas de segurança, por exemplo um pequeno espelho ou sensor eletrónico usado para espiar com segurança a carta hole. Nos casinos europeus, prevalecem os jogos "no hole card", por esses motivos.</p>
+                 
+                <p class="texto"> &nbsp; &nbsp; &nbsp; Os dealers distribuem as cartas de um ou dois baralhos de mão, do sapato do dealer ou de uma máquina de embaralhar. As cartas individuais são distribuídas para cada posição apostada no sentido horário, a partir da esquerda do dealer, para além de uma única carta para o mesmo. Posteriormente é fornecida uma carta adicional para cada uma das posições em jogo. As cartas iniciais dos jogadores podem ser viradas para cima ou para baixo.</p>
+                 
+                <p class="texto"> &nbsp; &nbsp; &nbsp; O objetivo do jogo é ganhar dinheiro criando valores totais de cartas maiores que os da mão do dealer, com a condição de não exceder 21, ou parando em um total na esperança de que o dealer estoure. Na sua vez, os jogadores escolhem "hit", "stand", "double", "split" ou "surrender" com os respetivos sinais.</p>
+            
+                <p class="texto"> &nbsp; &nbsp; &nbsp; As cartas com figuras, ou seja, o rei, a dama e valete têm um valor de 10, as cartas numéricas contam como seu número e os ases ou contam como 1 ou como 11, dependendo da respetiva escolha do jogador. Se o total exceder 21 pontos, ele rebenta e todas as apostas perdem imediatamente.</p>
+                 
+                <p class="texto"> &nbsp; &nbsp; &nbsp; O dealer nunca dobra, divide ou desiste. Se o dealer estourar, todas as mãos restantes do jogador ganham. Se o dealer não estourar, cada aposta restante ganha se sua mão for maior que a do dealer e perde se for menor.
+                 
+                Caso um jogador consiga garantir um 21 nas duas primeiras cartas (Exemplo: Valete e Ás) chamado de "natural" ou "blackjack", o jogador ganha imediatamente, a menos que o dealer também tenha um, caso em que a mão empata. Em caso de empate ("push") as apostas são devolvidas sem ajuste. Um blackjack vence qualquer mão que não seja um blackjack, mesmo uma com o valor de 21.</p>             
+                <p class="texto"> &nbsp; &nbsp; &nbsp; As vitórias são pagas com dinheiro igual, exceto para blackjacks de jogadores, que são tradicionalmente pagos com probabilidades de 3 para 2, ou 150%. Muitos casinos hoje pagam blackjacks em menos de 3:2. Isso é comum em jogos de blackjack de um baralho.</p>
+                <br><br>
+                <button onclick="topFunction()" id="topBtn" title="Go to top" class="topBtn">Voltar ao topo</button>
+                <script>
+                    window.onscroll = function() {scrollFunction()};
+                
+                    function scrollFunction() {
+                        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                            document.getElementById("topBtn").style.display = "block";
+                        } else {
+                            document.getElementById("topBtn").style.display = "none";
+                        }
+                    }
+                    function topFunction() {
+                        document.body.scrollTop = 0; 
+                        document.documentElement.scrollTop = 0; 
+                    }
+                </script>
+    </body>
+</html>
+
