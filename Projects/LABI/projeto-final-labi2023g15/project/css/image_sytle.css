@@ -1,0 +1,18 @@
+body {
+    overflow-x: hidden;
+}
+
+.size-image {
+    width: 300px; 
+    height: auto; 
+}
+
+.columnleft {
+    float: left;
+    width: 50%;
+}
+
+.columnright {
+    float: right;
+    width: 50%;
+}
