@@ -1,0 +1,14 @@
+GAS LISTING TurnOnLed.s 			page 1
+
+
+DEFINED SYMBOLS
+         TurnOnLed.s:1      *ABS*:000000000000bf88 BASE
+         TurnOnLed.s:2      *ABS*:0000000000006100 TRISE
+         TurnOnLed.s:3      *ABS*:0000000000006120 LATE
+         TurnOnLed.s:4      *ABS*:0000000000006040 TRISB
+         TurnOnLed.s:5      *ABS*:0000000000006050 PORTB
+         TurnOnLed.s:9      .text:0000000000000000 main
+         TurnOnLed.s:19     .text:000000000000001c mainWhile0
+         TurnOnLed.s:27     .text:0000000000000038 mainEndWhile0
+
+NO UNDEFINED SYMBOLS

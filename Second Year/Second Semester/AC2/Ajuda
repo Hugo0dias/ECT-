@@ -1,0 +1,37 @@
+Trisx Configurar portos como entrada ou saida
+LATx - Escrever valor num porto de saida
+Portx - Ler valor de port de entrada
+
+TRI-State = 1 -> Entrada
+TRI-State = 0 -> Saida
+
+TRISE - 0xFFFE -> Output (RE0)
+TRISD - 0xFFFD -> Output (RE1)
+
+
+0000 0000 0000 0001
+1111 1111 1111 1110
+
+
+"^" -> Serve para inverter
+
+
+
+
+
+
+
+
+
+
+
+
+Materia a decorar
+
+Codigos das interrupcoes () ----------------------------------------------------
+Registos responsáveis pela prioridade, flag e interrupção: ---------------------
+Configuraçao dos timers : ------------------------------------------------------
+Configuraçao da UART : ---------------------------------------------------------
+Configuraçao da ADC : ----------------------------------------------------------
+Ver funções essenciais: 
+Ver DutyCicle:

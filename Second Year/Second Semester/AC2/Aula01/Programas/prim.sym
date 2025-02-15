@@ -1,0 +1,9 @@
+GAS LISTING prim.s 			page 1
+
+
+DEFINED SYMBOLS
+              prim.s:6      *ABS*:0000000000000008 PRINT_STR
+              prim.s:8      .data:0000000000000000 msg
+              prim.s:11     .text:0000000000000000 main
+
+NO UNDEFINED SYMBOLS

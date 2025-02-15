@@ -1,0 +1,15 @@
+GAS LISTING ex1Sor.s 			page 1
+
+
+DEFINED SYMBOLS
+            ex1Sor.s:1      *ABS*:000000000000000b READ_CORE_TIMER
+            ex1Sor.s:2      *ABS*:000000000000000c RESET_CORE_TIMER
+            ex1Sor.s:3      *ABS*:0000000000000003 PUT_CHAR
+            ex1Sor.s:4      *ABS*:0000000000000006 PRINT_INT
+            ex1Sor.s:9      .text:0000000000000000 main
+            ex1Sor.s:17     .text:0000000000000018 lab1
+            ex1Sor.s:51     .text:0000000000000078 delay
+            ex1Sor.s:31     .text:0000000000000040 lab2
+            ex1Sor.s:54     .text:0000000000000080 while
+
+NO UNDEFINED SYMBOLS
