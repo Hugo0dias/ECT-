@@ -1,0 +1,27 @@
+var NAVTREEINDEX0 =
+{
+"annotated.html":[0,0],
+"classes.html":[0,1],
+"files.html":[1,0],
+"functions.html":[0,2,0],
+"functions_vars.html":[0,2,1],
+"globals.html":[1,1,0],
+"globals_func.html":[1,1,1],
+"index.html":[],
+"linked-list_8h.html":[1,0,0],
+"linked-list_8h.html#a05d68e5ad238961c22a8acbc445d0657":[1,0,0,4],
+"linked-list_8h.html#a3ac8eb430131b8b21727e69947c1b4b4":[1,0,0,3],
+"linked-list_8h.html#a9ecf9205821d936d9e5206cf7554a68d":[1,0,0,2],
+"linked-list_8h.html#aab168c19a3c83d7d6fc6522262c5b868":[1,0,0,8],
+"linked-list_8h.html#ace2ea454051746c6e06a54ec8c4164e1":[1,0,0,6],
+"linked-list_8h.html#aea146a385bdc33daceb4cf962e0f5a73":[1,0,0,5],
+"linked-list_8h.html#aff2e7d90e6a7a8f00c3d1f0be5b0b4ec":[1,0,0,7],
+"linked-list_8h_source.html":[1,0,0],
+"pages.html":[],
+"struct_sll_node.html":[0,0,0],
+"struct_sll_node.html#a031c82b40763e2b1dfbc26d2f68904cb":[0,0,0,0],
+"struct_sll_node.html#a953727ef8884013bc4e905b16a6c32c0":[0,0,0,1],
+"struct_student.html":[0,0,1],
+"struct_student.html#a5ac083a645d964373f022d03df4849c8":[0,0,1,1],
+"struct_student.html#ae706fe4e769709633cc0fbad546f6bfe":[0,0,1,0]
+};

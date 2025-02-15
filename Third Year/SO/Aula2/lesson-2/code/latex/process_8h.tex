@@ -1,0 +1,218 @@
+\hypertarget{process_8h}{}\doxysection{process.\+h File Reference}
+\label{process_8h}\index{process.h@{process.h}}
+
+
+\mbox{\hyperlink{group__process_process}{Process}}, \mbox{\hyperlink{group__process_sysV}{System-\/V}}, and \mbox{\hyperlink{group__process_posix_sem}{POSIX libraries}} wrapper module.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ipc.\+h$>$}\newline
+{\ttfamily \#include $<$sys/shm.\+h$>$}\newline
+{\ttfamily \#include $<$sys/sem.\+h$>$}\newline
+{\ttfamily \#include $<$semaphore.\+h$>$}\newline
+{\ttfamily \#include $<$signal.\+h$>$}\newline
+Include dependency graph for process.\+h\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{Indent}\textbf{ Process handling}\par
+{\em \label{group__process_process}%
+\Hypertarget{group__process_process}%
+}\begin{DoxyCompactItemize}
+\item 
+pid\+\_\+t \mbox{\hyperlink{group__process_ga67e00aff1839b1ba68c83947593f625b}{pfork}} (void)
+\begin{DoxyCompactList}\small\item\em {\ttfamily fork} wrapper function. \end{DoxyCompactList}\item 
+pid\+\_\+t \mbox{\hyperlink{group__process_gad27b81fee9a0f792c4ba29fd95c967e1}{pwait}} (int $\ast$status)
+\begin{DoxyCompactList}\small\item\em {\ttfamily wait} wrapper function. \end{DoxyCompactList}\item 
+pid\+\_\+t \mbox{\hyperlink{group__process_gac926bd7ccd173f742b5d58f51cabcb48}{pwaitpid}} (pid\+\_\+t pid, int $\ast$status, int options)
+\begin{DoxyCompactList}\small\item\em {\ttfamily waitpid} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gab546ccee89e3159ea7c23aa3a463a0d8}{pkill}} (pid\+\_\+t pid, int sig)
+\begin{DoxyCompactList}\small\item\em {\ttfamily kill} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gae5d3e8ac00f0e788f21020699bac758a}{pexecl}} (const char $\ast$pathname, const char $\ast$arg,...)
+\begin{DoxyCompactList}\small\item\em {\ttfamily execl} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga7c7f6de68bd3dea8a702668090a65854}{psigaction}} (int signum, const struct sigaction $\ast$act, struct sigaction $\ast$oldact)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sigaction} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ System V -\/ shared memory}\par
+{\em \label{group__process_shm}%
+\Hypertarget{group__process_shm}%
+ \begin{DoxyParagraph}{Example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <\mbox{\hyperlink{process_8h}{process.h}}>} \textcolor{comment}{// \#include <sys/shm.h>}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{int shmid;}
+\DoxyCodeLine{\textcolor{comment}{// creation:}}
+\DoxyCodeLine{shmid = \mbox{\hyperlink{group__process_gaff71624be0fc9c76e0c72295721875e6}{pshmget}}(key, size, 0600 | IPC\_CREAT | IPC\_EXCL);}
+\DoxyCodeLine{\textcolor{comment}{// or, use existing:}}
+\DoxyCodeLine{shmid = \mbox{\hyperlink{group__process_gaff71624be0fc9c76e0c72295721875e6}{pshmget}}(key, 0, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// attach shm to pointer address:}}
+\DoxyCodeLine{void* p = \mbox{\hyperlink{group__process_ga0cdba7faa458e7fb57c31d3cd8788480}{pshmat}}(shmid, NULL, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// detach shm from pointer address:}}
+\DoxyCodeLine{pshmdt(p);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// destroy shm:}}
+\DoxyCodeLine{pshmctl(shmid, IPC\_RMID, NULL);}
+
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}
+}\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{group__process_gaff71624be0fc9c76e0c72295721875e6}{pshmget}} (key\+\_\+t key, size\+\_\+t size, int shmflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily shmget} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_ga3119bdf5486059aee6ec3ed65a01b319}{pshmctl}} (int shmid, int cmd, struct shmid\+\_\+ds $\ast$buf)
+\begin{DoxyCompactList}\small\item\em {\ttfamily shmctl} wrapper function. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{group__process_ga0cdba7faa458e7fb57c31d3cd8788480}{pshmat}} (int shmid, const void $\ast$shmaddr, int shmflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily shmat} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga1682328cd34b592404ff030779b0428f}{pshmdt}} (const void $\ast$shmaddr)
+\begin{DoxyCompactList}\small\item\em {\ttfamily shmdt} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ System V -\/ semaphores}\par
+{\em \label{group__process_sem}%
+\Hypertarget{group__process_sem}%
+ \begin{DoxyParagraph}{Example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <\mbox{\hyperlink{process_8h}{process.h}}>} \textcolor{comment}{// \#include <sys/sem.h>}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{int semid;}
+\DoxyCodeLine{\textcolor{comment}{// creation:}}
+\DoxyCodeLine{semid = \mbox{\hyperlink{group__process_gaada159a0fe725ed843ac358be6e6a9d3}{psemget}}(key, 1, 0600 | IPC\_CREAT | IPC\_EXCL); \textcolor{comment}{// 1 semaphore!}}
+\DoxyCodeLine{\textcolor{comment}{// or, use existing:}}
+\DoxyCodeLine{semid = \mbox{\hyperlink{group__process_gaada159a0fe725ed843ac358be6e6a9d3}{psemget}}(key, 0, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// decrement:}}
+\DoxyCodeLine{struct sembuf down = \{0, -\/1, 0\};}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop}}(semid, \&down, 1);}
+\DoxyCodeLine{\textcolor{comment}{// or, simply use provided function:}}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_gac2b930e9aceda9ef276b21ae8e839c16}{psem\_down}}(semid, 0); \textcolor{comment}{// NOTE: there is no sem\_down in default library!}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// increment:}}
+\DoxyCodeLine{struct sembuf up = \{0, 1, 0\};}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop}}(semid, \&up, 1);}
+\DoxyCodeLine{\textcolor{comment}{// or, simply use provided function:}}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_gaa00610fec639ef123819ceee2ef00da3}{psem\_up}}(semid, 0); \textcolor{comment}{// NOTE: there is no sem\_up in default library!}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// destroy sem 0:}}
+\DoxyCodeLine{psemctl(semid, 0, IPC\_RMID, NULL);}
+
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}
+}\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{group__process_gaada159a0fe725ed843ac358be6e6a9d3}{psemget}} (key\+\_\+t key, int nsems, int semflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily semget} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_gac42e869afba098ec9bdd77444ba790c5}{psemctl}} (int semid, int semnum, int cmd)
+\begin{DoxyCompactList}\small\item\em {\ttfamily semctl} wrapper function. \end{DoxyCompactList}\item 
+int {\bfseries psemctl} (int semid, int semnum, int cmd, void $\ast$u)
+\item 
+void \mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop}} (int semid, struct sembuf $\ast$sops, size\+\_\+t nsops)
+\begin{DoxyCompactList}\small\item\em {\ttfamily semop} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gaa00610fec639ef123819ceee2ef00da3}{psem\+\_\+up}} (int semid, short unsigned int index)
+\begin{DoxyCompactList}\small\item\em Increment a semaphore (uses \mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop()}}). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gac2b930e9aceda9ef276b21ae8e839c16}{psem\+\_\+down}} (int semid, short unsigned int index)
+\begin{DoxyCompactList}\small\item\em Decrements a semaphore (uses \mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop()}}). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga47891b55ba91af98c5b45cbcf154bc20}{psem\+\_\+down2}} (int semid, short unsigned int index1, unsigned int index2)
+\begin{DoxyCompactList}\small\item\em Decrements atomically two semaphores in a System V semaphore array (uses \mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop()}}). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gaf5ead333ec2a5072a7655c90e6b3e698}{psem\+\_\+setval}} (int semid, int semnum, int value)
+\begin{DoxyCompactList}\small\item\em Sets the value of the semaphore (uses semctl()). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ System V -\/ message queues}\par
+{\em \label{group__process_msg}%
+\Hypertarget{group__process_msg}%
+ \begin{DoxyParagraph}{Example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <\mbox{\hyperlink{process_8h}{process.h}}>} \textcolor{comment}{// \#include <sys/msg.h>}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{typedef \textcolor{keyword}{struct }Item}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{   ...}
+\DoxyCodeLine{\} Item;}
+\DoxyCodeLine{\textcolor{keyword}{typedef} \textcolor{keyword}{struct }Message}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{   \textcolor{keywordtype}{long} type;}
+\DoxyCodeLine{   Item item;}
+\DoxyCodeLine{\} Message;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{int msgid;}
+\DoxyCodeLine{\textcolor{comment}{// creation:}}
+\DoxyCodeLine{msgid = \mbox{\hyperlink{group__process_gad426e03bc9b8dae5f1fbf889ce2dd8f7}{pmsgget}}(key, 0600 | IPC\_CREAT | IPC\_EXCL);}
+\DoxyCodeLine{\textcolor{comment}{// or, use existing:}}
+\DoxyCodeLine{msgid = \mbox{\hyperlink{group__process_gad426e03bc9b8dae5f1fbf889ce2dd8f7}{pmsgget}}(key, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{Message msg;}
+\DoxyCodeLine{\textcolor{comment}{// send msg:}}
+\DoxyCodeLine{msg = ...;}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_gaeeb6cd0ab585a7769cd17405f600e56a}{pmsgsnd}}(msgid, \&msg, \textcolor{keyword}{sizeof}(Item), 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// receive msg:}}
+\DoxyCodeLine{pmsgrcv(msgid, \&msg, \textcolor{keyword}{sizeof}(Item), type, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// destroy msg:}}
+\DoxyCodeLine{pmsgctl(msgid, IPC\_RMID, NULL);}
+
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}
+}\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{group__process_gad426e03bc9b8dae5f1fbf889ce2dd8f7}{pmsgget}} (key\+\_\+t key, int msgflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily msgget} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_ga13bfac41329ec74b2aa4950f9586ae9f}{pmsgctl}} (int msqid, int cmd, struct msqid\+\_\+ds $\ast$buf)
+\begin{DoxyCompactList}\small\item\em {\ttfamily msgctl} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gaeeb6cd0ab585a7769cd17405f600e56a}{pmsgsnd}} (int msqid, const void $\ast$msgp, size\+\_\+t msgsz, int msgflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily msgsnd} wrapper function. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{group__process_gacd4e4161a46bfa2e1f23eb1d49aaa07b}{pmsgrcv}} (int msqid, void $\ast$msgp, size\+\_\+t msgsz, long msgtyp, int msgflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily msgrcv} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ POSIX semaphores}\par
+{\em \label{group__process_posix_sem}%
+\Hypertarget{group__process_posix_sem}%
+}\begin{DoxyCompactItemize}
+\item 
+sem\+\_\+t $\ast$ \mbox{\hyperlink{group__process_ga7bf7fce2d1f344e7dfeeb1b46a9ee7ba}{psem\+\_\+open}} (const char $\ast$name, int oflag)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+open} wrapper function. \end{DoxyCompactList}\item 
+sem\+\_\+t $\ast$ {\bfseries psem\+\_\+open} (const char $\ast$name, int oflag, mode\+\_\+t mode, unsigned int value)
+\item 
+void \mbox{\hyperlink{group__process_ga41a884c3a9d9ac6a31fc6ab27ae1d668}{psem\+\_\+close}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+close} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga0415c9c4fab4baafef6cd2d40becd05e}{psem\+\_\+unlink}} (const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+unlink} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gac49ddb266cec5493ebd756cd9382f99d}{psem\+\_\+init}} (sem\+\_\+t $\ast$sem, int pshared, unsigned int value)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+init} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga82e3d1015521711a2a6374d6c3771491}{psem\+\_\+destroy}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+destroy} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gae2c867f9f66e74fad44df3f32f87a8c6}{psem\+\_\+wait}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+wait} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_ga04cb3c84545fe7707c63578e1d59b689}{psem\+\_\+trywait}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+trywait} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_gac8b2b3d1e18b385f10b389ce2ea734ef}{psem\+\_\+timedwait}} (sem\+\_\+t $\ast$sem, const struct timespec $\ast$abs\+\_\+timeout)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+timedwait} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gad63921c4ec6f0845b752eb59a8935b8e}{psem\+\_\+post}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+post} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ UNIX pipes}\par
+{\em \label{group__process_pipes}%
+\Hypertarget{group__process_pipes}%
+}\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__process_ga013466fa89ac97a0db0ccd78168a8456}{ppipe}} (int pipefd\mbox{[}2\mbox{]})
+\begin{DoxyCompactList}\small\item\em {\ttfamily pipe} wrapper function. \end{DoxyCompactList}\item 
+FILE $\ast$ \mbox{\hyperlink{group__process_ga2d9df322812707050312aa24d15a4360}{ppopen}} (const char $\ast$command, const char $\ast$type)
+\begin{DoxyCompactList}\small\item\em {\ttfamily popen} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga1490f6e0ca0ebf607d1f5ff431c79b68}{ppclose}} (FILE $\ast$stream)
+\begin{DoxyCompactList}\small\item\em {\ttfamily pclose} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{group__process_process}{Process}}, \mbox{\hyperlink{group__process_sysV}{System-\/V}}, and \mbox{\hyperlink{group__process_posix_sem}{POSIX libraries}} wrapper module. 
+
+\begin{DoxyRemark}{Remarks}
+Removes defensive programming from native libraries 
+\end{DoxyRemark}

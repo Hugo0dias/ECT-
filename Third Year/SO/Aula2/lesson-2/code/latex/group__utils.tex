@@ -1,0 +1,1075 @@
+\hypertarget{group__utils}{}\doxysection{utils}
+\label{group__utils}\index{utils@{utils}}
+
+
+Useful common functions and macros.  
+
+
+\doxysubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{utils_8h}{utils.\+h}}
+\begin{DoxyCompactList}\small\item\em Useful common functions and macros. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__utils_ga3c545b669dff7d67e5ed3c58233ccf4b}{int2str}}(num)
+\begin{DoxyCompactList}\small\item\em Converts an {\ttfamily int} value to a stack allocated string. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga858ece77e79fb78d3db0f1851bf7fe09}{int2nstr}}(num,  len)
+\begin{DoxyCompactList}\small\item\em Converts an {\ttfamily int} value to a stack allocated string. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga69373a612a7b4d264371f727217f9954}{long2str}}(num)
+\begin{DoxyCompactList}\small\item\em Converts an {\ttfamily long} value to a stack allocated string. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga50cea1f8154c7c7d2abd68f1ddb33086}{long2nstr}}(num,  len)
+\begin{DoxyCompactList}\small\item\em Converts an {\ttfamily long} value to a stack allocated string. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga59cd66180162d107cf86a51c21d7e6f5}{perc2str}}(percentage)
+\begin{DoxyCompactList}\small\item\em Converts an {\ttfamily int} percentage to a stack allocated string. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga7bffda236a079c26302722c7d155f7a5}{length\+\_\+vargs\+\_\+string\+\_\+list}}(first)
+\begin{DoxyCompactList}\small\item\em Determines the length of all strings passed as a NULL terminated variable list of arguments (vargs). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_gadfa0375f8178c737deae23ffa8d152f4}{not\+\_\+null}}(pnt)
+\begin{DoxyCompactList}\small\item\em Checks if address is not {\ttfamily NULL}, before its application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ \mbox{\hyperlink{group__utils_gadce4d1c428f979bf1cf8e1582d2f4052}{mem\+\_\+alloc}} (int size)
+\begin{DoxyCompactList}\small\item\em A replacement for {\ttfamily malloc} function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__utils_gabe60e8350f3e3b07ed5002ee3449a6ae}{mem\+\_\+free}} (void $\ast$pnt)
+\begin{DoxyCompactList}\small\item\em A replacement for {\ttfamily free} function. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{group__utils_ga825354891d287cc86d2b4ed1b600175a}{string\+\_\+clone}} (char $\ast$str)
+\begin{DoxyCompactList}\small\item\em Replicates a string. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utils_ga15630ddb64e977c8243892556feedfd8}{string\+\_\+num\+\_\+lines}} (char $\ast$text)
+\begin{DoxyCompactList}\small\item\em Number of lines of a string. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utils_ga0ca31b2a579b6ef7c75c41324ed5367c}{string\+\_\+num\+\_\+columns}} (char $\ast$text)
+\begin{DoxyCompactList}\small\item\em Maximum number of columns of a string (not counting character `'\textbackslash{}n\textquotesingle{}\`{}). \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utils_gad643e0fcac9e59c1a171c460633e8637}{string\+\_\+count\+\_\+char}} (char $\ast$text, char $\ast$ch)
+\begin{DoxyCompactList}\small\item\em Counts the number of occurrences of an UTF8 character in a text. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utils_ga3ec2b60d1636397119c5e0c21987f791}{string\+\_\+starts\+\_\+with}} (char $\ast$text, char $\ast$prefix)
+\begin{DoxyCompactList}\small\item\em Tests if a string starts with a prefix. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utils_ga1c5ba308f71c323fbbd7eb9bb34285d4}{string\+\_\+ends\+\_\+with}} (char $\ast$text, char $\ast$suffix)
+\begin{DoxyCompactList}\small\item\em Tests if a string ends with a suffix. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{group__utils_gaa23a827164f7039b9770379cbf008905}{string\+\_\+concat}} (char $\ast$res, int max\+\_\+length, char $\ast$text,...)
+\begin{DoxyCompactList}\small\item\em Concatenates a {\ttfamily NULL} terminated list of string arguments. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utils_gabe3e28fe49daaf3530e203c4aed1d15f}{random\+\_\+boolean}} (int true\+Prob)
+\begin{DoxyCompactList}\small\item\em Generates a random boolean value. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utils_gad7954e6a1b9ea073c7bc894dc5af85a9}{random\+\_\+int}} (int min, int max)
+\begin{DoxyCompactList}\small\item\em Generates a random integer value within a given interval. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{group__utils_gaa820c93c2f719401b4b1ca54f6ea5c75}{random\+\_\+string}} (char $\ast$$\ast$list, int $\ast$used, int length)
+\begin{DoxyCompactList}\small\item\em Returns a random string from a given string list. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__utils_ga3cffe15b7e5d10a108f1734a9640a2c7}\label{group__utils_ga3cffe15b7e5d10a108f1734a9640a2c7}} 
+void \mbox{\hyperlink{group__utils_ga3cffe15b7e5d10a108f1734a9640a2c7}{clear\+\_\+console}} ()
+\begin{DoxyCompactList}\small\item\em Clears the terminal. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__utils_gad3d324aed0ec686314cb0f68dfde9853}{move\+\_\+cursor}} (int line, int column)
+\begin{DoxyCompactList}\small\item\em Moves the cursor to a position in terminal. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__utils_ga42702791e6da9510e4f44f33d2dad8f1}\label{group__utils_ga42702791e6da9510e4f44f33d2dad8f1}} 
+void \mbox{\hyperlink{group__utils_ga42702791e6da9510e4f44f33d2dad8f1}{hide\+\_\+cursor}} ()
+\begin{DoxyCompactList}\small\item\em Hides the terminal cursor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__utils_ga1bdd62a6bef7cfd6522dc1412e162559}\label{group__utils_ga1bdd62a6bef7cfd6522dc1412e162559}} 
+void \mbox{\hyperlink{group__utils_ga1bdd62a6bef7cfd6522dc1412e162559}{show\+\_\+cursor}} ()
+\begin{DoxyCompactList}\small\item\em Shows the terminal cursor. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__utils_gab8050db5b87bfdee91ee92e67b063478}{string\+\_\+list\+\_\+length}} (char $\ast$$\ast$list)
+\begin{DoxyCompactList}\small\item\em Number of elements of a {\ttfamily NULL} terminated list of strings. \end{DoxyCompactList}\item 
+char $\ast$$\ast$ \mbox{\hyperlink{group__utils_ga41163cf3a95e702f12506cd54ba3c70c}{string\+\_\+list\+\_\+clone}} (char $\ast$$\ast$list)
+\begin{DoxyCompactList}\small\item\em Replicates a {\ttfamily NULL} terminated list of strings. \end{DoxyCompactList}\item 
+char $\ast$$\ast$ \mbox{\hyperlink{group__utils_gaacf77b3345bbca43767b08ec0583fe3c}{string\+\_\+list\+\_\+free}} (char $\ast$$\ast$list)
+\begin{DoxyCompactList}\small\item\em Frees the memory allocated to a {\ttfamily NULL} terminated list of strings. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__utils_gab81ce7e79cef7b39ba986d3da8e4e559}\label{group__utils_gab81ce7e79cef7b39ba986d3da8e4e559}} 
+int {\bfseries num\+Digits} (int num)
+\item 
+char $\ast$ \mbox{\hyperlink{group__utils_ga824373ca8e0b2fdfe3f5c4805cf2ab7e}{int2nstring}} (char $\ast$res, int num, int len)
+\begin{DoxyCompactList}\small\item\em Converts an {\ttfamily int} value to a string. \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{group__utils_gacf6edf10cb84412b6bfb431ef87b56d6}{percentage2string}} (char $\ast$res, int percentage)
+\begin{DoxyCompactList}\small\item\em Converts an {\ttfamily int} percentage to a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{String concatenation in stack memory}
+\label{_amgrpcfc3227c90d79559b2a129f02d307174}%
+\label{group__utils_concat}%
+\Hypertarget{group__utils_concat}%
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__utils_ga22347cbf977a0300726f06257edd79d6}{concat\+\_\+2str}}(str1,  str2)
+\begin{DoxyCompactList}\small\item\em Concatenates two strings in the stack memory (thus it cannot be implemented in a function). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga123e40006d54612c48c2660432dfeb23}{concat\+\_\+3str}}(str1,  str2,  str3)
+\begin{DoxyCompactList}\small\item\em Concatenates three strings in the stack memory (thus it cannot be implemented in a function). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga69037999e65cdb42d39988e0fec48af4}{concat\+\_\+4str}}(str1,  str2,  str3,  str4)
+\begin{DoxyCompactList}\small\item\em Concatenates four strings in the stack memory (thus it cannot be implemented in a function). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga580d1897bc7a8cef16d5a16a2373b876}{concat\+\_\+5str}}(str1,  str2,  str3,  str4,  str5)
+\begin{DoxyCompactList}\small\item\em Concatenates five strings in the stack memory (thus it cannot be implemented in a function). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga34f8c2fcee597a99c5f4c66f2119bca9}{concat\+\_\+6str}}(str1,  str2,  str3,  str4,  str5,  str6)
+\begin{DoxyCompactList}\small\item\em Concatenates six strings in the stack memory (thus it cannot be implemented in a function). \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__utils_ga01d1ea65eb6780d91705484dd46833bf}{concat\+\_\+7str}}(str1,  str2,  str3,  str4,  str5,  str6,  str7)
+\begin{DoxyCompactList}\small\item\em Concatenates seven strings in the stack memory (thus it cannot be implemented in a function). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Useful common functions and macros. 
+
+\begin{DoxyAuthor}{Author}
+Miguel Oliveira e Silva, 2017-\/2018 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__utils_ga22347cbf977a0300726f06257edd79d6}\label{group__utils_ga22347cbf977a0300726f06257edd79d6}} 
+\index{utils@{utils}!concat\_2str@{concat\_2str}}
+\index{concat\_2str@{concat\_2str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{concat\_2str}{concat\_2str}}
+{\footnotesize\ttfamily \#define concat\+\_\+2str(\begin{DoxyParamCaption}\item[{}]{str1,  }\item[{}]{str2 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           char* s1 = (str1) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str1); \(\backslash\)}
+\DoxyCodeLine{           char* s2 = (str2) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str2); \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(strlen(s1)+strlen(s2)+1); \(\backslash\)}
+\DoxyCodeLine{           strcpy(\_\_res\_\_, s1); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s2); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Concatenates two strings in the stack memory (thus it cannot be implemented in a function). 
+
+A {\ttfamily NULL} reference is treated as an empty string.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str1} & string 1 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str2} & string 2\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the concatenated string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga123e40006d54612c48c2660432dfeb23}\label{group__utils_ga123e40006d54612c48c2660432dfeb23}} 
+\index{utils@{utils}!concat\_3str@{concat\_3str}}
+\index{concat\_3str@{concat\_3str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{concat\_3str}{concat\_3str}}
+{\footnotesize\ttfamily \#define concat\+\_\+3str(\begin{DoxyParamCaption}\item[{}]{str1,  }\item[{}]{str2,  }\item[{}]{str3 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           char* s1 = (str1) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str1); \(\backslash\)}
+\DoxyCodeLine{           char* s2 = (str2) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str2); \(\backslash\)}
+\DoxyCodeLine{           char* s3 = (str3) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str3); \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(strlen(s1)+strlen(s2)+strlen(s3)+1); \(\backslash\)}
+\DoxyCodeLine{           strcpy(\_\_res\_\_, s1); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s2); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s3); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Concatenates three strings in the stack memory (thus it cannot be implemented in a function). 
+
+A {\ttfamily NULL} reference is treated as an empty string.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str1} & string 1 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str2} & string 2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str3} & string 3\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the concatenated string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga69037999e65cdb42d39988e0fec48af4}\label{group__utils_ga69037999e65cdb42d39988e0fec48af4}} 
+\index{utils@{utils}!concat\_4str@{concat\_4str}}
+\index{concat\_4str@{concat\_4str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{concat\_4str}{concat\_4str}}
+{\footnotesize\ttfamily \#define concat\+\_\+4str(\begin{DoxyParamCaption}\item[{}]{str1,  }\item[{}]{str2,  }\item[{}]{str3,  }\item[{}]{str4 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           char* s1 = (str1) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str1); \(\backslash\)}
+\DoxyCodeLine{           char* s2 = (str2) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str2); \(\backslash\)}
+\DoxyCodeLine{           char* s3 = (str3) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str3); \(\backslash\)}
+\DoxyCodeLine{           char* s4 = (str4) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str4); \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(strlen(s1)+strlen(s2)+strlen(s3)+strlen(s4)+1); \(\backslash\)}
+\DoxyCodeLine{           strcpy(\_\_res\_\_, s1); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s2); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s3); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s4); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Concatenates four strings in the stack memory (thus it cannot be implemented in a function). 
+
+A {\ttfamily NULL} reference is treated as an empty string.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str1} & string 1 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str2} & string 2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str3} & string 3 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str4} & string 4\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the concatenated string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga580d1897bc7a8cef16d5a16a2373b876}\label{group__utils_ga580d1897bc7a8cef16d5a16a2373b876}} 
+\index{utils@{utils}!concat\_5str@{concat\_5str}}
+\index{concat\_5str@{concat\_5str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{concat\_5str}{concat\_5str}}
+{\footnotesize\ttfamily \#define concat\+\_\+5str(\begin{DoxyParamCaption}\item[{}]{str1,  }\item[{}]{str2,  }\item[{}]{str3,  }\item[{}]{str4,  }\item[{}]{str5 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           char* s1 = (str1) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str1); \(\backslash\)}
+\DoxyCodeLine{           char* s2 = (str2) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str2); \(\backslash\)}
+\DoxyCodeLine{           char* s3 = (str3) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str3); \(\backslash\)}
+\DoxyCodeLine{           char* s4 = (str4) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str4); \(\backslash\)}
+\DoxyCodeLine{           char* s5 = (str5) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str5); \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(strlen(s1)+strlen(s2)+strlen(s3)+strlen(s4)+strlen(s5)+1); \(\backslash\)}
+\DoxyCodeLine{           strcpy(\_\_res\_\_, s1); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s2); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s3); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s4); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s5); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Concatenates five strings in the stack memory (thus it cannot be implemented in a function). 
+
+A {\ttfamily NULL} reference is treated as an empty string.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str1} & string 1 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str2} & string 2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str3} & string 3 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str4} & string 4 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str5} & string 5\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the concatenated string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga34f8c2fcee597a99c5f4c66f2119bca9}\label{group__utils_ga34f8c2fcee597a99c5f4c66f2119bca9}} 
+\index{utils@{utils}!concat\_6str@{concat\_6str}}
+\index{concat\_6str@{concat\_6str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{concat\_6str}{concat\_6str}}
+{\footnotesize\ttfamily \#define concat\+\_\+6str(\begin{DoxyParamCaption}\item[{}]{str1,  }\item[{}]{str2,  }\item[{}]{str3,  }\item[{}]{str4,  }\item[{}]{str5,  }\item[{}]{str6 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           char* s1 = (str1) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str1); \(\backslash\)}
+\DoxyCodeLine{           char* s2 = (str2) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str2); \(\backslash\)}
+\DoxyCodeLine{           char* s3 = (str3) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str3); \(\backslash\)}
+\DoxyCodeLine{           char* s4 = (str4) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str4); \(\backslash\)}
+\DoxyCodeLine{           char* s5 = (str5) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str5); \(\backslash\)}
+\DoxyCodeLine{           char* s6 = (str6) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str6); \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(strlen(s1)+strlen(s2)+strlen(s3)+strlen(s4)+strlen(s5)+strlen(s6)+1); \(\backslash\)}
+\DoxyCodeLine{           strcpy(\_\_res\_\_, s1); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s2); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s3); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s4); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s5); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s6); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Concatenates six strings in the stack memory (thus it cannot be implemented in a function). 
+
+A {\ttfamily NULL} reference is treated as an empty string.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str1} & string 1 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str2} & string 2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str3} & string 3 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str4} & string 4 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str5} & string 5 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str6} & string 6\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the concatenated string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga01d1ea65eb6780d91705484dd46833bf}\label{group__utils_ga01d1ea65eb6780d91705484dd46833bf}} 
+\index{utils@{utils}!concat\_7str@{concat\_7str}}
+\index{concat\_7str@{concat\_7str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{concat\_7str}{concat\_7str}}
+{\footnotesize\ttfamily \#define concat\+\_\+7str(\begin{DoxyParamCaption}\item[{}]{str1,  }\item[{}]{str2,  }\item[{}]{str3,  }\item[{}]{str4,  }\item[{}]{str5,  }\item[{}]{str6,  }\item[{}]{str7 }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           char* s1 = (str1) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str1); \(\backslash\)}
+\DoxyCodeLine{           char* s2 = (str2) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str2); \(\backslash\)}
+\DoxyCodeLine{           char* s3 = (str3) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str3); \(\backslash\)}
+\DoxyCodeLine{           char* s4 = (str4) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str4); \(\backslash\)}
+\DoxyCodeLine{           char* s5 = (str5) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str5); \(\backslash\)}
+\DoxyCodeLine{           char* s6 = (str6) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str6); \(\backslash\)}
+\DoxyCodeLine{           char* s7 = (str7) == NULL ? (\textcolor{keywordtype}{char}*)\textcolor{stringliteral}{"{}"{}} : (\textcolor{keywordtype}{char}*)(str7); \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(strlen(s1)+strlen(s2)+strlen(s3)+strlen(s4)+strlen(s5)+strlen(s6)+strlen(s7)+1); \(\backslash\)}
+\DoxyCodeLine{           strcpy(\_\_res\_\_, s1); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s2); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s3); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s4); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s5); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s6); \(\backslash\)}
+\DoxyCodeLine{           strcat(\_\_res\_\_, s7); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Concatenates seven strings in the stack memory (thus it cannot be implemented in a function). 
+
+A {\ttfamily NULL} reference is treated as an empty string.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str1} & string 1 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str2} & string 2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str3} & string 3 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str4} & string 4 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str5} & string 5 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str6} & string 6 \\
+\hline
+\mbox{\texttt{ in}}  & {\em str7} & string 7\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the concatenated string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga858ece77e79fb78d3db0f1851bf7fe09}\label{group__utils_ga858ece77e79fb78d3db0f1851bf7fe09}} 
+\index{utils@{utils}!int2nstr@{int2nstr}}
+\index{int2nstr@{int2nstr}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{int2nstr}{int2nstr}}
+{\footnotesize\ttfamily \#define int2nstr(\begin{DoxyParamCaption}\item[{}]{num,  }\item[{}]{len }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           require (len > 0, \mbox{\hyperlink{group__utils_ga123e40006d54612c48c2660432dfeb23}{concat\_3str}}(\textcolor{stringliteral}{"{}invalid length value ("{}}, \mbox{\hyperlink{group__utils_ga3c545b669dff7d67e5ed3c58233ccf4b}{int2str}}(len), \textcolor{stringliteral}{"{})"{}})); \(\backslash\)}
+\DoxyCodeLine{           int d = numDigits((\textcolor{keywordtype}{int})num); \(\backslash\)}
+\DoxyCodeLine{           if (len > d) \(\backslash\)}
+\DoxyCodeLine{              d = len; \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(d+1); \(\backslash\)}
+\DoxyCodeLine{           sprintf(\_\_res\_\_, \textcolor{stringliteral}{"{}\%0*d"{}}, d, (\textcolor{keywordtype}{int})num); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Converts an {\ttfamily int} value to a stack allocated string. 
+
+If necessary, fills the result string with left zeros.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num} & integer number \\
+\hline
+\mbox{\texttt{ in}}  & {\em len} & minimum length of result string\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily len $>$ 0} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the converted string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga3c545b669dff7d67e5ed3c58233ccf4b}\label{group__utils_ga3c545b669dff7d67e5ed3c58233ccf4b}} 
+\index{utils@{utils}!int2str@{int2str}}
+\index{int2str@{int2str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{int2str}{int2str}}
+{\footnotesize\ttfamily \#define int2str(\begin{DoxyParamCaption}\item[{}]{num }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(numDigits((\textcolor{keywordtype}{int})num)+1); \(\backslash\)}
+\DoxyCodeLine{           sprintf(\_\_res\_\_, \textcolor{stringliteral}{"{}\%d"{}}, (\textcolor{keywordtype}{int})num); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Converts an {\ttfamily int} value to a stack allocated string. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num} & integer number\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the converted string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga7bffda236a079c26302722c7d155f7a5}\label{group__utils_ga7bffda236a079c26302722c7d155f7a5}} 
+\index{utils@{utils}!length\_vargs\_string\_list@{length\_vargs\_string\_list}}
+\index{length\_vargs\_string\_list@{length\_vargs\_string\_list}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{length\_vargs\_string\_list}{length\_vargs\_string\_list}}
+{\footnotesize\ttfamily \#define length\+\_\+vargs\+\_\+string\+\_\+list(\begin{DoxyParamCaption}\item[{}]{first }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           int \_\_res\_\_ = 0; \(\backslash\)}
+\DoxyCodeLine{           va\_list ap; \(\backslash\)}
+\DoxyCodeLine{           va\_start(ap, first); \(\backslash\)}
+\DoxyCodeLine{           char* t = first; \(\backslash\)}
+\DoxyCodeLine{           while (t != NULL) \(\backslash\)}
+\DoxyCodeLine{           \{ \(\backslash\)}
+\DoxyCodeLine{              \_\_res\_\_ += strlen(t); \(\backslash\)}
+\DoxyCodeLine{              t = va\_arg(ap, \textcolor{keywordtype}{char}*); \(\backslash\)}
+\DoxyCodeLine{           \} \(\backslash\)}
+\DoxyCodeLine{           va\_end(ap); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Determines the length of all strings passed as a NULL terminated variable list of arguments (vargs). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em first} & the argument that precedes the vargs argument list.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the sum of the length of all strings (not counting terminator `'\textbackslash{}0\textquotesingle{}\`{}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga50cea1f8154c7c7d2abd68f1ddb33086}\label{group__utils_ga50cea1f8154c7c7d2abd68f1ddb33086}} 
+\index{utils@{utils}!long2nstr@{long2nstr}}
+\index{long2nstr@{long2nstr}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{long2nstr}{long2nstr}}
+{\footnotesize\ttfamily \#define long2nstr(\begin{DoxyParamCaption}\item[{}]{num,  }\item[{}]{len }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           require (len > 0, \mbox{\hyperlink{group__utils_ga123e40006d54612c48c2660432dfeb23}{concat\_3str}}(\textcolor{stringliteral}{"{}invalid length value ("{}}, \mbox{\hyperlink{group__utils_ga3c545b669dff7d67e5ed3c58233ccf4b}{int2str}}(len), \textcolor{stringliteral}{"{})"{}})); \(\backslash\)}
+\DoxyCodeLine{           int d = numDigits((\textcolor{keywordtype}{int})num); \(\backslash\)}
+\DoxyCodeLine{           if (len > d) \(\backslash\)}
+\DoxyCodeLine{              d = len; \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(d+1); \(\backslash\)}
+\DoxyCodeLine{           sprintf(\_\_res\_\_, \textcolor{stringliteral}{"{}\%0*ld"{}}, d, (\textcolor{keywordtype}{long})num); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Converts an {\ttfamily long} value to a stack allocated string. 
+
+If necessary, fills the result string with left zeros.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num} & long integer number \\
+\hline
+\mbox{\texttt{ in}}  & {\em len} & minimum length of result string\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily len $>$ 0} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the converted string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga69373a612a7b4d264371f727217f9954}\label{group__utils_ga69373a612a7b4d264371f727217f9954}} 
+\index{utils@{utils}!long2str@{long2str}}
+\index{long2str@{long2str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{long2str}{long2str}}
+{\footnotesize\ttfamily \#define long2str(\begin{DoxyParamCaption}\item[{}]{num }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(numDigits((\textcolor{keywordtype}{long})num)+1); \(\backslash\)}
+\DoxyCodeLine{           sprintf(\_\_res\_\_, \textcolor{stringliteral}{"{}\%ld"{}}, (\textcolor{keywordtype}{long})num); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Converts an {\ttfamily long} value to a stack allocated string. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em num} & long integer number\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the converted string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gadfa0375f8178c737deae23ffa8d152f4}\label{group__utils_gadfa0375f8178c737deae23ffa8d152f4}} 
+\index{utils@{utils}!not\_null@{not\_null}}
+\index{not\_null@{not\_null}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{not\_null}{not\_null}}
+{\footnotesize\ttfamily \#define not\+\_\+null(\begin{DoxyParamCaption}\item[{}]{pnt }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           if ((pnt) == NULL) \(\backslash\)}
+\DoxyCodeLine{           \{ \(\backslash\)}
+\DoxyCodeLine{                 fprintf (stderr, \textcolor{stringliteral}{"{}Null pointer error, pointer: \(\backslash\)"{}\%s\(\backslash\)"{}, function: \(\backslash\)"{}\%s\(\backslash\)"{}:\%d, file: \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}}, \(\backslash\)}
+\DoxyCodeLine{                          \#pnt, \_\_FUNCTION\_\_, \_\_LINE\_\_ , \_\_FILE\_\_); \(\backslash\)}
+\DoxyCodeLine{                 *((\textcolor{keywordtype}{int}*)0) = 0; \(\backslash\)}
+\DoxyCodeLine{                 abort (); \(\backslash\)}
+\DoxyCodeLine{           \} \(\backslash\)}
+\DoxyCodeLine{           pnt; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Checks if address is not {\ttfamily NULL}, before its application. 
+
+This macro is a non-\/defensive implementation of a null pointer verification. It implements two error handling policies\+:
+\begin{DoxyItemize}
+\item EXIT\+\_\+\+POLICY (default)\+: describes the error in {\ttfamily stderr} (with the identification and the precise location of the failure), generates a segmentation fault (enabling a stack trace within a debugger like {\ttfamily gdb}), and exits program execution;
+\item EXCEPTION\+\_\+\+POLICY\+: throws a {\ttfamily char$\ast$} exception with the description of the failure.
+\end{DoxyItemize}
+
+\begin{DoxyParagraph}{Example}
+\mbox{\hyperlink{group__utils_gadfa0375f8178c737deae23ffa8d152f4}{not\+\_\+null(pnt)}}-\/$>$something(); 
+\end{DoxyParagraph}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em pnt} & memory address \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__utils_ga59cd66180162d107cf86a51c21d7e6f5}\label{group__utils_ga59cd66180162d107cf86a51c21d7e6f5}} 
+\index{utils@{utils}!perc2str@{perc2str}}
+\index{perc2str@{perc2str}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{perc2str}{perc2str}}
+{\footnotesize\ttfamily \#define perc2str(\begin{DoxyParamCaption}\item[{}]{percentage }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{        (\{ \(\backslash\)}
+\DoxyCodeLine{           require (percentage >= 0 \&\& percentage <= 100, \mbox{\hyperlink{group__utils_ga123e40006d54612c48c2660432dfeb23}{concat\_3str}}(\textcolor{stringliteral}{"{}invalid percentage value ("{}}, \mbox{\hyperlink{group__utils_ga3c545b669dff7d67e5ed3c58233ccf4b}{int2str}}(percentage), \textcolor{stringliteral}{"{})"{}})); \(\backslash\)}
+\DoxyCodeLine{           char* \_\_res\_\_ = (\textcolor{keywordtype}{char}*)alloca(4+1); \(\backslash\)}
+\DoxyCodeLine{           sprintf(\_\_res\_\_, \textcolor{stringliteral}{"{}\%3d\%\%"{}}, (\textcolor{keywordtype}{int})percentage); \(\backslash\)}
+\DoxyCodeLine{           \_\_res\_\_; \(\backslash\)}
+\DoxyCodeLine{        \})}
+
+\end{DoxyCode}
+
+
+Converts an {\ttfamily int} percentage to a stack allocated string. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em percentage} & an integer number with a percentage value\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily percentage $>$= 0 \&\& percentage $<$= 100} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the converted string 
+\end{DoxyReturn}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__utils_ga824373ca8e0b2fdfe3f5c4805cf2ab7e}\label{group__utils_ga824373ca8e0b2fdfe3f5c4805cf2ab7e}} 
+\index{utils@{utils}!int2nstring@{int2nstring}}
+\index{int2nstring@{int2nstring}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{int2nstring()}{int2nstring()}}
+{\footnotesize\ttfamily char$\ast$ int2nstring (\begin{DoxyParamCaption}\item[{char $\ast$}]{res,  }\item[{int}]{num,  }\item[{int}]{len }\end{DoxyParamCaption})}
+
+
+
+Converts an {\ttfamily int} value to a string. 
+
+If necessary, fills the result string with left zeros. It allocates memory in heap (using \mbox{\hyperlink{group__utils_gadce4d1c428f979bf1cf8e1582d2f4052}{mem\+\_\+alloc()}}) if {\ttfamily NULL} is passed in the {\ttfamily res} argument.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em res} & address of result string (if not {\ttfamily NULL}) \\
+\hline
+\mbox{\texttt{ in}}  & {\em num} & integer number \\
+\hline
+\mbox{\texttt{ in}}  & {\em len} & minimum length of result string (not counting terminator `'\textbackslash{}0\textquotesingle{}\`{})\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily len $>$= num\+Digits(num)} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the converted string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gadce4d1c428f979bf1cf8e1582d2f4052}\label{group__utils_gadce4d1c428f979bf1cf8e1582d2f4052}} 
+\index{utils@{utils}!mem\_alloc@{mem\_alloc}}
+\index{mem\_alloc@{mem\_alloc}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{mem\_alloc()}{mem\_alloc()}}
+{\footnotesize\ttfamily void$\ast$ mem\+\_\+alloc (\begin{DoxyParamCaption}\item[{int}]{size }\end{DoxyParamCaption})}
+
+
+
+A replacement for {\ttfamily malloc} function. 
+
+This function is a non-\/defensive implementation of {\ttfamily malloc} error verification. It implements two error handling policies\+:
+\begin{DoxyItemize}
+\item EXIT\+\_\+\+POLICY (default)\+: describes the error in {\ttfamily stderr} (with the identification and the precise location of the failure), generates a segmentation fault (enabling a stack trace within a debugger like {\ttfamily gdb}), and exits program execution;
+\item EXCEPTION\+\_\+\+POLICY\+: throws a {\ttfamily char$\ast$} exception with the description of the failure.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em size} & number of bytes to be allocated\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily size $>$= 0} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+address of the allocated memory 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gabe60e8350f3e3b07ed5002ee3449a6ae}\label{group__utils_gabe60e8350f3e3b07ed5002ee3449a6ae}} 
+\index{utils@{utils}!mem\_free@{mem\_free}}
+\index{mem\_free@{mem\_free}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{mem\_free()}{mem\_free()}}
+{\footnotesize\ttfamily void mem\+\_\+free (\begin{DoxyParamCaption}\item[{void $\ast$}]{pnt }\end{DoxyParamCaption})}
+
+
+
+A replacement for {\ttfamily free} function. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em pnt} & memory address to be freed\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily pnt != NULL} 
+\end{DoxyDescription}\mbox{\Hypertarget{group__utils_gad3d324aed0ec686314cb0f68dfde9853}\label{group__utils_gad3d324aed0ec686314cb0f68dfde9853}} 
+\index{utils@{utils}!move\_cursor@{move\_cursor}}
+\index{move\_cursor@{move\_cursor}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{move\_cursor()}{move\_cursor()}}
+{\footnotesize\ttfamily void move\+\_\+cursor (\begin{DoxyParamCaption}\item[{int}]{line,  }\item[{int}]{column }\end{DoxyParamCaption})}
+
+
+
+Moves the cursor to a position in terminal. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em line} & position in the terminal \\
+\hline
+\mbox{\texttt{ in}}  & {\em column} & position in the terminal\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily line $>$= 0 \&\& column $>$= 0} 
+\end{DoxyDescription}\mbox{\Hypertarget{group__utils_gacf6edf10cb84412b6bfb431ef87b56d6}\label{group__utils_gacf6edf10cb84412b6bfb431ef87b56d6}} 
+\index{utils@{utils}!percentage2string@{percentage2string}}
+\index{percentage2string@{percentage2string}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{percentage2string()}{percentage2string()}}
+{\footnotesize\ttfamily char$\ast$ percentage2string (\begin{DoxyParamCaption}\item[{char $\ast$}]{res,  }\item[{int}]{percentage }\end{DoxyParamCaption})}
+
+
+
+Converts an {\ttfamily int} percentage to a string. 
+
+It allocates memory in heap (using \mbox{\hyperlink{group__utils_gadce4d1c428f979bf1cf8e1582d2f4052}{mem\+\_\+alloc()}}) if {\ttfamily NULL} is passed in the {\ttfamily res} argument.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em res} & address of result string (if not {\ttfamily NULL}) \\
+\hline
+\mbox{\texttt{ in}}  & {\em percentage} & an integer number with a percentage value\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily percentage $>$= 0 \&\& percentage $<$= 100} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the converted string (if not {\ttfamily NULL}, it returns {\ttfamily res}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gabe3e28fe49daaf3530e203c4aed1d15f}\label{group__utils_gabe3e28fe49daaf3530e203c4aed1d15f}} 
+\index{utils@{utils}!random\_boolean@{random\_boolean}}
+\index{random\_boolean@{random\_boolean}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{random\_boolean()}{random\_boolean()}}
+{\footnotesize\ttfamily int random\+\_\+boolean (\begin{DoxyParamCaption}\item[{int}]{true\+Prob }\end{DoxyParamCaption})}
+
+
+
+Generates a random boolean value. 
+
+This function generates boolean values with defined probabilities for true ({\ttfamily !=0}) and false ({\ttfamily 0}) values.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em true\+Prob} & probability (in interval {\ttfamily \mbox{[}0;100\mbox{]}}).\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily true\+Prob $>$= 0 \&\& true\+Prob $<$= 100} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the random boolean value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gad7954e6a1b9ea073c7bc894dc5af85a9}\label{group__utils_gad7954e6a1b9ea073c7bc894dc5af85a9}} 
+\index{utils@{utils}!random\_int@{random\_int}}
+\index{random\_int@{random\_int}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{random\_int()}{random\_int()}}
+{\footnotesize\ttfamily int random\+\_\+int (\begin{DoxyParamCaption}\item[{int}]{min,  }\item[{int}]{max }\end{DoxyParamCaption})}
+
+
+
+Generates a random integer value within a given interval. 
+
+This function generates integer values in the interval {\ttfamily \mbox{[}min;max\mbox{]}}with an uniform distribution for all values.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em min} & lower value of interval \\
+\hline
+\mbox{\texttt{ in}}  & {\em max} & higher value of interval\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily max $>$= min} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the random integer value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gaa820c93c2f719401b4b1ca54f6ea5c75}\label{group__utils_gaa820c93c2f719401b4b1ca54f6ea5c75}} 
+\index{utils@{utils}!random\_string@{random\_string}}
+\index{random\_string@{random\_string}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{random\_string()}{random\_string()}}
+{\footnotesize\ttfamily char$\ast$ random\+\_\+string (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{list,  }\item[{int $\ast$}]{used,  }\item[{int}]{length }\end{DoxyParamCaption})}
+
+
+
+Returns a random string from a given string list. 
+
+This function stores the previous randomly selected string\textquotesingle{}s (using the integer indexes of the string list) to disallow its repeated generation.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em list} & list of strings to be selected ({\ttfamily NULL} terminated) \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em used} & indexes of strings already selected \\
+\hline
+\mbox{\texttt{ in}}  & {\em length} & number of elements of lists {\ttfamily list} (not counting {\ttfamily NULL} entry) and {\ttfamily used}\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily list != NULL}~\newline
+ {\ttfamily used != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the random string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga825354891d287cc86d2b4ed1b600175a}\label{group__utils_ga825354891d287cc86d2b4ed1b600175a}} 
+\index{utils@{utils}!string\_clone@{string\_clone}}
+\index{string\_clone@{string\_clone}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_clone()}{string\_clone()}}
+{\footnotesize\ttfamily char$\ast$ string\+\_\+clone (\begin{DoxyParamCaption}\item[{char $\ast$}]{str }\end{DoxyParamCaption})}
+
+
+
+Replicates a string. 
+
+The memory is allocated in the heap (using \mbox{\hyperlink{group__utils_gadce4d1c428f979bf1cf8e1582d2f4052}{mem\+\_\+alloc()}}).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em str} & string to be replicated\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily str != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+pointer to the replicated string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gaa23a827164f7039b9770379cbf008905}\label{group__utils_gaa23a827164f7039b9770379cbf008905}} 
+\index{utils@{utils}!string\_concat@{string\_concat}}
+\index{string\_concat@{string\_concat}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_concat()}{string\_concat()}}
+{\footnotesize\ttfamily char$\ast$ string\+\_\+concat (\begin{DoxyParamCaption}\item[{char $\ast$}]{res,  }\item[{int}]{max\+\_\+length,  }\item[{char $\ast$}]{text,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+Concatenates a {\ttfamily NULL} terminated list of string arguments. 
+
+This function treats all vargs arguments as strings ({\ttfamily char$\ast$}), and requires that the list is terminated with a NULL argument.
+
+It allocates memory in heap (using \mbox{\hyperlink{group__utils_gadce4d1c428f979bf1cf8e1582d2f4052}{mem\+\_\+alloc()}}) if {\ttfamily NULL} is passed in the {\ttfamily res} argument.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em res} & address of result string (if not {\ttfamily NULL}) \\
+\hline
+\mbox{\texttt{ in}}  & {\em max\+\_\+length} & {\ttfamily res} input argument maximum length (not counting terminator `'\textbackslash{}0\textquotesingle{}{\ttfamily ), only applies if}(res != NULL)\`{} \\
+\hline
+\mbox{\texttt{ in}}  & {\em text} & the first string to be used in concatenation\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily text != NULL}~\newline
+ {\ttfamily res == NULL $\vert$$\vert$ (max\+\_\+length $>$ 0 \&\& \mbox{\hyperlink{group__utils_ga7bffda236a079c26302722c7d155f7a5}{length\+\_\+vargs\+\_\+string\+\_\+list(text)}} $<$= max\+\_\+length)} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+the concatenated string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gad643e0fcac9e59c1a171c460633e8637}\label{group__utils_gad643e0fcac9e59c1a171c460633e8637}} 
+\index{utils@{utils}!string\_count\_char@{string\_count\_char}}
+\index{string\_count\_char@{string\_count\_char}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_count\_char()}{string\_count\_char()}}
+{\footnotesize\ttfamily int string\+\_\+count\+\_\+char (\begin{DoxyParamCaption}\item[{char $\ast$}]{text,  }\item[{char $\ast$}]{ch }\end{DoxyParamCaption})}
+
+
+
+Counts the number of occurrences of an UTF8 character in a text. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em text} & string text to process \\
+\hline
+\mbox{\texttt{ in}}  & {\em ch} & string containing the sequence of bytes (one or more) of an UTF8 single character\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily text != NULL}~\newline
+ {\ttfamily ch != NULL \&\& num\+\_\+chars\+\_\+utf8(ch) == 1} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+number of counted occurrences 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga1c5ba308f71c323fbbd7eb9bb34285d4}\label{group__utils_ga1c5ba308f71c323fbbd7eb9bb34285d4}} 
+\index{utils@{utils}!string\_ends\_with@{string\_ends\_with}}
+\index{string\_ends\_with@{string\_ends\_with}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_ends\_with()}{string\_ends\_with()}}
+{\footnotesize\ttfamily int string\+\_\+ends\+\_\+with (\begin{DoxyParamCaption}\item[{char $\ast$}]{text,  }\item[{char $\ast$}]{suffix }\end{DoxyParamCaption})}
+
+
+
+Tests if a string ends with a suffix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em text} & string text to process \\
+\hline
+\mbox{\texttt{ in}}  & {\em suffix} & string to test if is a suffix\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily text != NULL}~\newline
+ {\ttfamily suffix != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+true ({\ttfamily !=0}) if suffix ends text, false ({\ttfamily 0}) otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga41163cf3a95e702f12506cd54ba3c70c}\label{group__utils_ga41163cf3a95e702f12506cd54ba3c70c}} 
+\index{utils@{utils}!string\_list\_clone@{string\_list\_clone}}
+\index{string\_list\_clone@{string\_list\_clone}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_list\_clone()}{string\_list\_clone()}}
+{\footnotesize\ttfamily char$\ast$$\ast$ string\+\_\+list\+\_\+clone (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Replicates a {\ttfamily NULL} terminated list of strings. 
+
+The memory is allocated in the heap (using \mbox{\hyperlink{group__utils_gadce4d1c428f979bf1cf8e1582d2f4052}{mem\+\_\+alloc()}}).
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em list} & {\ttfamily NULL} terminated array of strings\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily list != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+pointer to the replicated list 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gaacf77b3345bbca43767b08ec0583fe3c}\label{group__utils_gaacf77b3345bbca43767b08ec0583fe3c}} 
+\index{utils@{utils}!string\_list\_free@{string\_list\_free}}
+\index{string\_list\_free@{string\_list\_free}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_list\_free()}{string\_list\_free()}}
+{\footnotesize\ttfamily char$\ast$$\ast$ string\+\_\+list\+\_\+free (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Frees the memory allocated to a {\ttfamily NULL} terminated list of strings. 
+
+This function is totally compatible with \mbox{\hyperlink{group__utils_ga41163cf3a95e702f12506cd54ba3c70c}{string\+\_\+list\+\_\+clone()}}, and always returns {\ttfamily NULL}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em list} & {\ttfamily NULL} terminated array of strings\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily list != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+{\ttfamily NULL} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_gab8050db5b87bfdee91ee92e67b063478}\label{group__utils_gab8050db5b87bfdee91ee92e67b063478}} 
+\index{utils@{utils}!string\_list\_length@{string\_list\_length}}
+\index{string\_list\_length@{string\_list\_length}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_list\_length()}{string\_list\_length()}}
+{\footnotesize\ttfamily int string\+\_\+list\+\_\+length (\begin{DoxyParamCaption}\item[{char $\ast$$\ast$}]{list }\end{DoxyParamCaption})}
+
+
+
+Number of elements of a {\ttfamily NULL} terminated list of strings. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em list} & {\ttfamily NULL} terminated array of strings\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily list != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+number of elements of list (not counting {\ttfamily NULL}) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga0ca31b2a579b6ef7c75c41324ed5367c}\label{group__utils_ga0ca31b2a579b6ef7c75c41324ed5367c}} 
+\index{utils@{utils}!string\_num\_columns@{string\_num\_columns}}
+\index{string\_num\_columns@{string\_num\_columns}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_num\_columns()}{string\_num\_columns()}}
+{\footnotesize\ttfamily int string\+\_\+num\+\_\+columns (\begin{DoxyParamCaption}\item[{char $\ast$}]{text }\end{DoxyParamCaption})}
+
+
+
+Maximum number of columns of a string (not counting character `'\textbackslash{}n\textquotesingle{}\`{}). 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em text} & string text to process\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily text != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+maximum number of counted columns 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga15630ddb64e977c8243892556feedfd8}\label{group__utils_ga15630ddb64e977c8243892556feedfd8}} 
+\index{utils@{utils}!string\_num\_lines@{string\_num\_lines}}
+\index{string\_num\_lines@{string\_num\_lines}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_num\_lines()}{string\_num\_lines()}}
+{\footnotesize\ttfamily int string\+\_\+num\+\_\+lines (\begin{DoxyParamCaption}\item[{char $\ast$}]{text }\end{DoxyParamCaption})}
+
+
+
+Number of lines of a string. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em text} & string text to process\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily text != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+number of counted lines 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__utils_ga3ec2b60d1636397119c5e0c21987f791}\label{group__utils_ga3ec2b60d1636397119c5e0c21987f791}} 
+\index{utils@{utils}!string\_starts\_with@{string\_starts\_with}}
+\index{string\_starts\_with@{string\_starts\_with}!utils@{utils}}
+\doxysubsubsection{\texorpdfstring{string\_starts\_with()}{string\_starts\_with()}}
+{\footnotesize\ttfamily int string\+\_\+starts\+\_\+with (\begin{DoxyParamCaption}\item[{char $\ast$}]{text,  }\item[{char $\ast$}]{prefix }\end{DoxyParamCaption})}
+
+
+
+Tests if a string starts with a prefix. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em text} & string text to process \\
+\hline
+\mbox{\texttt{ in}}  & {\em prefix} & string to test if is a prefix\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily text != NULL}~\newline
+ {\ttfamily prefix != NULL} 
+\end{DoxyDescription}
+
+\begin{DoxyReturn}{Returns}
+true ({\ttfamily !=0}) if prefix starts text, false ({\ttfamily 0}) otherwise 
+\end{DoxyReturn}

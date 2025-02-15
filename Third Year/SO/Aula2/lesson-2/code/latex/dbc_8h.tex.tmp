@@ -1,0 +1,31 @@
+\hypertarget{dbc_8h}{}\doxysection{dbc.\+h File Reference}
+\label{dbc_8h}\index{dbc.h@{dbc.h}}
+
+
+Design-\/by-\/\+Contract module.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$assert.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}utils.\+h\char`\"{}}\newline
+Include dependency graph for dbc.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__DbC_gac101c8ba449f6f8c71b3789a9c489221}{check}}(condition,  message)
+\begin{DoxyCompactList}\small\item\em Checks the verification of an general algorithm assertion. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__DbC_ga5bf1825f80465097d4b753a001cf1af8}{require}}(condition,  message)
+\begin{DoxyCompactList}\small\item\em Checks the verification of a precondition. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__DbC_ga5d17c602c4f191371a5fec5af7adc3cf}{ensure}}(condition,  message)
+\begin{DoxyCompactList}\small\item\em Checks the verification of a postcondition. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__DbC_gaf9d59b04beef1bf139e10fc44c6f9725}{invariant}}(condition,  message)
+\begin{DoxyCompactList}\small\item\em Checks the verification of an invariant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Design-\/by-\/\+Contract module. 
+

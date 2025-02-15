@@ -1,0 +1,20 @@
+BusyWait - Nao ideal
+	
+	While (Estiver vazio)
+	Unlock
+	Yeld
+	Lock
+
+
+Variaveis de Condição (Sinaliza o estado da fila)
+
+criar 2 varaiveis de Condiçoes de espera por thread
+
+Fila Vazia
+Fila cheia
+
+cond_Wait - liberta o mutex para outras threads e espera por um broadcast / signal caso a fila esteja vazia
+BroadCast - Produtor adiciona à fila e sinaliza que o fez (Para todos)
+Signal - Igual ao Broadcast (Só para 1)
+
+
