@@ -1,0 +1,15 @@
+Neste código podemos observar os seguintes padrões creacionais :
+
+	- Builder
+	- Factory Method (
+	
+	public static Calendar getInstance() {
+   	Calendar cal = createCalendar(TimeZone.getDefaultRef(), 				Locale.getDefault(Locale.Category.FORMAT));
+   	cal.sharedZone = true;
+   	return cal;
+   	}
+	
+	)
+	
+	- Singleton : Quando devolve a instância de um objeto
+	- Prototype

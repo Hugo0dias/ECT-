@@ -1,0 +1,8 @@
+1. java.io.InputStream
+- Método `read(byte[] b, int off, int len)`: Define um algoritmo para ler bytes em um buffer, utilizando o método abstrato `read()` implementado por subclasses.
+
+2. java.io.OutputStream
+- Método `write(byte[] b, int off, int len)`: Define um algoritmo para escrever bytes de um buffer, utilizando o método abstrato `write(int b)` implementado por subclasses.
+
+3. java.util.Writer
+- Método abstrato write(int c) repetidamente para escrever caracteres a partir de um buffer. As subclasses devem implementar o método write(int c) para fornecer a lógica específica de escrita.

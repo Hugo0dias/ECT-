@@ -1,0 +1,8 @@
+Atribuição dos lugares
+    --> RESERVA --> deve primeiro procurar-se uma fila vazia(na classe correspondente)
+                    atribuindo os lugares de forma sequencial e continuando na fila
+                     seguinte se for necessário
+                --> caso NAO haja filas vazias
+                    --> meter os lugaraes vagos sequencialmente começando na 1fila
+                    disponivel
+                    da classe correspondente

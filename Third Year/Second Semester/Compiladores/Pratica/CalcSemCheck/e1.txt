@@ -1,0 +1,6 @@
+show i;
+2 -> j;
+i:integer;
+2.0-> i;
+a,a: integer;
+show 2.0 // 2;

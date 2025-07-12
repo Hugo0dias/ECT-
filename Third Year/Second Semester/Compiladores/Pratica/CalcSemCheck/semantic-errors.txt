@@ -1,0 +1,4 @@
+1. - variable not declared!
+2. - variable already exists!
+3. - invalid assignment - expression is not assignable to variable type!
+4. - not integer operands - type expression is not integer!
