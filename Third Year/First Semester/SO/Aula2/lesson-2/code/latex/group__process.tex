@@ -1,0 +1,782 @@
+\hypertarget{group__process}{}\doxysection{process}
+\label{group__process}\index{process@{process}}
+
+
+\mbox{\hyperlink{group__process_process}{Process}}, \mbox{\hyperlink{group__process_sysV}{System-\/V}}, and \mbox{\hyperlink{group__process_posix_sem}{POSIX libraries}} wrapper module.  
+
+
+\doxysubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{process_8h}{process.\+h}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{group__process_process}{Process}}, \mbox{\hyperlink{group__process_sysV}{System-\/V}}, and \mbox{\hyperlink{group__process_posix_sem}{POSIX libraries}} wrapper module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Process handling}
+\label{_amgrp3a54312d582fd4199b42c4d2bddf53aa}%
+\label{group__process_process}%
+\Hypertarget{group__process_process}%
+\begin{DoxyCompactItemize}
+\item 
+pid\+\_\+t \mbox{\hyperlink{group__process_ga67e00aff1839b1ba68c83947593f625b}{pfork}} (void)
+\begin{DoxyCompactList}\small\item\em {\ttfamily fork} wrapper function. \end{DoxyCompactList}\item 
+pid\+\_\+t \mbox{\hyperlink{group__process_gad27b81fee9a0f792c4ba29fd95c967e1}{pwait}} (int $\ast$status)
+\begin{DoxyCompactList}\small\item\em {\ttfamily wait} wrapper function. \end{DoxyCompactList}\item 
+pid\+\_\+t \mbox{\hyperlink{group__process_gac926bd7ccd173f742b5d58f51cabcb48}{pwaitpid}} (pid\+\_\+t pid, int $\ast$status, int options)
+\begin{DoxyCompactList}\small\item\em {\ttfamily waitpid} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gab546ccee89e3159ea7c23aa3a463a0d8}{pkill}} (pid\+\_\+t pid, int sig)
+\begin{DoxyCompactList}\small\item\em {\ttfamily kill} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gae5d3e8ac00f0e788f21020699bac758a}{pexecl}} (const char $\ast$pathname, const char $\ast$arg,...)
+\begin{DoxyCompactList}\small\item\em {\ttfamily execl} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga7c7f6de68bd3dea8a702668090a65854}{psigaction}} (int signum, const struct sigaction $\ast$act, struct sigaction $\ast$oldact)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sigaction} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{System V -\/ shared memory}
+\label{_amgrp5915325b4c29bb6004aa41cf0e14902d}%
+\label{group__process_shm}%
+\Hypertarget{group__process_shm}%
+ \begin{DoxyParagraph}{Example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <\mbox{\hyperlink{process_8h}{process.h}}>} \textcolor{comment}{// \#include <sys/shm.h>}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{int shmid;}
+\DoxyCodeLine{\textcolor{comment}{// creation:}}
+\DoxyCodeLine{shmid = \mbox{\hyperlink{group__process_gaff71624be0fc9c76e0c72295721875e6}{pshmget}}(key, size, 0600 | IPC\_CREAT | IPC\_EXCL);}
+\DoxyCodeLine{\textcolor{comment}{// or, use existing:}}
+\DoxyCodeLine{shmid = \mbox{\hyperlink{group__process_gaff71624be0fc9c76e0c72295721875e6}{pshmget}}(key, 0, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// attach shm to pointer address:}}
+\DoxyCodeLine{void* p = \mbox{\hyperlink{group__process_ga0cdba7faa458e7fb57c31d3cd8788480}{pshmat}}(shmid, NULL, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// detach shm from pointer address:}}
+\DoxyCodeLine{pshmdt(p);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// destroy shm:}}
+\DoxyCodeLine{pshmctl(shmid, IPC\_RMID, NULL);}
+
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{group__process_gaff71624be0fc9c76e0c72295721875e6}{pshmget}} (key\+\_\+t key, size\+\_\+t size, int shmflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily shmget} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_ga3119bdf5486059aee6ec3ed65a01b319}{pshmctl}} (int shmid, int cmd, struct shmid\+\_\+ds $\ast$buf)
+\begin{DoxyCompactList}\small\item\em {\ttfamily shmctl} wrapper function. \end{DoxyCompactList}\item 
+void $\ast$ \mbox{\hyperlink{group__process_ga0cdba7faa458e7fb57c31d3cd8788480}{pshmat}} (int shmid, const void $\ast$shmaddr, int shmflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily shmat} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga1682328cd34b592404ff030779b0428f}{pshmdt}} (const void $\ast$shmaddr)
+\begin{DoxyCompactList}\small\item\em {\ttfamily shmdt} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{System V -\/ semaphores}
+\label{_amgrp4a58b0d3e52a2082e38d55d4357a8b17}%
+\label{group__process_sem}%
+\Hypertarget{group__process_sem}%
+ \begin{DoxyParagraph}{Example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <\mbox{\hyperlink{process_8h}{process.h}}>} \textcolor{comment}{// \#include <sys/sem.h>}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{int semid;}
+\DoxyCodeLine{\textcolor{comment}{// creation:}}
+\DoxyCodeLine{semid = \mbox{\hyperlink{group__process_gaada159a0fe725ed843ac358be6e6a9d3}{psemget}}(key, 1, 0600 | IPC\_CREAT | IPC\_EXCL); \textcolor{comment}{// 1 semaphore!}}
+\DoxyCodeLine{\textcolor{comment}{// or, use existing:}}
+\DoxyCodeLine{semid = \mbox{\hyperlink{group__process_gaada159a0fe725ed843ac358be6e6a9d3}{psemget}}(key, 0, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// decrement:}}
+\DoxyCodeLine{struct sembuf down = \{0, -\/1, 0\};}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop}}(semid, \&down, 1);}
+\DoxyCodeLine{\textcolor{comment}{// or, simply use provided function:}}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_gac2b930e9aceda9ef276b21ae8e839c16}{psem\_down}}(semid, 0); \textcolor{comment}{// NOTE: there is no sem\_down in default library!}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// increment:}}
+\DoxyCodeLine{struct sembuf up = \{0, 1, 0\};}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop}}(semid, \&up, 1);}
+\DoxyCodeLine{\textcolor{comment}{// or, simply use provided function:}}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_gaa00610fec639ef123819ceee2ef00da3}{psem\_up}}(semid, 0); \textcolor{comment}{// NOTE: there is no sem\_up in default library!}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// destroy sem 0:}}
+\DoxyCodeLine{psemctl(semid, 0, IPC\_RMID, NULL);}
+
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{group__process_gaada159a0fe725ed843ac358be6e6a9d3}{psemget}} (key\+\_\+t key, int nsems, int semflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily semget} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_gac42e869afba098ec9bdd77444ba790c5}{psemctl}} (int semid, int semnum, int cmd)
+\begin{DoxyCompactList}\small\item\em {\ttfamily semctl} wrapper function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__process_ga808dab47116976fc7866c97b6dddec47}\label{group__process_ga808dab47116976fc7866c97b6dddec47}} 
+int {\bfseries psemctl} (int semid, int semnum, int cmd, void $\ast$u)
+\item 
+void \mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop}} (int semid, struct sembuf $\ast$sops, size\+\_\+t nsops)
+\begin{DoxyCompactList}\small\item\em {\ttfamily semop} wrapper function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__process_gaa00610fec639ef123819ceee2ef00da3}\label{group__process_gaa00610fec639ef123819ceee2ef00da3}} 
+void \mbox{\hyperlink{group__process_gaa00610fec639ef123819ceee2ef00da3}{psem\+\_\+up}} (int semid, short unsigned int index)
+\begin{DoxyCompactList}\small\item\em Increment a semaphore (uses \mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop()}}). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__process_gac2b930e9aceda9ef276b21ae8e839c16}\label{group__process_gac2b930e9aceda9ef276b21ae8e839c16}} 
+void \mbox{\hyperlink{group__process_gac2b930e9aceda9ef276b21ae8e839c16}{psem\+\_\+down}} (int semid, short unsigned int index)
+\begin{DoxyCompactList}\small\item\em Decrements a semaphore (uses \mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop()}}). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__process_ga47891b55ba91af98c5b45cbcf154bc20}\label{group__process_ga47891b55ba91af98c5b45cbcf154bc20}} 
+void \mbox{\hyperlink{group__process_ga47891b55ba91af98c5b45cbcf154bc20}{psem\+\_\+down2}} (int semid, short unsigned int index1, unsigned int index2)
+\begin{DoxyCompactList}\small\item\em Decrements atomically two semaphores in a System V semaphore array (uses \mbox{\hyperlink{group__process_ga0e2534c82b54573590d913c297cc4840}{psemop()}}). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__process_gaf5ead333ec2a5072a7655c90e6b3e698}\label{group__process_gaf5ead333ec2a5072a7655c90e6b3e698}} 
+void \mbox{\hyperlink{group__process_gaf5ead333ec2a5072a7655c90e6b3e698}{psem\+\_\+setval}} (int semid, int semnum, int value)
+\begin{DoxyCompactList}\small\item\em Sets the value of the semaphore (uses semctl()). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{System V -\/ message queues}
+\label{_amgrpa02ab20550978ab4aff674df267ced67}%
+\label{group__process_msg}%
+\Hypertarget{group__process_msg}%
+ \begin{DoxyParagraph}{Example}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include <\mbox{\hyperlink{process_8h}{process.h}}>} \textcolor{comment}{// \#include <sys/msg.h>}}
+\DoxyCodeLine{...}
+\DoxyCodeLine{typedef \textcolor{keyword}{struct }Item}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{   ...}
+\DoxyCodeLine{\} Item;}
+\DoxyCodeLine{\textcolor{keyword}{typedef} \textcolor{keyword}{struct }Message}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{   \textcolor{keywordtype}{long} type;}
+\DoxyCodeLine{   Item item;}
+\DoxyCodeLine{\} Message;}
+\DoxyCodeLine{...}
+\DoxyCodeLine{int msgid;}
+\DoxyCodeLine{\textcolor{comment}{// creation:}}
+\DoxyCodeLine{msgid = \mbox{\hyperlink{group__process_gad426e03bc9b8dae5f1fbf889ce2dd8f7}{pmsgget}}(key, 0600 | IPC\_CREAT | IPC\_EXCL);}
+\DoxyCodeLine{\textcolor{comment}{// or, use existing:}}
+\DoxyCodeLine{msgid = \mbox{\hyperlink{group__process_gad426e03bc9b8dae5f1fbf889ce2dd8f7}{pmsgget}}(key, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{Message msg;}
+\DoxyCodeLine{\textcolor{comment}{// send msg:}}
+\DoxyCodeLine{msg = ...;}
+\DoxyCodeLine{\mbox{\hyperlink{group__process_gaeeb6cd0ab585a7769cd17405f600e56a}{pmsgsnd}}(msgid, \&msg, \textcolor{keyword}{sizeof}(Item), 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// receive msg:}}
+\DoxyCodeLine{pmsgrcv(msgid, \&msg, \textcolor{keyword}{sizeof}(Item), type, 0);}
+\DoxyCodeLine{...}
+\DoxyCodeLine{\textcolor{comment}{// destroy msg:}}
+\DoxyCodeLine{pmsgctl(msgid, IPC\_RMID, NULL);}
+
+\end{DoxyCode}
+ 
+\end{DoxyParagraph}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{group__process_gad426e03bc9b8dae5f1fbf889ce2dd8f7}{pmsgget}} (key\+\_\+t key, int msgflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily msgget} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_ga13bfac41329ec74b2aa4950f9586ae9f}{pmsgctl}} (int msqid, int cmd, struct msqid\+\_\+ds $\ast$buf)
+\begin{DoxyCompactList}\small\item\em {\ttfamily msgctl} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gaeeb6cd0ab585a7769cd17405f600e56a}{pmsgsnd}} (int msqid, const void $\ast$msgp, size\+\_\+t msgsz, int msgflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily msgsnd} wrapper function. \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{group__process_gacd4e4161a46bfa2e1f23eb1d49aaa07b}{pmsgrcv}} (int msqid, void $\ast$msgp, size\+\_\+t msgsz, long msgtyp, int msgflg)
+\begin{DoxyCompactList}\small\item\em {\ttfamily msgrcv} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{POSIX semaphores}
+\label{_amgrp4e6039e62351673e8c75b78a63866184}%
+\label{group__process_posix_sem}%
+\Hypertarget{group__process_posix_sem}%
+\begin{DoxyCompactItemize}
+\item 
+sem\+\_\+t $\ast$ \mbox{\hyperlink{group__process_ga7bf7fce2d1f344e7dfeeb1b46a9ee7ba}{psem\+\_\+open}} (const char $\ast$name, int oflag)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+open} wrapper function. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{group__process_gabfb2ccd43b219304d77429977a3fb70b}\label{group__process_gabfb2ccd43b219304d77429977a3fb70b}} 
+sem\+\_\+t $\ast$ {\bfseries psem\+\_\+open} (const char $\ast$name, int oflag, mode\+\_\+t mode, unsigned int value)
+\item 
+void \mbox{\hyperlink{group__process_ga41a884c3a9d9ac6a31fc6ab27ae1d668}{psem\+\_\+close}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+close} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga0415c9c4fab4baafef6cd2d40becd05e}{psem\+\_\+unlink}} (const char $\ast$name)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+unlink} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gac49ddb266cec5493ebd756cd9382f99d}{psem\+\_\+init}} (sem\+\_\+t $\ast$sem, int pshared, unsigned int value)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+init} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga82e3d1015521711a2a6374d6c3771491}{psem\+\_\+destroy}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+destroy} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gae2c867f9f66e74fad44df3f32f87a8c6}{psem\+\_\+wait}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+wait} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_ga04cb3c84545fe7707c63578e1d59b689}{psem\+\_\+trywait}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+trywait} wrapper function. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{group__process_gac8b2b3d1e18b385f10b389ce2ea734ef}{psem\+\_\+timedwait}} (sem\+\_\+t $\ast$sem, const struct timespec $\ast$abs\+\_\+timeout)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+timedwait} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_gad63921c4ec6f0845b752eb59a8935b8e}{psem\+\_\+post}} (sem\+\_\+t $\ast$sem)
+\begin{DoxyCompactList}\small\item\em {\ttfamily sem\+\_\+post} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{UNIX pipes}
+\label{_amgrp18ededf5de3745af7f46496c6e4915ba}%
+\label{group__process_pipes}%
+\Hypertarget{group__process_pipes}%
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__process_ga013466fa89ac97a0db0ccd78168a8456}{ppipe}} (int pipefd\mbox{[}2\mbox{]})
+\begin{DoxyCompactList}\small\item\em {\ttfamily pipe} wrapper function. \end{DoxyCompactList}\item 
+FILE $\ast$ \mbox{\hyperlink{group__process_ga2d9df322812707050312aa24d15a4360}{ppopen}} (const char $\ast$command, const char $\ast$type)
+\begin{DoxyCompactList}\small\item\em {\ttfamily popen} wrapper function. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{group__process_ga1490f6e0ca0ebf607d1f5ff431c79b68}{ppclose}} (FILE $\ast$stream)
+\begin{DoxyCompactList}\small\item\em {\ttfamily pclose} wrapper function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{group__process_process}{Process}}, \mbox{\hyperlink{group__process_sysV}{System-\/V}}, and \mbox{\hyperlink{group__process_posix_sem}{POSIX libraries}} wrapper module. 
+
+This module removes defensive programming approach of native libraries.
+
+All implemented functions, have exactly the same arguments and/or result of the original function, with the exception of returning an error indication.
+
+Errors are handled by the implementation of two policies\+:
+\begin{DoxyEnumerate}
+\item EXIT\+\_\+\+POLICY (default)\+: describes the failed call in {\ttfamily stderr} (with the identification of the errno error, and the precise location the call), generates a segmentation fault (enabling a stack trace within a debugger like {\ttfamily gdb}), and exits program execution;
+\item EXCEPTION\+\_\+\+POLICY\+: throws a {\ttfamily int} exception with the (errno) status error returned by the original function.
+\end{DoxyEnumerate}
+
+{\bfseries{System V group of IPC mechanisms}}
+
+\label{group__process_sysV}%
+\Hypertarget{group__process_sysV}%
+ There are three resources for IPC\+: \mbox{\hyperlink{group__process_shm}{shared memory}}, \mbox{\hyperlink{group__process_sem}{semaphores}}, and \mbox{\hyperlink{group__process_msg}{message queues}}.
+
+Common to all, is resource handling through a non-\/negative integer identifier. After proper creation and initialization, different processes can establish communication using the same integer identifier.
+
+A key ({\ttfamily key\+\_\+t}) is used to establish this common identifier. There are three possibilities to define a key\+:
+
+
+\begin{DoxyEnumerate}
+\item {\ttfamily IPC\+\_\+\+PRIVATE}\+: In this case an alternative channel to communicate the identifier between processes is necessary (parent/child fork, file system, ...).
+\item A fixed predetermined key number (may collide with other existing keys).
+\item {\ttfamily ftok} function to generate a key from a path and a byte integer.
+\end{DoxyEnumerate}
+
+Usage\+:
+
+
+\begin{DoxyItemize}
+\item create new identifier\+: {\ttfamily msgget}/{\ttfamily semget}/{\ttfamily shmget} with a key and {\ttfamily IPC\+\_\+\+CREAT} and {\ttfamily IPC\+\_\+\+EXCL} flags
+\item get existing identifier\+: {\ttfamily msgget}/{\ttfamily semget}/{\ttfamily shmget} with a key and other arguments as zero
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Miguel Oliveira e Silva, 2017-\/2018 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{group__process_gae5d3e8ac00f0e788f21020699bac758a}\label{group__process_gae5d3e8ac00f0e788f21020699bac758a}} 
+\index{process@{process}!pexecl@{pexecl}}
+\index{pexecl@{pexecl}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pexecl()}{pexecl()}}
+{\footnotesize\ttfamily void pexecl (\begin{DoxyParamCaption}\item[{const char $\ast$}]{pathname,  }\item[{const char $\ast$}]{arg,  }\item[{}]{... }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily execl} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 3 execl \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/execl(3)}{\texttt{ https\+://man.\+cx/execl(3)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga67e00aff1839b1ba68c83947593f625b}\label{group__process_ga67e00aff1839b1ba68c83947593f625b}} 
+\index{process@{process}!pfork@{pfork}}
+\index{pfork@{pfork}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pfork()}{pfork()}}
+{\footnotesize\ttfamily pid\+\_\+t pfork (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily fork} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 fork \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/fork(2)}{\texttt{ https\+://man.\+cx/fork(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gab546ccee89e3159ea7c23aa3a463a0d8}\label{group__process_gab546ccee89e3159ea7c23aa3a463a0d8}} 
+\index{process@{process}!pkill@{pkill}}
+\index{pkill@{pkill}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pkill()}{pkill()}}
+{\footnotesize\ttfamily void pkill (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid,  }\item[{int}]{sig }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily kill} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 kill \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/kill(2)}{\texttt{ https\+://man.\+cx/kill(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga13bfac41329ec74b2aa4950f9586ae9f}\label{group__process_ga13bfac41329ec74b2aa4950f9586ae9f}} 
+\index{process@{process}!pmsgctl@{pmsgctl}}
+\index{pmsgctl@{pmsgctl}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pmsgctl()}{pmsgctl()}}
+{\footnotesize\ttfamily int pmsgctl (\begin{DoxyParamCaption}\item[{int}]{msqid,  }\item[{int}]{cmd,  }\item[{struct msqid\+\_\+ds $\ast$}]{buf }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily msgctl} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 msgctl \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/msgctl(2)}{\texttt{ https\+://man.\+cx/msgctl(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gad426e03bc9b8dae5f1fbf889ce2dd8f7}\label{group__process_gad426e03bc9b8dae5f1fbf889ce2dd8f7}} 
+\index{process@{process}!pmsgget@{pmsgget}}
+\index{pmsgget@{pmsgget}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pmsgget()}{pmsgget()}}
+{\footnotesize\ttfamily int pmsgget (\begin{DoxyParamCaption}\item[{key\+\_\+t}]{key,  }\item[{int}]{msgflg }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily msgget} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 msgget \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/msgget(2)}{\texttt{ https\+://man.\+cx/msgget(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gacd4e4161a46bfa2e1f23eb1d49aaa07b}\label{group__process_gacd4e4161a46bfa2e1f23eb1d49aaa07b}} 
+\index{process@{process}!pmsgrcv@{pmsgrcv}}
+\index{pmsgrcv@{pmsgrcv}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pmsgrcv()}{pmsgrcv()}}
+{\footnotesize\ttfamily size\+\_\+t pmsgrcv (\begin{DoxyParamCaption}\item[{int}]{msqid,  }\item[{void $\ast$}]{msgp,  }\item[{size\+\_\+t}]{msgsz,  }\item[{long}]{msgtyp,  }\item[{int}]{msgflg }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily msgrcv} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 msgrcv \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/msgrcv(2)}{\texttt{ https\+://man.\+cx/msgrcv(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gaeeb6cd0ab585a7769cd17405f600e56a}\label{group__process_gaeeb6cd0ab585a7769cd17405f600e56a}} 
+\index{process@{process}!pmsgsnd@{pmsgsnd}}
+\index{pmsgsnd@{pmsgsnd}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pmsgsnd()}{pmsgsnd()}}
+{\footnotesize\ttfamily void pmsgsnd (\begin{DoxyParamCaption}\item[{int}]{msqid,  }\item[{const void $\ast$}]{msgp,  }\item[{size\+\_\+t}]{msgsz,  }\item[{int}]{msgflg }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily msgsnd} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 msgsnd \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/msgsnd(2)}{\texttt{ https\+://man.\+cx/msgsnd(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga1490f6e0ca0ebf607d1f5ff431c79b68}\label{group__process_ga1490f6e0ca0ebf607d1f5ff431c79b68}} 
+\index{process@{process}!ppclose@{ppclose}}
+\index{ppclose@{ppclose}!process@{process}}
+\doxysubsubsection{\texorpdfstring{ppclose()}{ppclose()}}
+{\footnotesize\ttfamily void ppclose (\begin{DoxyParamCaption}\item[{FILE $\ast$}]{stream }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily pclose} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily stream != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 pclose \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/pclose}{\texttt{ https\+://man.\+cx/pclose}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga013466fa89ac97a0db0ccd78168a8456}\label{group__process_ga013466fa89ac97a0db0ccd78168a8456}} 
+\index{process@{process}!ppipe@{ppipe}}
+\index{ppipe@{ppipe}!process@{process}}
+\doxysubsubsection{\texorpdfstring{ppipe()}{ppipe()}}
+{\footnotesize\ttfamily void ppipe (\begin{DoxyParamCaption}\item[{int}]{pipefd\mbox{[}2\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily pipe} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 3 pipe \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/pipe}{\texttt{ https\+://man.\+cx/pipe}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga2d9df322812707050312aa24d15a4360}\label{group__process_ga2d9df322812707050312aa24d15a4360}} 
+\index{process@{process}!ppopen@{ppopen}}
+\index{ppopen@{ppopen}!process@{process}}
+\doxysubsubsection{\texorpdfstring{ppopen()}{ppopen()}}
+{\footnotesize\ttfamily FILE$\ast$ ppopen (\begin{DoxyParamCaption}\item[{const char $\ast$}]{command,  }\item[{const char $\ast$}]{type }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily popen} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily command != NULL} {\ttfamily type != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 popen \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/popen}{\texttt{ https\+://man.\+cx/popen}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga41a884c3a9d9ac6a31fc6ab27ae1d668}\label{group__process_ga41a884c3a9d9ac6a31fc6ab27ae1d668}} 
+\index{process@{process}!psem\_close@{psem\_close}}
+\index{psem\_close@{psem\_close}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_close()}{psem\_close()}}
+{\footnotesize\ttfamily void psem\+\_\+close (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+close} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily sem != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 sem_close \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_close(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+close(3)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga82e3d1015521711a2a6374d6c3771491}\label{group__process_ga82e3d1015521711a2a6374d6c3771491}} 
+\index{process@{process}!psem\_destroy@{psem\_destroy}}
+\index{psem\_destroy@{psem\_destroy}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_destroy()}{psem\_destroy()}}
+{\footnotesize\ttfamily void psem\+\_\+destroy (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+destroy} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily sem != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 sem_destroy \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_destroy(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+destroy(3)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gac49ddb266cec5493ebd756cd9382f99d}\label{group__process_gac49ddb266cec5493ebd756cd9382f99d}} 
+\index{process@{process}!psem\_init@{psem\_init}}
+\index{psem\_init@{psem\_init}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_init()}{psem\_init()}}
+{\footnotesize\ttfamily void psem\+\_\+init (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem,  }\item[{int}]{pshared,  }\item[{unsigned int}]{value }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+init} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily sem != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 sem_init \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_init(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+init(3)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga7bf7fce2d1f344e7dfeeb1b46a9ee7ba}\label{group__process_ga7bf7fce2d1f344e7dfeeb1b46a9ee7ba}} 
+\index{process@{process}!psem\_open@{psem\_open}}
+\index{psem\_open@{psem\_open}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_open()}{psem\_open()}}
+{\footnotesize\ttfamily sem\+\_\+t$\ast$ psem\+\_\+open (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name,  }\item[{int}]{oflag }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+open} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 3 sem_open \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_open(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+open(3)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gad63921c4ec6f0845b752eb59a8935b8e}\label{group__process_gad63921c4ec6f0845b752eb59a8935b8e}} 
+\index{process@{process}!psem\_post@{psem\_post}}
+\index{psem\_post@{psem\_post}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_post()}{psem\_post()}}
+{\footnotesize\ttfamily void psem\+\_\+post (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+post} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily sem != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 sem_post \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_post(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+post(3)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gac8b2b3d1e18b385f10b389ce2ea734ef}\label{group__process_gac8b2b3d1e18b385f10b389ce2ea734ef}} 
+\index{process@{process}!psem\_timedwait@{psem\_timedwait}}
+\index{psem\_timedwait@{psem\_timedwait}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_timedwait()}{psem\_timedwait()}}
+{\footnotesize\ttfamily int psem\+\_\+timedwait (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem,  }\item[{const struct timespec $\ast$}]{abs\+\_\+timeout }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+timedwait} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily sem != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 sem_timedwait \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_timedwait(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+timedwait(3)}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+true ({\ttfamily !=0}) on success, false ({\ttfamily 0}) if timeout has expired before being able to decrement the semaphore 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__process_ga04cb3c84545fe7707c63578e1d59b689}\label{group__process_ga04cb3c84545fe7707c63578e1d59b689}} 
+\index{process@{process}!psem\_trywait@{psem\_trywait}}
+\index{psem\_trywait@{psem\_trywait}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_trywait()}{psem\_trywait()}}
+{\footnotesize\ttfamily int psem\+\_\+trywait (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+trywait} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily sem != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 sem_trywait \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_trywait(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+trywait(3)}}
+\end{DoxySeeAlso}
+\begin{DoxyReturn}{Returns}
+true ({\ttfamily !=0}) on success, false ({\ttfamily 0}) if semaphore is zero 
+\end{DoxyReturn}
+\mbox{\Hypertarget{group__process_ga0415c9c4fab4baafef6cd2d40becd05e}\label{group__process_ga0415c9c4fab4baafef6cd2d40becd05e}} 
+\index{process@{process}!psem\_unlink@{psem\_unlink}}
+\index{psem\_unlink@{psem\_unlink}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_unlink()}{psem\_unlink()}}
+{\footnotesize\ttfamily void psem\+\_\+unlink (\begin{DoxyParamCaption}\item[{const char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+unlink} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 3 sem_unlink \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_unlink(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+unlink(3)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gae2c867f9f66e74fad44df3f32f87a8c6}\label{group__process_gae2c867f9f66e74fad44df3f32f87a8c6}} 
+\index{process@{process}!psem\_wait@{psem\_wait}}
+\index{psem\_wait@{psem\_wait}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psem\_wait()}{psem\_wait()}}
+{\footnotesize\ttfamily void psem\+\_\+wait (\begin{DoxyParamCaption}\item[{sem\+\_\+t $\ast$}]{sem }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sem\+\_\+wait} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily sem != NULL} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 3 sem_wait \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sem_wait(3)}{\texttt{ https\+://man.\+cx/sem\+\_\+wait(3)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gac42e869afba098ec9bdd77444ba790c5}\label{group__process_gac42e869afba098ec9bdd77444ba790c5}} 
+\index{process@{process}!psemctl@{psemctl}}
+\index{psemctl@{psemctl}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psemctl()}{psemctl()}}
+{\footnotesize\ttfamily int psemctl (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{int}]{semnum,  }\item[{int}]{cmd }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily semctl} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 semctl \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/semctl(2)}{\texttt{ https\+://man.\+cx/semctl(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gaada159a0fe725ed843ac358be6e6a9d3}\label{group__process_gaada159a0fe725ed843ac358be6e6a9d3}} 
+\index{process@{process}!psemget@{psemget}}
+\index{psemget@{psemget}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psemget()}{psemget()}}
+{\footnotesize\ttfamily int psemget (\begin{DoxyParamCaption}\item[{key\+\_\+t}]{key,  }\item[{int}]{nsems,  }\item[{int}]{semflg }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily semget} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ]{\ttfamily nsems $>$ 0} 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 2 semget \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/semget(2)}{\texttt{ https\+://man.\+cx/semget(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga0e2534c82b54573590d913c297cc4840}\label{group__process_ga0e2534c82b54573590d913c297cc4840}} 
+\index{process@{process}!psemop@{psemop}}
+\index{psemop@{psemop}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psemop()}{psemop()}}
+{\footnotesize\ttfamily void psemop (\begin{DoxyParamCaption}\item[{int}]{semid,  }\item[{struct sembuf $\ast$}]{sops,  }\item[{size\+\_\+t}]{nsops }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily semop} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 semop \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/semop(2)}{\texttt{ https\+://man.\+cx/semop(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga0cdba7faa458e7fb57c31d3cd8788480}\label{group__process_ga0cdba7faa458e7fb57c31d3cd8788480}} 
+\index{process@{process}!pshmat@{pshmat}}
+\index{pshmat@{pshmat}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pshmat()}{pshmat()}}
+{\footnotesize\ttfamily void$\ast$ pshmat (\begin{DoxyParamCaption}\item[{int}]{shmid,  }\item[{const void $\ast$}]{shmaddr,  }\item[{int}]{shmflg }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily shmat} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 shmat \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/shmat(2)}{\texttt{ https\+://man.\+cx/shmat(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga3119bdf5486059aee6ec3ed65a01b319}\label{group__process_ga3119bdf5486059aee6ec3ed65a01b319}} 
+\index{process@{process}!pshmctl@{pshmctl}}
+\index{pshmctl@{pshmctl}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pshmctl()}{pshmctl()}}
+{\footnotesize\ttfamily int pshmctl (\begin{DoxyParamCaption}\item[{int}]{shmid,  }\item[{int}]{cmd,  }\item[{struct shmid\+\_\+ds $\ast$}]{buf }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily shmctl} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 shmctl \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/shmctl(2)}{\texttt{ https\+://man.\+cx/shmctl(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga1682328cd34b592404ff030779b0428f}\label{group__process_ga1682328cd34b592404ff030779b0428f}} 
+\index{process@{process}!pshmdt@{pshmdt}}
+\index{pshmdt@{pshmdt}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pshmdt()}{pshmdt()}}
+{\footnotesize\ttfamily void pshmdt (\begin{DoxyParamCaption}\item[{const void $\ast$}]{shmaddr }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily shmdt} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 shmdt \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/shmdt(2)}{\texttt{ https\+://man.\+cx/shmdt(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gaff71624be0fc9c76e0c72295721875e6}\label{group__process_gaff71624be0fc9c76e0c72295721875e6}} 
+\index{process@{process}!pshmget@{pshmget}}
+\index{pshmget@{pshmget}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pshmget()}{pshmget()}}
+{\footnotesize\ttfamily int pshmget (\begin{DoxyParamCaption}\item[{key\+\_\+t}]{key,  }\item[{size\+\_\+t}]{size,  }\item[{int}]{shmflg }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily shmget} wrapper function. 
+
+
+\begin{DoxyDescription}
+\item[{\bfseries{Precondition\+:}} ](size $>$ 0) $\vert$$\vert$ !(shmflg \& IPC\+\_\+\+CREAT) 
+\end{DoxyDescription}
+
+Other documentation in\begin{DoxyVerb}man 2 shmget \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/shmget(2)}{\texttt{ https\+://man.\+cx/shmget(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_ga7c7f6de68bd3dea8a702668090a65854}\label{group__process_ga7c7f6de68bd3dea8a702668090a65854}} 
+\index{process@{process}!psigaction@{psigaction}}
+\index{psigaction@{psigaction}!process@{process}}
+\doxysubsubsection{\texorpdfstring{psigaction()}{psigaction()}}
+{\footnotesize\ttfamily void psigaction (\begin{DoxyParamCaption}\item[{int}]{signum,  }\item[{const struct sigaction $\ast$}]{act,  }\item[{struct sigaction $\ast$}]{oldact }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily sigaction} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 sigaction \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/sigaction(2)}{\texttt{ https\+://man.\+cx/sigaction(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gad27b81fee9a0f792c4ba29fd95c967e1}\label{group__process_gad27b81fee9a0f792c4ba29fd95c967e1}} 
+\index{process@{process}!pwait@{pwait}}
+\index{pwait@{pwait}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pwait()}{pwait()}}
+{\footnotesize\ttfamily pid\+\_\+t pwait (\begin{DoxyParamCaption}\item[{int $\ast$}]{status }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily wait} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 wait \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/wait(2)}{\texttt{ https\+://man.\+cx/wait(2)}} 
+\end{DoxySeeAlso}
+\mbox{\Hypertarget{group__process_gac926bd7ccd173f742b5d58f51cabcb48}\label{group__process_gac926bd7ccd173f742b5d58f51cabcb48}} 
+\index{process@{process}!pwaitpid@{pwaitpid}}
+\index{pwaitpid@{pwaitpid}!process@{process}}
+\doxysubsubsection{\texorpdfstring{pwaitpid()}{pwaitpid()}}
+{\footnotesize\ttfamily pid\+\_\+t pwaitpid (\begin{DoxyParamCaption}\item[{pid\+\_\+t}]{pid,  }\item[{int $\ast$}]{status,  }\item[{int}]{options }\end{DoxyParamCaption})}
+
+
+
+{\ttfamily waitpid} wrapper function. 
+
+Other documentation in\begin{DoxyVerb}man 2 waitpid \end{DoxyVerb}
+
+
+\begin{DoxySeeAlso}{See also}
+\href{https://man.cx/waitpid(2)}{\texttt{ https\+://man.\+cx/waitpid(2)}} 
+\end{DoxySeeAlso}

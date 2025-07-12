@@ -1,0 +1,79 @@
+\hypertarget{delays_8h}{}\doxysection{delays.\+h File Reference}
+\label{delays_8h}\index{delays.h@{delays.h}}
+
+
+Generation of delays.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for delays.\+h\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{delays_8h_aa201d947139ab4170687cce9a74c8bee}{bw\+Delay}} (uint32\+\_\+t n)
+\begin{DoxyCompactList}\small\item\em Generate a busy waiting delay. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{delays_8h_a177e0536c209d5042bb46ffa4f77b514}{bw\+Random\+Delay}} (uint32\+\_\+t n1, uint32\+\_\+t n2)
+\begin{DoxyCompactList}\small\item\em Generate a random, busy waiting delay. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{delays_8h_af9d045f7fb46d111eb71c04d45ea835c}{gaussian\+Delay}} (double mean, double std)
+\begin{DoxyCompactList}\small\item\em Generate a delay based on a Gaussian distribution. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Generation of delays. 
+
+\begin{DoxyAuthor}{Author}
+(2016,2022) Artur Pereira $<$artur at ua.\+pt$>$ 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{delays_8h_aa201d947139ab4170687cce9a74c8bee}\label{delays_8h_aa201d947139ab4170687cce9a74c8bee}} 
+\index{delays.h@{delays.h}!bwDelay@{bwDelay}}
+\index{bwDelay@{bwDelay}!delays.h@{delays.h}}
+\doxysubsubsection{\texorpdfstring{bwDelay()}{bwDelay()}}
+{\footnotesize\ttfamily void bw\+Delay (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{n }\end{DoxyParamCaption})}
+
+
+
+Generate a busy waiting delay. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n} & number of delay units \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{delays_8h_a177e0536c209d5042bb46ffa4f77b514}\label{delays_8h_a177e0536c209d5042bb46ffa4f77b514}} 
+\index{delays.h@{delays.h}!bwRandomDelay@{bwRandomDelay}}
+\index{bwRandomDelay@{bwRandomDelay}!delays.h@{delays.h}}
+\doxysubsubsection{\texorpdfstring{bwRandomDelay()}{bwRandomDelay()}}
+{\footnotesize\ttfamily void bw\+Random\+Delay (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{n1,  }\item[{uint32\+\_\+t}]{n2 }\end{DoxyParamCaption})}
+
+
+
+Generate a random, busy waiting delay. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em n1} & minimum number of delay units \\
+\hline
+{\em n2} & maximum number of delay units \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{delays_8h_af9d045f7fb46d111eb71c04d45ea835c}\label{delays_8h_af9d045f7fb46d111eb71c04d45ea835c}} 
+\index{delays.h@{delays.h}!gaussianDelay@{gaussianDelay}}
+\index{gaussianDelay@{gaussianDelay}!delays.h@{delays.h}}
+\doxysubsubsection{\texorpdfstring{gaussianDelay()}{gaussianDelay()}}
+{\footnotesize\ttfamily void gaussian\+Delay (\begin{DoxyParamCaption}\item[{double}]{mean,  }\item[{double}]{std }\end{DoxyParamCaption})}
+
+
+
+Generate a delay based on a Gaussian distribution. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mean} & mean time in milliseconds \\
+\hline
+{\em std} & standard deviation in milliseconds \\
+\hline
+\end{DoxyParams}

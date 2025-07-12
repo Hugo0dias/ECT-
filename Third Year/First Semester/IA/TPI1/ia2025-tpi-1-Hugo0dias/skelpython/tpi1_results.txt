@@ -1,0 +1,57 @@
+(depth) ['Braga', 'Guimaraes', 'Lamego', 'Guarda', 'Castelo Branco', 'Covilha', 'Viseu', 'Agueda', 'Aveiro', 'Coimbra', 'Figueira', 'Leiria', 'Santarem', 'Evora', 'Beja', 'Faro']
+open= 20 solution= 1 skipped= 0 closed= 15
+Solution node data: ('Beja', 'Faro') 15 1136 0
+
+
+(depth,improve) ['Braga', 'Porto', 'Agueda', 'Coimbra', 'Leiria', 'Santarem', 'Evora', 'Beja', 'Faro']
+open= 0 solution= 14 skipped= 313 closed= 205
+Solution node data: ('Beja', 'Faro') 8 706 0
+open_nodes= []
+
+
+(informeddepth) ['Braga', 'Guimaraes', 'Porto', 'Agueda', 'Coimbra', 'Leiria', 'Santarem', 'Lisboa', 'Beja', 'Faro']
+open= 15 solution= 1 skipped= 0 closed= 9
+Solution node data: ('Beja', 'Faro') 9 751 0
+
+
+(informeddepth,improve) ['Braga', 'Porto', 'Agueda', 'Coimbra', 'Leiria', 'Santarem', 'Evora', 'Beja', 'Faro']
+open= 0 solution= 3 skipped= 165 closed= 90
+Solution node data: ('Beja', 'Faro') 8 706 0
+open_nodes= []
+
+
+(A*) ['Braga', 'Porto', 'Agueda', 'Coimbra', 'Leiria', 'Santarem', 'Evora', 'Beja', 'Faro']
+open= 159 solution= 1 skipped= 0 closed= 85
+Solution node data: ('Beja', 'Faro') 8 706 0
+Admissible: True
+
+
+(A*,inflated) ['Braga', 'Porto', 'Agueda', 'Coimbra', 'Leiria', 'Santarem', 'Evora', 'Beja', 'Faro']
+open= 102 solution= 1 skipped= 0 closed= 53
+Solution node data: ('Beja', 'Faro') 8 706 0
+Admissible: False
+
+
+
+heuristic= 6
+(breadth) open= 3369 solution= 1 skipped= 0 closed= 3091
+[Putdown(e), Unstack(c,d), Putdown(c), Pickup(d), Stack(d,c), Pickup(e), Stack(e,d), Pickup(a), Stack(a,e)] 9
+Admissible: True
+(A*) open= 77 solution= 1 skipped= 0 closed= 43
+[Putdown(e), Unstack(c,d), Putdown(c), Pickup(d), Stack(d,c), Pickup(e), Stack(e,d), Pickup(a), Stack(a,e)] 9
+Admissible: True
+
+heuristic= 10
+(A*) open= 139 solution= 1 skipped= 0 closed= 79
+[Putdown(e), Unstack(g,f), Stack(g,b), Unstack(f,c), Stack(f,g), Unstack(c,d), Putdown(c), Pickup(d), Stack(d,c), Pickup(e), Stack(e,d), Pickup(a), Stack(a,e)] 13
+Admissible: True
+
+heuristic= 6
+(A*) open= 112 solution= 1 skipped= 0 closed= 46
+[Putdown(e), Unstack(h,g), Stack(h,a), Unstack(g,f), Stack(g,b), Unstack(f,c), Stack(f,g), Unstack(c,d)] 8
+Admissible: True
+
+heuristic= 6
+(A*) open= 360 solution= 1 skipped= 0 closed= 125
+[Putdown(e), Unstack(h,g), Stack(h,a), Unstack(g,f), Stack(g,h), Unstack(f,c), Stack(f,g), Unstack(c,d)] 8
+Admissible: True

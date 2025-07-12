@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdint.h": "c",
+        "thread.h": "c",
+        "fifo.h": "c",
+        "wait.h": "c"
+    }
+}

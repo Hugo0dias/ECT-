@@ -1,0 +1,174 @@
+\hypertarget{group__DbC}{}\doxysection{DbC}
+\label{group__DbC}\index{DbC@{DbC}}
+
+
+Design-\/by-\/\+Contract module.  
+
+
+\doxysubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \mbox{\hyperlink{dbc_8h}{dbc.\+h}}
+\begin{DoxyCompactList}\small\item\em Design-\/by-\/\+Contract module. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__DbC_gac101c8ba449f6f8c71b3789a9c489221}{check}}(condition,  message)
+\begin{DoxyCompactList}\small\item\em Checks the verification of an general algorithm assertion. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__DbC_ga5bf1825f80465097d4b753a001cf1af8}{require}}(condition,  message)
+\begin{DoxyCompactList}\small\item\em Checks the verification of a precondition. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__DbC_ga5d17c602c4f191371a5fec5af7adc3cf}{ensure}}(condition,  message)
+\begin{DoxyCompactList}\small\item\em Checks the verification of a postcondition. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__DbC_gaf9d59b04beef1bf139e10fc44c6f9725}{invariant}}(condition,  message)
+\begin{DoxyCompactList}\small\item\em Checks the verification of an invariant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Design-\/by-\/\+Contract module. 
+
+This module gives a better support for DbC in C++.
+
+When compared with {\ttfamily assert.\+h} this module offers the following functionalities\+:
+\begin{DoxyItemize}
+\item separates different assertion types (preconditions, postconditions, invariants, and others);
+\item augments assert with error message strings;
+\item implements two error handling policies\+:
+\begin{DoxyEnumerate}
+\item EXIT\+\_\+\+POLICY (default)\+: describes the failed assertion in {\ttfamily stderr} (with the identification and the precise location of the assertion), generates a segmentation fault (enabling a stack trace within a debugger like {\ttfamily gdb}), and exits program execution;
+\item EXCEPTION\+\_\+\+POLICY\+: throws a {\ttfamily char$\ast$} exception with the description of the failed assertion.
+\end{DoxyEnumerate}
+\end{DoxyItemize}
+
+Debug settings\+:
+\begin{DoxyItemize}
+\item As happens with {\ttfamily assert.\+h}, this module accepts {\bfseries{{\ttfamily NDEBUG}}} macro definition to disable all assertion run-\/time verification.
+\item Also, each assertion type verification can be disabled with macros\+: {\bfseries{{\ttfamily NDEBUG\+\_\+\+CHECKS}}}, {\bfseries{{\ttfamily NDEBUG\+\_\+\+PRECONDITIONS}}}, {\bfseries{{\ttfamily NDEBUG\+\_\+\+POSTCONDITIONS}}}, and {\bfseries{{\ttfamily NDEBUG\+\_\+\+INVARIANTS}}}.
+\item A special (high priority) macro named {\bfseries{{\ttfamily DEBUG\+\_\+\+ONLY\+\_\+\+PRECONDITIONS}}} ensures that only precondition debugging remains active (regardless of other debug definitions).
+\end{DoxyItemize}
+
+\begin{DoxyAuthor}{Author}
+Miguel Oliveira e Silva, 2018 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{group__DbC_gac101c8ba449f6f8c71b3789a9c489221}\label{group__DbC_gac101c8ba449f6f8c71b3789a9c489221}} 
+\index{DbC@{DbC}!check@{check}}
+\index{check@{check}!DbC@{DbC}}
+\doxysubsubsection{\texorpdfstring{check}{check}}
+{\footnotesize\ttfamily \#define check(\begin{DoxyParamCaption}\item[{}]{condition,  }\item[{}]{message }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{   \textcolor{keywordflow}{if} (!(condition)) \(\backslash\)}
+\DoxyCodeLine{      do \{ \(\backslash\)}
+\DoxyCodeLine{         fprintf (stderr, \textcolor{stringliteral}{"{}Assertion fail\%s\%s, assertion: \(\backslash\)"{}\%s\(\backslash\)"{}, function: \(\backslash\)"{}\%s\(\backslash\)"{}:\%d, file: \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}}, \(\backslash\)}
+\DoxyCodeLine{                  message[0] ? \textcolor{stringliteral}{"{}: "{}} : \textcolor{stringliteral}{"{}"{}}, message, \#condition, \_\_FUNCTION\_\_, \_\_LINE\_\_ , \_\_FILE\_\_); \(\backslash\)}
+\DoxyCodeLine{         *((\textcolor{keywordtype}{int}*)0) = 0; \(\backslash\)}
+\DoxyCodeLine{         abort (); \(\backslash\)}
+\DoxyCodeLine{      \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+
+
+Checks the verification of an general algorithm assertion. 
+
+This assertion verification can be disabled at compile time by defining the macro {\bfseries{{\ttfamily NDEBUG\+\_\+\+CHECKS}}}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em condition} & expression to assert its truthness \\
+\hline
+\mbox{\texttt{ in}}  & {\em message} & text to be presented with error information when the assertion fails \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__DbC_ga5d17c602c4f191371a5fec5af7adc3cf}\label{group__DbC_ga5d17c602c4f191371a5fec5af7adc3cf}} 
+\index{DbC@{DbC}!ensure@{ensure}}
+\index{ensure@{ensure}!DbC@{DbC}}
+\doxysubsubsection{\texorpdfstring{ensure}{ensure}}
+{\footnotesize\ttfamily \#define ensure(\begin{DoxyParamCaption}\item[{}]{condition,  }\item[{}]{message }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{   \textcolor{keywordflow}{if} (!(condition)) \(\backslash\)}
+\DoxyCodeLine{      do \{ \(\backslash\)}
+\DoxyCodeLine{         fprintf (stderr, \textcolor{stringliteral}{"{}Postcondition fail\%s\%s, assertion: \(\backslash\)"{}\%s\(\backslash\)"{}, function: \(\backslash\)"{}\%s\(\backslash\)"{}:\%d, file: \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}}, \(\backslash\)}
+\DoxyCodeLine{                  message[0] ? \textcolor{stringliteral}{"{}: "{}} : \textcolor{stringliteral}{"{}"{}}, message, \#condition, \_\_FUNCTION\_\_, \_\_LINE\_\_ , \_\_FILE\_\_); \(\backslash\)}
+\DoxyCodeLine{         *((\textcolor{keywordtype}{int}*)0) = 0; \(\backslash\)}
+\DoxyCodeLine{         abort (); \(\backslash\)}
+\DoxyCodeLine{      \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+
+
+Checks the verification of a postcondition. 
+
+This assertion verification can be disabled at compile time by defining the macro {\bfseries{{\ttfamily NDEBUG\+\_\+\+POSTCONDITIONS}}}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em condition} & expression to assert its truthness \\
+\hline
+\mbox{\texttt{ in}}  & {\em message} & text to be presented with error information when the assertion fails \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__DbC_gaf9d59b04beef1bf139e10fc44c6f9725}\label{group__DbC_gaf9d59b04beef1bf139e10fc44c6f9725}} 
+\index{DbC@{DbC}!invariant@{invariant}}
+\index{invariant@{invariant}!DbC@{DbC}}
+\doxysubsubsection{\texorpdfstring{invariant}{invariant}}
+{\footnotesize\ttfamily \#define invariant(\begin{DoxyParamCaption}\item[{}]{condition,  }\item[{}]{message }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{   \textcolor{keywordflow}{if} (!(condition)) \(\backslash\)}
+\DoxyCodeLine{      do \{ \(\backslash\)}
+\DoxyCodeLine{         fprintf (stderr, \textcolor{stringliteral}{"{}Invariant fail\%s\%s, assertion: \(\backslash\)"{}\%s\(\backslash\)"{}, function: \(\backslash\)"{}\%s\(\backslash\)"{}:\%d, file: \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}}, \(\backslash\)}
+\DoxyCodeLine{                  message[0] ? \textcolor{stringliteral}{"{}: "{}} : \textcolor{stringliteral}{"{}"{}}, message, \#condition, \_\_FUNCTION\_\_, \_\_LINE\_\_ , \_\_FILE\_\_); \(\backslash\)}
+\DoxyCodeLine{         *((\textcolor{keywordtype}{int}*)0) = 0; \(\backslash\)}
+\DoxyCodeLine{         abort (); \(\backslash\)}
+\DoxyCodeLine{      \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+
+
+Checks the verification of an invariant. 
+
+This assertion verification can be disabled at compile time by defining the macro {\bfseries{{\ttfamily NDEBUG\+\_\+\+INVARIANTS}}}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em condition} & expression to assert its truthness \\
+\hline
+\mbox{\texttt{ in}}  & {\em message} & text to be presented with error information when the assertion fails \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{group__DbC_ga5bf1825f80465097d4b753a001cf1af8}\label{group__DbC_ga5bf1825f80465097d4b753a001cf1af8}} 
+\index{DbC@{DbC}!require@{require}}
+\index{require@{require}!DbC@{DbC}}
+\doxysubsubsection{\texorpdfstring{require}{require}}
+{\footnotesize\ttfamily \#define require(\begin{DoxyParamCaption}\item[{}]{condition,  }\item[{}]{message }\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{   \textcolor{keywordflow}{if} (!(condition)) \(\backslash\)}
+\DoxyCodeLine{      do \{ \(\backslash\)}
+\DoxyCodeLine{         fprintf (stderr, \textcolor{stringliteral}{"{}Precondition fail\%s\%s, assertion: \(\backslash\)"{}\%s\(\backslash\)"{}, function: \(\backslash\)"{}\%s\(\backslash\)"{}:\%d, file: \(\backslash\)"{}\%s\(\backslash\)"{}\(\backslash\)n"{}}, \(\backslash\)}
+\DoxyCodeLine{                  message[0] ? \textcolor{stringliteral}{"{}: "{}} : \textcolor{stringliteral}{"{}"{}}, message, \#condition, \_\_FUNCTION\_\_, \_\_LINE\_\_ , \_\_FILE\_\_); \(\backslash\)}
+\DoxyCodeLine{         *((\textcolor{keywordtype}{int}*)0) = 0; \(\backslash\)}
+\DoxyCodeLine{         abort (); \(\backslash\)}
+\DoxyCodeLine{      \} \textcolor{keywordflow}{while} (0)}
+
+\end{DoxyCode}
+
+
+Checks the verification of a precondition. 
+
+This assertion verification can be disabled at compile time by defining the macro {\bfseries{{\ttfamily NDEBUG\+\_\+\+PRECONDITIONS}}}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em condition} & expression to assert its truthness \\
+\hline
+\mbox{\texttt{ in}}  & {\em message} & text to be presented with error information when the assertion fails \\
+\hline
+\end{DoxyParams}
