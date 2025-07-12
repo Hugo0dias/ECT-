@@ -1,0 +1,10 @@
+image test is load from "analysis.pgm"
+number width is columns of test
+number height is rows of test
+number pixel_count is count pixel 255 in test
+
+boolean has_white is any pixel test .== 255
+boolean all_black is all pixel test .<= 50
+
+output "Image dimensions: " + string(width) + "x" + string(height)
+output "White pixels: " + string(pixel_count)

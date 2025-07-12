@@ -1,0 +1,10 @@
+image i is load from "test.pgm"
+
+// ERRO: Operações morphológicas em cadeia mal formadas
+number wrong1 is (i open by k) + 5    // ERRO: resultado de operação morphológica é image
+string wrong2 is i erode by k          // ERRO: atribuição de image a string
+
+// ERRO: Kernels inválidos
+image result1 is i dilate by "kernel"  // ERRO: kernel deve ser image
+image result2 is i close by true       // ERRO: kernel deve ser image
+image result3 is i open by 0          // ERRO: kernel deve ser image

@@ -1,0 +1,11 @@
+number a is 10
+number b is 20
+boolean result1 is a < b
+boolean result2 is a == 10 and b > 15
+boolean result3 is not (a > b or b < 5)
+
+string text is "Value: " + string(a)
+number sum is a + b * 2
+number diff is (a - b) / 2
+
+// DONE. PASSED TESTS

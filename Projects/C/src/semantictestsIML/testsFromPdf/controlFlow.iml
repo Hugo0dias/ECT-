@@ -1,0 +1,25 @@
+number counter is 0
+boolean finish is false
+list of number values is [1, 2, 3, 4, 5]
+
+if counter < 10 then
+    counter is counter + 1
+    output "Counter incremented"
+done
+
+for number val within values do
+    output val
+    if val > 3 then
+        output "Value is greater than 3"
+    done
+done
+
+until finish do
+    counter is counter + 1
+    if counter >= 10 then
+        finish is true
+    done
+    output counter
+done
+
+// DONE. PASSED TESTS

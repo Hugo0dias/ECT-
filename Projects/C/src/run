@@ -1,0 +1,21 @@
+#!/bin/bash
+# Executa o ficheiro gerado pelo script compile
+
+CLASSPATH=".:lib/ij.jar:/usr/local/lib/antlr-4.13.2-complete.jar"
+
+if [ $# -eq 0 ]; then
+    echo "Usage: ./run <generated_file>"
+    exit 1
+fi
+
+JAVA_FILE="$1"
+CLASS_NAME=$(basename "$JAVA_FILE" .java)
+
+javac -cp "$CLASSPATH" "$JAVA_FILE"
+
+if [ $? -eq 0 ]; then
+    java "$CLASS_NAME"
+else
+    echo "Execution failed"
+    exit 1
+fi

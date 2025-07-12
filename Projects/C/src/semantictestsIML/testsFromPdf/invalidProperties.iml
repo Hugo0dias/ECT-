@@ -1,0 +1,9 @@
+number x is 10
+string text is "hello"
+list of number nums is [1, 2, 3]
+
+// Wrong property access
+number bad1 is columns of x  // Error : columns property can only be used with images
+number bad2 is rows of text  // Error : rows property can only be used with images
+number bad3 is length of x  // Error : Length property can only be used with lists or strings
+number bad4 is columns of nums  // Error : columns property can only be used with images

@@ -1,0 +1,3 @@
+// Test: Place figure without image declaration
+number r is 50
+place circle radius r at 100 100 with intensity 255

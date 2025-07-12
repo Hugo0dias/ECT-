@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan Details</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/WorkoutPlanDetails.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="../css/language-dropdown.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <style>
+    .go-back-container {
+      margin-top: 50px;
+      margin-right: 50px;
+      margin-left: 50px;
+    }
+
+    .go-back-btn {
+      background-color: #468201;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .go-back-btn:hover {
+      background-color: #356601;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <nav class="nav">
+        <a href="index.html" id="logo">
+          <img src="../images/Logo.png" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+        <a href="./RecordPlans.html" class="nav-link">Record Plans</a>
+        <a href="./WorkoutPlans.html" class="nav-link">Workout Plans</a>
+        <a href="./Exercises.html" class="nav-link">List Of Exercises</a>
+        <a href="./Favourites.html" class="nav-link">Favourites</a>
+        
+        <div class="language-dropdown">
+          <a href="../#" class="nav-link language">Language</a>
+          <div class="dropdown-content">
+            <a href="#" class="language-option" data-lang="pt">
+              <img src="../images/portugal.png" alt="Português" class="flag-icon"> Português
+            </a>
+            <a href="#" class="language-option" data-lang="en">
+              <img src="../images/united-kingdom.png" alt="English" class="flag-icon"> English
+            </a>
+          </div>
+        </div>
+        
+        <a href="../myProfile.html" id="profile">
+          <img src="../images/profilings.jpg" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+      </nav>                       
+    </div>
+
+    <div class="main-area">
+      <div class="go-back-container">
+        <button onclick="goBack()" class="go-back-btn">
+          &#8592; <!-- Left-pointing arrow -->
+        </button>
+        <div class="title-container">
+          <h1 id="plan-title">Workout Plan</h1>
+          <button id="save-button" onclick="saveWorkoutPlan()" style="display:none;">Save</button>
+        </div>
+      </div>
+      <div id="exercise-details-container" class="exercise-details-container">
+        <!-- Exercise details will be dynamically added here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "WorkoutPlans.html";
+    }
+
+    function loadWorkoutPlanDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const index = urlParams.get('index');
+      const isEditMode = urlParams.get('edit') === 'true';
+
+      const workoutPlans = JSON.parse(localStorage.getItem('workoutPlans')) || [];
+      const plan = workoutPlans[index];
+
+      if (!plan) {
+        document.getElementById('plan-title').innerText = 'Workout Plan Not Found';
+        return;
+      }
+
+      document.getElementById('plan-title').innerText = plan.title;
+
+      const container = document.getElementById('exercise-details-container');
+      container.innerHTML = '';
+      plan.exercises.forEach((exercise, i) => {
+        const exerciseDiv = document.createElement('div');
+        exerciseDiv.className = 'exercise-detail';
+        if (isEditMode) {
+          exerciseDiv.innerHTML = `
+            <div class="exercise-image" style="display: flex; flex-direction: column; align-items: center;">
+              <h3 class="exercise-title-above">${exercise.name}</h3>
+              <img src="${exercise.img}" alt="${exercise.name}">
+            </div>
+            <div class="exercise-info">
+              <div class="exercise-details edit-mode">
+                <ul>
+                  <li><strong>Sets:</strong> <span class="sets"><input type="number" value="${exercise.sets}" class="edit-input" id="edit-sets-${i}"></span></li>
+                  <li><strong>Reps:</strong> <span class="reps"><input type="number" value="${exercise.reps}" class="edit-input" id="edit-reps-${i}"></span></li>
+                  <li>
+                    <strong>Weight${exercise.weight ? ' (kg)' : ''}:</strong>
+                    <span class="weight">
+                      <input type="number" value="${exercise.weight ? exercise.weight : ''}" class="edit-input" id="edit-weight-${i}">
+                    </span>
+                  </li>
+                  <li>
+                    <strong>Rest Time${exercise.rest ? ' (min)' : ''}:</strong>
+                    <span class="rest">
+                      <input type="number" value="${exercise.rest ? exercise.rest : ''}" class="edit-input" id="edit-rest-${i}" step="0.1">
+                    </span>
+                  </li>
+                </ul>
+              </div>
+              <div class="exercise-notes edit-mode">
+                <h4>Notes</h4>
+                <textarea class="edit-input notes-input" id="edit-notes-${i}" placeholder="No Notes Provided">${exercise.notes || ''}</textarea>
+              </div>
+            </div>
+          `;
+        } else {
+          exerciseDiv.innerHTML = `
+            <div class="exercise-image">
+              <img src="${exercise.img}" alt="${exercise.name}">
+            </div>
+            <div class="exercise-info">
+              <div class="exercise-details view-mode">
+                <h3>${exercise.name}</h3>
+                <ul>
+                  <li><strong>Sets:</strong> <span class="sets">${exercise.sets}</span></li>
+                  <li><strong>Reps:</strong> <span class="reps">${exercise.reps}</span></li>
+                  <li><strong>Weight (kg):</strong> <span class="weight">${exercise.weight}</span></li>
+                  <li><strong>Rest Time (min):</strong> <span class="rest">${exercise.rest}</span></li>
+                </ul>
+              </div>
+              <div class="exercise-notes">
+                <h4>Notes</h4>
+                <p class="notes">${exercise.notes || 'No notes provided.'}</p>
+              </div>
+            </div>
+          `;
+        }
+        container.appendChild(exerciseDiv);
+      });
+
+      // Show/hide Save button
+      document.getElementById('save-button').style.display = isEditMode ? 'inline-block' : 'none';
+    }
+
+    function saveWorkoutPlan() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const index = urlParams.get('index');
+      const workoutPlans = JSON.parse(localStorage.getItem('workoutPlans')) || [];
+      const plan = workoutPlans[index];
+
+      const exerciseDetailsContainer = document.getElementById('exercise-details-container');
+      const exerciseDetails = exerciseDetailsContainer.querySelectorAll('.exercise-detail');
+      exerciseDetails.forEach((exerciseDetail, i) => {
+        const sets = document.getElementById(`edit-sets-${i}`).value;
+        const reps = document.getElementById(`edit-reps-${i}`).value;
+        const weight = document.getElementById(`edit-weight-${i}`).value;
+        const rest = document.getElementById(`edit-rest-${i}`).value;
+        const notes = document.getElementById(`edit-notes-${i}`).value;
+
+        plan.exercises[i].sets = sets;
+        plan.exercises[i].reps = reps;
+        plan.exercises[i].weight = weight;
+        plan.exercises[i].rest = rest;
+        plan.exercises[i].notes = notes;
+      });
+
+      workoutPlans[index] = plan;
+      localStorage.setItem('workoutPlans', JSON.stringify(workoutPlans));
+      // Optionally, redirect to view mode after saving:
+      window.location.href = `WorkoutPlansDetails.html?index=${index}`;
+    }
+
+    window.onload = loadWorkoutPlanDetails;
+  </script>
+  <script src="../js/language-dropdown.js"></script>
+
+</body>
+</html>

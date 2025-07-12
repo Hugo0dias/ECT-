@@ -1,0 +1,5 @@
+// Test: Valid IIML program
+number s is 100
+image size s by s background 0
+number r is 20
+place circle radius r at s/2 s/2 with intensity 255

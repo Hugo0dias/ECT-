@@ -1,0 +1,4 @@
+// Test: Undeclared variable usage
+number x is y + 5   // This line uses 'y' without declaring it first
+image size 100 by 100 background 0
+place circle radius x at 50 50 with intensity 255

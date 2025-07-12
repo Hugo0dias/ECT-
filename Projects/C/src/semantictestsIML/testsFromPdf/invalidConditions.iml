@@ -1,0 +1,11 @@
+number x is 10
+string text is "hello"
+
+// Non-boolean conditions
+if x then
+    output "This should fail"  // Error : If condition must be boolean, got number
+done
+
+until text do
+    output "This should also fail"  // Error : Until condition must be boolean, got String
+done

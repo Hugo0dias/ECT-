@@ -1,0 +1,11 @@
+image i is load from "test.pgm"
+
+// ERRO: Operações morphológicas com tipos errados
+image result1 is i erode by 5          // ERRO: kernel deve ser imagem, não number
+image result2 is 10 dilate by i        // ERRO: primeiro operando deve ser imagem
+string text is i open by i             // ERRO: resultado morphológico é imagem
+
+// ERRO: Operações pixel-wise inválidas
+number n1 is 5
+number n2 is 10
+image wrong is n1 .+ n2                // ERRO: .+ é para imagens, não numbers

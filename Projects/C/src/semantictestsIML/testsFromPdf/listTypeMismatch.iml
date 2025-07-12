@@ -1,0 +1,4 @@
+// List element type mismatches
+list of number nums is ["string", true]  // Error : List contains elements of different types
+list of string texts is [1, 2, 3]  // Error : List contains elements of different types
+list of boolean flags is [1, "text", true]  // Error : List contains elements of different types

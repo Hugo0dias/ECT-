@@ -1,0 +1,11 @@
+// ERRO: Listas com tipos mistos
+list of number mixed is [1, "two", 3]         // ERRO: string em lista de numbers
+list of image imgs is [img1, 42, img2]        // ERRO: number em lista de images
+
+// ERRO: Operações de lista com tipos incompatíveis
+list of number nums is [1, 2, 3]
+nums append "text"                             // ERRO: string em lista de numbers
+
+// ERRO: Indexação com tipo errado
+number value is nums["invalid"]                // ERRO: índice deve ser number
+image img is nums[0]                           // ERRO: elemento é number, não image

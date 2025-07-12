@@ -1,0 +1,6 @@
+// Test: Using reserved keywords as variable names
+number image is 10
+number place is 20
+number circle is image + place
+image size 100 by 100 background 0
+place circle radius circle at 50 50 with intensity 255

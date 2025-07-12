@@ -1,0 +1,169 @@
+# IIML Semantic Checker
+
+A comprehensive semantic analysis tool for the **Interactive Image Manipulation Language (IIML)**.
+
+## Project Context
+
+This semantic checker is part of the larger **IML (Image Manipulation Language)** compiler project and is located within the `src/iiml-semantic-check/` directory. It specifically focuses on analyzing IIML programs, integrating with the main compiler infrastructure in the parent `src/` directory and testing real IIML example programs from `../../examples/`.
+
+## Project Structure
+
+This semantic checker is organized to use source files from the parent `src` directory, avoiding code duplication:
+
+```
+src/iiml-semantic-check/
+├── build.sh              # Build script (compiles from parent src/)
+├── run_tests.sh          # Automated test runner with auto-build
+├── READ.ME               # This documentation
+└── tests/                # Test cases for IIML programs
+    ├── test-01-undeclared-variable.iiml
+    ├── test-02-variable-redeclaration.iiml
+    ├── ...        
+    ├── test-17-example-des-iiml-01.iiml    # Real IIML examples
+    ├── test-18-example-min-iiml-01.iiml    # from ../../examples/
+    └── test-19-example-min-iiml-02.iiml
+```
+
+**Note**: Generated directories (`classes/`, ANTLR files) are created during build and automatically cleaned up with the `--clean` flag.
+
+## Quick Start
+
+### One-Command Testing (Recommended)
+```bash
+./run_tests.sh --clean
+```
+
+This command will:
+- **Auto-builds if needed** (detects missing compiled classes)
+- Generates ANTLR files from `../GrammarIIML.g4`  
+- Compiles all source files from parent `src/` directory
+- Runs the complete test suite (**18 tests including real IIML examples**)
+- **Automatically cleans up** all generated files and directories
+- Leaves the workspace exactly as you found it
+
+### Alternative Commands
+
+#### Clean Build & Test
+```bash
+./build.sh --clean
+```
+
+#### Build Only
+```bash
+./build.sh
+```
+
+#### Test Only (auto-builds if needed)
+```bash
+./run_tests.sh
+```
+
+## Enhanced Features
+
+### Core Semantic Analysis
+- **Variable Declaration & Usage**: Validates number and list variable declarations with proper type checking
+- **Type Compatibility**: Ensures type safety for assignments and arithmetic operations  
+- **Scope Management**: Proper variable scoping for for-loops and nested contexts
+- **List Validation**: Uses `ListType.hasUniformType()` for list type checking
+- **Image & Figure Rules**: Validates image declarations and figure placement requirements
+- **Figure Type Integration**: Uses Figure class instances (CircleFigure, RectangleFigure, etc.) for validation
+
+### Quality of Life Features
+- **Style Warnings**: Detects confusing variable names similar to reserved keywords
+- **Unused Variable Detection**: Identifies declared but unused variables
+- **Positive Value Validation**: Warns about negative dimensions in geometric figures
+- **Comprehensive Error Reporting**: Clear error messages with line numbers and context
+- **Analysis Summary**: Detailed statistics about variables, usage, and program structure
+
+### Build System Enhancements
+- **Auto-Build Detection**: Test runner automatically builds if classes are missing
+- **Intelligent Cleanup**: Removes all generated files while preserving source code
+- **Real Example Integration**: Tests include actual IIML examples from the project
+- **Proper ANTLR Integration**: Uses system `antlr4` command for reliable file generation
+
+## Test Coverage
+
+Our test suite includes **18 tests** with 100% success rate:
+
+### Error Detection Tests (8 tests)
+- Undeclared variable usage
+- Variable redeclaration  
+- Type mismatches
+- Invalid list operations
+- Invalid for-loop constructs
+- Missing image declarations
+- Invalid arithmetic operations
+- Non-uniform list types
+
+### Valid Program Tests (7 tests)
+- Basic valid programs
+- Complex valid constructs
+- Style warning detection
+- Unused variable detection
+- Multiple confusing names
+- Assignment operations
+- Negative dimension warnings
+
+### Real IIML Example Tests (3 tests)
+- **des-iiml-01.iiml**: Complex example with list of lists and for loops
+- **min-iiml-01.iiml**: Simple image with rectangle placement
+- **min-iiml-02.iiml**: Interactive example with user input and variables
+
+These example tests validate the semantic checker against real-world IIML programs from the `../../examples/` directory.
+
+## IIML Language Support
+
+The semantic checker supports the following IIML constructs:
+
+- **Variable Declarations**: `number x is 10`, `list of list of number centers is [[1,1], [3,3]]`
+- **Assignments**: `x is 20`
+- **Arithmetic**: `+`, `-`, `*`, `/` with proper type checking
+- **Lists**: List literals, element access, uniform type validation, nested lists
+- **Image Declaration**: `image size width by height background intensity`
+- **Figure Placement**: `place circle/rect/cross/plus/line ...`
+- **For Loops**: `for list item within listvar` with proper iterator scoping
+- **Type Conversion**: `number(expression)`
+- **Input**: `read "prompt"`
+
+## Usage Examples
+
+The test runner now auto-builds, so you can simply run tests directly. For manual testing:
+
+```bash
+# Run all tests with cleanup (recommended)
+./run_tests.sh --clean
+
+# Test specific IIML examples from the project
+java -cp "/usr/local/lib/antlr-4.13.2-complete.jar:classes" IIMLSemanticCheck ../../examples/des-iiml-01.iiml
+java -cp "/usr/local/lib/antlr-4.13.2-complete.jar:classes" IIMLSemanticCheck ../../examples/min-iiml-01.iiml
+java -cp "/usr/local/lib/antlr-4.13.2-complete.jar:classes" IIMLSemanticCheck ../../examples/min-iiml-02.iiml
+
+# Show help
+java -cp "/usr/local/lib/antlr-4.13.2-complete.jar:classes" IIMLSemanticCheck --help
+
+# Analyze specific test files
+java -cp "/usr/local/lib/antlr-4.13.2-complete.jar:classes" IIMLSemanticCheck tests/test-09-valid-program.iiml
+java -cp "/usr/local/lib/antlr-4.13.2-complete.jar:classes" IIMLSemanticCheck tests/test-17-example-des-iiml-01.iiml
+```
+
+## Implementation Notes
+
+### Architecture
+- Located in `src/iiml-semantic-check/` within the main project structure
+- Uses source files from parent `src/` directory (no code duplication)
+- Extends `GrammarIIMLBaseVisitor<Boolean>` for AST traversal
+- Uses visitor pattern for semantic analysis
+- Integrates with existing `ErrorHandling`, `NumberType`, `ListType`, and `Figure` classes
+
+### Enhanced Integrations
+- **Figure Type Validation**: Uses actual `Figure` class instances with a static map of valid figures
+- **List Type Checking**: Leverages `ListType.hasUniformType()` for validation
+- **Error Context**: All messages include precise line numbers and specific contexts
+- **Real Example Testing**: Validates against actual IIML programs from the project
+
+### File Organization
+- **Source files**: Parent `src/` directory
+- **Generated files**: Temporary directories created during build
+- **Test files**: Local `tests/` directory (includes real examples)
+- **Example files**: `../../examples/` directory  
+- **Clean workspace**: All generated files removed with `--clean` flag

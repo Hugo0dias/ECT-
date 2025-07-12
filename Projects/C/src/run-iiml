@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <iiml-source-file>"
+    exit 1
+fi
+
+echo "Executing IIML program: $1"
+java -cp "src:lib/ij.jar:$CLASSPATH" GrammarIIMLMain "$1"

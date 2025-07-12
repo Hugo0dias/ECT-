@@ -1,0 +1,12 @@
+image photo is load from "photo.pgm"
+string text is "Hello World"
+list of number nums is [1, 2, 3, 4, 5]
+
+number img_width is columns of photo
+number img_height is rows of photo
+number text_length is length of text
+number list_length is length of nums
+
+output "Image: " + string(img_width) + " x " + string(img_height)
+output "Text length: " + string(text_length)
+output "List length: " + string(list_length)

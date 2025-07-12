@@ -1,0 +1,9 @@
+// ERRO: Conversões de tipo inválidas
+image i is load from "test.pgm"
+string s is string(i)                  // ERRO: imagem não pode ser convertida para string
+number n is number(i)                  // ERRO: imagem não pode ser convertida para number
+image j is image("text")               // ERRO: string não pode ser convertida para image
+
+// ERRO: Conversões com tipos incompatíveis
+boolean b is boolean("not_boolean")    // ERRO: string inválida para boolean
+percentage p is percentage("not percentage")        // ERRO: valor negativo pode ser inválido

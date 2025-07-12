@@ -1,0 +1,5 @@
+// Test: Type mismatch in arithmetic operations
+list of number nums is [1, 2, 3]
+number x is nums + 5        // This line should cause a type mismatch error
+image size 100 by 100 background 0
+place circle radius x at 50 50 with intensity 255

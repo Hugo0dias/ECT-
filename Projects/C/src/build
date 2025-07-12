@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo "Building IML Compiler Project..."
+
+CLASSPATH=".:lib/ij.jar:/usr/local/lib/antlr-4.13.2-complete.jar"
+
+
+# Verificar se as bibliotecas existem
+if [ ! -f "lib/ij.jar" ]; then
+    echo "Warning: lib/ij.jar not found - ImageJ functionality may not work"
+fi
+
+echo "Step 1: Compiling grammars with ANTLR4..."
+
+# Compilar gramática principal com visitor
+echo "  Processing GrammarIML.g4..."
+antlr4 -visitor GrammarIML.g4
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to compile GrammarIML.g4"
+    exit 1
+fi
+
+# Compilar gramática secundária com visitor
+echo "  Processing GrammarIIML.g4..."
+antlr4 -visitor GrammarIIML.g4
+if [ $? -ne 0 ]; then
+    echo "Error: Failed to compile GrammarIIML.g4"
+    exit 1
+fi
+
+echo "Step 2: Compiling Compiler Main Java class..."
+
+javac -cp "$CLASSPATH" GrammarIMLMain.java
+if [ $? -ne 0 ]; then
+    echo "Error: Java compilation failed"
+    exit 1
+fi
+
+javac -cp "$CLASSPATH" GrammarIIMLMain.java
+if [ $? -ne 0 ]; then
+    echo "Error: Java compilation failed"
+    exit 1
+fi
+
+echo "Build completed successfully!"

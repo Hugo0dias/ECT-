@@ -1,0 +1,9 @@
+number x is 10
+string s is "20"
+boolean b is boolean("true")
+percentage p is percentage("50%")
+
+x is 15
+s is "updated"
+
+// DONE. PASSED TESTS

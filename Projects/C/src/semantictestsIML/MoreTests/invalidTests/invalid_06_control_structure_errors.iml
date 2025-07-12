@@ -1,0 +1,24 @@
+image i is load from "test.pgm"
+
+// ERRO: Condição não booleana em if
+if i then                              // ERRO: imagem não é boolean
+    output "test"
+done
+
+if 42 then                             // ERRO: number não é boolean
+    draw i
+done
+
+// ERRO: Loop for com tipos incompatíveis
+for number x within "string" do        // ERRO: não pode iterar sobre string
+    output x
+done
+
+for image img within [1, 2, 3] do      // ERRO: lista de numbers, esperava images
+    draw img
+done
+
+// ERRO: Condição inválida em until
+until i do                             // ERRO: imagem não é boolean
+    output "looping"
+done

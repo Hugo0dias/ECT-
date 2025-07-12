@@ -1,0 +1,7 @@
+number x is 10
+string text is "hello"
+boolean flag is true
+
+// Morphological operations on non-images
+x is x erode by text // Error : Morphological operations require image as left operand
+text is text dilate by flag // Error : Morphological operations require image as left operand

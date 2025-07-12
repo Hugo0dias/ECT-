@@ -1,0 +1,13 @@
+// ERRO: Tipos incorretos em operações de I/O
+number n is load from "test.pgm"      // ERRO: load retorna image, não number
+string path is "output.pgm"
+number x is 48
+n store into path                     // ERRO: apenas images podem ser stored
+
+// ERRO: Paths inválidos
+image i is load from 123              // ERRO: path deve ser string
+image j is load from true             // ERRO: path deve ser string
+
+// ERRO: Tentativa de desenhar tipos incorretos
+draw 42                               // ERRO: apenas images podem ser desenhadas
+draw "text"                           // ERRO: string não pode ser desenhada

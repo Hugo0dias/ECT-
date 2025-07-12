@@ -1,0 +1,8 @@
+number x is 10
+string text is "hello"
+boolean flag is true
+
+// Image operations on non-images
+draw x // Error : Draw statement can only be used with image variables
+draw text // Error : Draw statement can only be used with image variables
+image result is x .+ 5 // Error : Pixel operations require at least one image operand

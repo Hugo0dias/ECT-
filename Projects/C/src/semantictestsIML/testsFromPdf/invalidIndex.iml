@@ -1,0 +1,5 @@
+list of number nums is [1, 2, 3, 4, 5]
+
+// Non-numeric index
+number element1 is nums["string"]  // Error : List index must be a number
+number element2 is nums[true]  // Error : List index must be a number

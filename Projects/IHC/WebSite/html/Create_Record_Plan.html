@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Plan</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/Create_Record_Plan.css">
+  <link rel="stylesheet" href="../css/language-dropdown.css" />
+
+</head>
+<body>
+  <div class="container">
+    <!-- Cabeçalho -->
+    <div class="header">
+      <nav class="nav">
+        <a href="index.html" id="logo">
+          <img src="../images/Logo.png" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+        <a href="./RecordPlans.html" class="nav-link">Record Plans</a>
+        <a href="./WorkoutPlans.html" class="nav-link">Workout Plans</a>
+        <a href="./Exercises.html" class="nav-link">List Of Exercises</a>
+        <a href="./Favourites.html" class="nav-link">Favourites</a>
+        
+        <div class="language-dropdown">
+          <a href="../#" class="nav-link language">Language</a>
+          <div class="dropdown-content">
+            <a href="#" class="language-option" data-lang="pt">
+              <img src="../images/portugal.png" alt="Português" class="flag-icon"> Português
+            </a>
+            <a href="#" class="language-option" data-lang="en">
+              <img src="../images/united-kingdom.png" alt="English" class="flag-icon"> English
+            </a>
+          </div>
+        </div>
+        
+        <a href="../myProfile.html" id="profile">
+          <img src="../images/profilings.jpg" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+      </nav>                       
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="main-area">
+      <div class="go-back-container">
+        <button onclick="goBack()" class="go-back-btn">
+          &#8592; <!-- Left-pointing arrow -->
+        </button>
+      </div>
+
+      <!-- Título da página e campo de inserção -->
+      <div class="content-box" style="text-align: center; margin-bottom: 10px;">
+        <h1 style="color: #468201; font-size: 2em; margin-bottom: 20px;">Create Your Record Plan</h1>
+        <input 
+          id="workout-title" 
+          type="text" 
+          placeholder="Insere o nome do plano de treino" 
+          style="font-size: 1.5em; padding: 15px; width: 80%; border-radius: 10px; border: 2px solid #468201; text-align: center;"
+        />
+      </div>
+
+      <!-- Lista de exercícios -->
+      <div id="exercise-container">
+        <div id="exercise-list" class="content-box"></div>
+      </div>
+
+      <!-- Botões de ação -->
+      <div style="display: flex; justify-content: center; gap: 20px; margin-top: 30px; margin-bottom: 30px;">
+        <button class="page-title-btn" onclick="redirectToExercises()">Add Exercise +</button>
+        <button class="page-title-btn" onclick="save()">Save Record Plan</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+
+  <script>
+    function displayExercises() {
+      // Clear the title from localStorage when creating a new record plan
+      const titleInput = document.getElementById('workout-title');
+      const urlParams = new URLSearchParams(window.location.search);
+      const isNewPlan = urlParams.get('new') === 'true';
+
+      if (isNewPlan) {
+        localStorage.removeItem('recordPlanTitle'); // Clear the saved title
+        titleInput.value = ''; // Reset the input field
+      } else {
+        // Restore the input value from localStorage
+        const savedTitle = localStorage.getItem('recordPlanTitle');
+        if (savedTitle) {
+          titleInput.value = savedTitle; // Restore the saved title
+        }
+      }
+
+      const list = document.getElementById('exercise-list');
+      list.innerHTML = ''; // Clear the list before recreating it
+
+      const savedExercises = JSON.parse(localStorage.getItem('selectedExercises')) || [];
+
+      savedExercises.forEach((exercise, index) => {
+        const div = document.createElement('div');
+        div.className = 'content-box';
+        div.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <img src="${exercise.img}" alt="${exercise.name}" style="width: 100px; height: auto; border-radius: 10px;">
+              <div>
+                <strong>${exercise.name}</strong><br>
+                <small>${exercise.type}</small>
+              </div>
+            </div>
+            <button onclick="removeExercise(${index})" style="background-color: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Remove</button>
+          </div>
+        `;
+        list.appendChild(div);
+      });
+
+      // Scroll to the last exercise after rendering
+      const exerciseDivs = list.querySelectorAll('.content-box');
+      if (exerciseDivs.length > 0) {
+        setTimeout(() => {
+          exerciseDivs[exerciseDivs.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+      }
+    }
+
+    function saveTitle() {
+      // Save the current value of the input field to localStorage
+      const titleInput = document.getElementById('workout-title');
+      localStorage.setItem('recordPlanTitle', titleInput.value);
+    }
+
+    function removeExercise(index) {
+      const savedExercises = JSON.parse(localStorage.getItem('selectedExercises')) || [];
+      savedExercises.splice(index, 1); // Remove the exercise by index
+      localStorage.setItem('selectedExercises', JSON.stringify(savedExercises));
+      displayExercises(); // Update the list visually
+    }
+
+    function redirectToExercises() {
+      // Save the title before redirecting
+      saveTitle();
+      // Redirect to Exercises.html with a query parameter
+      window.location.href = "Exercises.html?from=createRecordPlan";
+    }
+
+    function save() {
+      const title = document.getElementById('workout-title').value.trim();
+      if (!title) {
+        alert('Please enter a title for your workout plan.');
+        return;
+      }
+
+      const recordPlans = JSON.parse(localStorage.getItem('recordPlans')) || [];
+
+      // Check if a record plan with the same title already exists
+      const isDuplicate = recordPlans.some(plan => plan.title.toLowerCase() === title.toLowerCase());
+      if (isDuplicate) {
+        alert('A record plan with this title already exists. Please choose a different title.');
+        return;
+      }
+
+      const savedExercises = JSON.parse(localStorage.getItem('selectedExercises')) || [];
+      if (savedExercises.length === 0) {
+        alert('Please add at least one exercise to your workout plan.');
+        return;
+      }
+
+      // Add the new record plan
+      recordPlans.push({ title, exercises: savedExercises });
+      localStorage.setItem('recordPlans', JSON.stringify(recordPlans));
+
+      localStorage.removeItem('selectedExercises'); // Clear selected exercises
+      window.location.href = "RecordPlans.html"; // Redirect to Record Plans page
+    }
+
+    function redirectToCreateRecordPlan() {
+      window.location.href = "Create_Record_Plan.html?new=true";
+    }
+
+    window.onload = displayExercises;
+  </script>
+  <script src="../js/language-dropdown.js"></script>
+</body>
+</html>

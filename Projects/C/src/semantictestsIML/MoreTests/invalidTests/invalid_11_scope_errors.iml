@@ -1,0 +1,14 @@
+// ERRO: Variáveis fora de escopo
+for number i within [1, 2, 3] do
+    number temp is i * 2
+done
+output temp                            // ERRO: temp fora de escopo
+
+if true then
+    string msg is "hello"
+else
+    output msg                         // ERRO: msg não definida neste ramo
+done
+
+// ERRO: Acesso a variável de loop fora do loop
+output i                               // ERRO: i (do loop anterior) fora de escopo

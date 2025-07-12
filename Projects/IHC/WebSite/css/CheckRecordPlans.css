@@ -1,0 +1,331 @@
+.container {
+  max-width: 1500px;
+  margin: 40px auto; 
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+.page-title {
+  font-size: 2.5em;
+  color: #000000;
+  margin-left: 90px;
+  text-decoration: underline; /* Add an underline to the title */
+}
+
+/* Exercise Grid */
+.exercise-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* Make each card occupy the full width */
+  gap: 30px; /* Add spacing between cards */
+  flex-grow: 1; /* Allow the grid to grow and fill available space */
+  margin-bottom: 40px;
+}
+
+/* Exercise Card */
+.exercise-card {
+  margin-left: 60px;
+  margin-right: 60px;
+  width: 1000px;
+  display: flex; /* Use flexbox to align items horizontally */
+  flex-direction: row; /* Align content in a row */
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding-bottom: 30px;
+  padding-top: 20px ;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: auto; /* Adjust height dynamically */
+  gap: 40px; /* Add more space between the image and graph */
+  width: 92%; /* Ensure the card takes the full width */
+}
+
+.exercise-card h2 {
+  font-size: 1.5em;
+  color: #468201;
+  margin-bottom: 15px;
+}
+
+.exercise-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Exercise Info */
+.exercise-info {
+  flex: 1; /* Allow the image section to take up space */
+  text-align: center; /* Center-align the exercise info */
+  word-wrap: break-word; /* Ensure long titles wrap to the next line */
+  overflow-wrap: break-word; /* Handle word wrapping for long titles */
+  padding: 10px; /* Add padding to prevent overflow */
+}
+
+.exercise-info h2 {
+  font-size: 1.5em; /* Adjust font size for better fit */
+  color: #468201;
+  margin-bottom: 10px;
+  word-wrap: break-word; /* Ensure long titles wrap */
+  overflow-wrap: break-word; /* Handle word wrapping */
+  max-width: 100%; /* Ensure the title doesn't exceed the container width */
+}
+
+.exercise-info img {
+  max-width: 250px; /* Increase the size of the image */
+  height: 250px;
+  border-radius: 8px;
+}
+
+/* Graph Container */
+.graph-container {
+  position: relative;
+  min-height: 300px;
+  flex: 1; /* Allow the graph section to take up more space */
+  text-align: center;
+  padding: 20px; /* Add padding around the graph */
+  position: relative; /* For positioning labels */
+  margin-right: 50px;
+}
+
+.graph-container img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.graph {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  height: 150px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.bar {
+  width: 15%;
+  background-color: #468201;
+  border-radius: 4px;
+  transition: height 0.3s ease;
+}
+
+.bar:hover {
+  background-color: #356601;
+}
+
+/* Line Graph */
+.line-graph {
+  display: block;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%; /* Make the graph take full width of the container */
+  max-width: 600px; /* Increase the maximum width */
+  height: 300px; /* Increase the height of the graph */
+  position: relative; /* Positioning context for the labels */
+}
+
+/* Grid Lines */
+.line-graph .grid-line {
+  stroke: #e0e0e0;
+  stroke-width: 1;
+}
+
+/* Line Graph Polyline */
+.line-graph polyline {
+  stroke: #468201;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3; /* Make the line thicker */
+  fill: none;
+}
+
+/* Line Graph Circles */
+.line-graph circle {
+  transition: fill 0.3s ease;
+  r: 6; /* Increase the size of the circles */
+  fill: #468201;
+}
+
+.line-graph circle:hover {
+  fill: #356601; /* Change color on hover */
+}
+
+/* Axis Labels */
+.graph-label {
+  position: absolute;
+  font-size: 1em; /* Slightly increase font size for better readability */
+  color: #666;
+}
+
+.graph-label.y-axis {
+  left: -30px; /* Bring closer to the graph */
+  top: 50%;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  text-align: center;
+  position:absolute;
+}
+
+.graph-label.x-axis {
+  bottom: -15px; /* Bring closer to the graph */
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+/* Progress Graphs */
+.progress-graphs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.progress-graphs .graph {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.progress-graphs .graph h3 {
+  font-size: 1.2em;
+  color: #468201;
+  margin-bottom: 15px;
+}
+
+.progress-graphs .graph img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Graph Menu */
+.graph-menu {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.graph-menu label {
+  font-size: 1em;
+  color: #666;
+}
+
+.graph-menu select {
+  padding: 5px 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Tooltip */
+.tooltip {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 0.9em;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  pointer-events: none; /* Prevent the tooltip from interfering with mouse events */
+  z-index: 10;
+}
+/* Container for the go-back button */
+.go-back-container {
+  display: flex;
+  justify-content: flex-start; /* Align the button to the left */
+  margin-bottom: 10px; /* Add spacing below the button */
+}
+
+/* Go-back button */
+.go-back-btn {
+  background-color: #468201; /* Green background */
+  color: white; /* White arrow */
+  border: none; /* Remove border */
+  width: 40px; /* Square size */
+  height: 40px; /* Square size */
+  border-radius: 5px; /* Slightly rounded corners */
+  font-size: 1.5em; /* Larger arrow */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex;
+  align-items: center; /* Center the arrow vertically */
+  justify-content: center; /* Center the arrow horizontally */
+}
+
+.go-back-btn:hover {
+  background-color: #356b01; /* Darker green on hover */
+}
+
+.weight-scale-container {
+  width: 60px;
+  float: left;
+  margin-right: 20px;
+}
+
+.weight-scale {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 300px;
+  justify-content: space-between;
+}
+
+.weight-label {
+  font-size: 1em;
+  color: #468201;
+  margin-right: 8px;
+}
+
+.weight-tick {
+  width: 20px;
+  height: 2px;
+  background: #468201;
+  margin-bottom: 18px;
+}
+
+/* New CSS for Y-Axis Scale */
+.y-axis-scale {
+  position: absolute;
+  left: -21px;
+  top: 90px;
+  height: 270px;
+  width: 40px;
+  display: block;
+  pointer-events: none;
+}
+
+.y-label {
+  position: absolute;
+  left: 0;
+  transform: translateY(-50%);
+  color: #000000;
+  font-size: 0.9em;
+  width: 40px;
+  text-align: right;
+}
+.y-label[style*="top: 0%"]    { top: 0%; }
+.y-label[style*="top: 25%"]   { top: 25%; }
+.y-label[style*="top: 50%"]   { top: 50%; }
+.y-label[style*="top: 75%"]   { top: 75%; }
+.y-label[style*="top: 100%"]  { top: 100%; }
+
+.graphic-area {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  min-height: 350px; /* Adjust as needed for your graph height */
+}

@@ -1,0 +1,297 @@
+.container {
+  max-width: 1500px;
+  margin: 40px auto; 
+  padding: 20px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+
+.exercise-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(1000px, 1fr));
+  gap: 20px;
+}
+
+.exercise-card {
+  margin-left: 60px;
+  width: 1340px;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.exercise-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px; /* Space between exercise details and sets */
+}
+
+.exercise-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  gap: 10px;
+  flex: 1;
+  text-align: center; /* Ensure text is centered below the image */
+  height: 100%; /* Ensure it takes the full height of the container */
+  padding-top: 20px; /* Push the content down */
+}
+
+.exercise-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.set-container {
+  display: flex;
+  flex-direction: row; /* Align sets horizontally */
+  flex-wrap: wrap; /* Allow wrapping if there are too many sets */
+  gap: 15px; /* Space between sets */
+  flex: 2;
+  font-size: 1.5em;
+  padding-top: 20px; /* Push the content down */
+}
+
+.set-container.dynamic-height {
+  height: auto; /* Allow the container to grow dynamically */
+  max-height: 100%; /* Prevent it from exceeding the parent block */
+}
+
+.set-container h4 {
+  font-size: 1.5em;
+  border-radius: 10px;
+  margin: 0;
+  text-align: center; /* Center the text horizontally */
+  width: 100%; /* Ensure the title spans the full width */
+}
+
+.set-entry {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between labels */
+  width: 200px; /* Keep the width unchanged */
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  height: 250px; /* Increased height for the set squares */
+  position: relative; /* Required for positioning the delete button */
+}
+
+.set-entry h4 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.set-entry label {
+  display: flex;
+  flex-direction: column; /* Stack label text and input vertically */
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  gap: 10px; /* Add spacing between the label text and input */
+  text-align: center; /* Center the text inside the label */
+}
+
+.set-entry input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 80px; /* Adjust input width */
+  text-align: center; /* Center the text inside the input */
+  gap: 30px;
+}
+
+.global-notes {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.notes-textarea {
+  width: 98%;
+  height: 60px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+.add-set-btn {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #468201;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-set-btn:hover {
+  background-color: #356b01;
+}
+
+.save-btn {
+  margin-top: 20px;
+  padding: 15px 30px;
+  background-color: #468201;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  width: 100%;
+}
+
+.save-btn:hover {
+  background-color: #356b01;
+}
+
+.delete-set-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ffffff; /* Red background for delete button */
+  color: rgb(250, 25, 25);
+  border: 20%;
+  border-color: #468201;
+  border-radius: 0%;
+  width: 35px;
+  height: 25px;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-set-btn:hover {
+  background-color: #baff8d; /* Darker red on hover */
+}
+
+.plan-header {
+  display: flex;
+  align-items: center; /* Align title and buttons vertically */
+  justify-content: space-between; /* Space between title and buttons */
+  gap: 20px; /* Space between title and buttons */
+  width: 100%; /* Ensure the header spans the full width */
+  padding-bottom: 30px;
+  margin: 0; /* Remove any margin */
+}
+
+#plan-title {
+  color: #000000;
+  font-size: 2.5em;
+  text-decoration: underline; /* Add an underline to the title */
+  margin: 0;
+  padding-left: 50px;
+  text-align: left; /* Align the title text to the left */
+  flex: 0; /* Prevent the title from taking extra space */
+}
+
+.plan-buttons {
+  display: flex;
+  align-items: center; /* Align buttons and message vertically */
+  gap: 15px; /* Space between the buttons and the message */
+  justify-content: center; /* Center the buttons horizontally */
+  flex: 1; /* Allow the buttons to take up remaining space */
+}
+
+.date-btn,
+.check-records-btn {
+  padding: 15px 30px;
+  background-color: #468201;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.date-btn:hover,
+.check-records-btn:hover {
+  background-color: #356b01;
+}
+
+.hidden-date-picker {
+  position: absolute;
+  left: -9999px; /* Move it off-screen */
+  visibility: hidden; /* Hide it visually but keep it accessible */
+}
+
+.date-picker {
+  padding: 10px 15px;
+  font-size: 1.2em;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 200px; /* Adjust the width as needed */
+  text-align: center; /* Center the placeholder text */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+.date-picker:focus {
+  outline: none;
+  border-color: #468201; /* Highlight the border on focus */
+  box-shadow: 0 0 5px rgba(70, 130, 1, 0.5); /* Add a glow effect */
+}
+
+.selected-date {
+  font-size: 1em;
+  color: #468201;
+  font-weight: bold;
+  margin-left: 15px; /* Add spacing between the date picker and the selected date */
+  margin-right: 15px;
+}
+
+.check-records-btn {
+  padding: 10px 20px;
+  background-color: #468201;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.check-records-btn:hover {
+  background-color: #356b01;
+}
+
+/* Container for the go-back button */
+.go-back-container {
+  display: flex;
+  justify-content: flex-start; /* Align the button to the left */
+  margin-bottom: 0px; /* Add spacing below the button */
+}
+
+/* Go-back button */
+.go-back-btn {
+  background-color: #468201; /* Green background */
+  color: white; /* White arrow */
+  border: none; /* Remove border */
+  width: 40px; /* Square size */
+  height: 40px; /* Square size */
+  border-radius: 5px; /* Slightly rounded corners */
+  font-size: 1.5em; /* Larger arrow */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex;
+  align-items: center; /* Center the arrow vertically */
+  justify-content: center; /* Center the arrow horizontally */
+}
+
+.go-back-btn:hover {
+  background-color: #356b01; /* Darker green on hover */
+}

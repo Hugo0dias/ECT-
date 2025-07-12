@@ -1,0 +1,17 @@
+Com que frequência se exercita?
+	- não: já se exercitou / pensa em frequentar ginásio?
+	- Qual é/foi seu objetivo?
+
+Costuma fazer os mesmos exercícios ou varia?
+
+Já pensou em procurar novos exercícios para realizar?
+
+Já teve dúvidas sobre como realizar um exercício físico?
+
+Alguma vez já buscou informações sobre a realização de um exercício?
+    - Que plataforma(s) usou?
+    - Encontrou o que precisava?
+    - O que achou da experiência?
+    - Acha que a plataforma precisava de algo a mais?
+
+Se quisesse realizar um exercício novo, como gostaria que fosse apresentado?

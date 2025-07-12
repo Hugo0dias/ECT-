@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motion Lab - Home</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/feature.css">
+    <!-- sync data between pages! -->
+    <script src="../js/syncData.js"></script>
+    <script src="../js/feature.js" defer></script>
+    <link rel="stylesheet" href="../css/language-dropdown.css" />
+    <style>
+        /* Adicionando estilo diretamente no HTML */
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+        
+        .nav-right-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <nav class="nav">
+              <a href="index.html" id="logo">
+                <img src="../images/Logo.png" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+              </a>
+              
+              <div class="nav-right-section">
+                  <div class="language-dropdown">
+                    <a href="#" class="nav-link language">Language</a>
+                    <div class="dropdown-content">
+                      <a href="#" class="language-option" data-lang="pt">
+                        <img src="../images/portugal.png" alt="Português" class="flag-icon"> Português
+                      </a>
+                      <a href="#" class="language-option" data-lang="en">
+                        <img src="../images/united-kingdom.png" alt="English" class="flag-icon"> English
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <a href="./myProfile.html" id="profile">
+                    <img src="../images/profilings.jpg" alt="Logo" style="width: 100px; height: auto;">
+                  </a>
+              </div>
+            </nav>                       
+          </div>
+
+        <!-- Restante do seu código permanece igual -->
+        <div class="hero">
+            <h1>Welcome to Motion Lab</h1>
+            <p>Your ultimate solution for personalized workout planning, progress tracking, and exercise discovery.</p>
+            <a href="login.html">Login</a>
+        </div>
+
+        <div class="plans-overview">
+          <div class="plans-cards">
+            <div class="plan-card">
+              <div class="plan-card-header" id="workout-plans-header">
+                <span class="plan-title" id="workout-plans-title">Workout Plans</span>
+                <a href="WorkoutPlans.html" class="plan-create-btn" id="workout-plans-btn">+ Create</a>
+              </div>
+              <ul id="workout-plans-list" class="plans-list"></ul>
+            </div>
+            <div class="plan-card">
+              <div class="plan-card-header">
+                <span class="plan-title">Record Plans</span>
+                <a href="RecordPlans.html" class="plan-create-btn">+ Create</a>
+              </div>
+              <ul id="record-plans-list" class="plans-list"></ul>
+            </div>
+            <div class="plan-card">
+              <div class="plan-card-header plan-card-header-centered">
+                <span class="plan-title plan-title-centered">List of Exercises</span>
+                <a href="Exercises.html" class="plan-create-btn plan-btn-centered">View All</a>
+              </div>
+            </div>
+            <div class="plan-card">
+              <div class="plan-card-header plan-card-header-centered">
+                <span class="plan-title plan-title-centered">Favourites</span>
+                <a href="Favourites.html" class="plan-create-btn plan-btn-centered">View All</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!--
+        <div class="features">
+            <div class="feature clickable" id="Record-feature">
+                <img src="../images/secure.png" alt="Feature 1">
+                <h3>Record Plans</h3>
+                <p>Allows you to register dinamicaly the progress you make for every exercise and view the progress over time</p>
+            </div>
+            <div class="feature clickable" id="Workout-feature">
+                <img src="../images/locations.png" alt="Feature 2">
+                <h3>Workout Plans</h3>
+                <p>Allows you to make a workout plan and view them</p>
+            </div>
+            <div class="feature clickable" id="exercises-feature">
+                <img src="../images/access.png" alt="Feature 3">
+                <h3>List Of Exercises </h3>
+                <p>Catalogue of Exercises</p>
+            </div>
+            <div class="feature clickable" id="Favourites">
+                <img src="../images/access.png" alt="Feature 4">
+                <h3>Favourites</h3>
+                <p>Your Favorites</p>
+            </div>
+        </div>
+        -->
+        <div class="footer">
+            <div>
+                <img src="../images/Logodx.png" alt="Motion Lab Logo">
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/"><img src="../images/facebook.png" alt="Facebook"style="width: 35px; height: 30px;" ></a>
+                    <a href="https://x.com/i/flow/login"><img src="../images/twitter.png" alt="Twitter"style="width: 35px; height: 30px;"></a>
+                    <a href="https://www.youtube.com/"><img src="../images/youtube.png" alt="YouTube"style="width: 35px; height: 30px;"></a>
+                    <a href="https://www.instagram.com/"><img src="../images/instagram.png" alt="Instagram"style="width: 35px; height: 30px;"></a>
+                </div>
+            </div>
+            <div class="footer-left">
+                <p>&copy; 2025 Motion Lab. All rights reserved.</p>
+            </div>
+            <div class="footer-right">
+                <div class="contact-info">
+                    <a href="#">Help</a> | <a href="#">Contact us</a>
+                    <p>+000 123 456 789</p>
+                    <p>support@motionlab.com</p>
+                    <p>support.motionlab.com</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch plans from localStorage
+    const workoutPlans = JSON.parse(localStorage.getItem('workoutPlans')) || [];
+    const recordPlans = JSON.parse(localStorage.getItem('recordPlans')) || [];
+
+    const workoutList = document.getElementById('workout-plans-list');
+    const recordList = document.getElementById('record-plans-list');
+
+    // Populate Workout Plans
+    if (workoutPlans.length > 0) {
+        workoutPlans.forEach((plan, idx) => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.textContent = plan.title || 'Untitled Workout Plan';
+            a.href = `WorkoutPlansDetails.html?index=${plan.id !== undefined ? plan.id : idx}`;
+            a.style.textDecoration = 'none';
+            a.style.color = 'inherit';
+            li.appendChild(a);
+            workoutList.appendChild(li);
+        });
+    } else {
+        const li = document.createElement('li');
+        li.textContent = 'No workout plans found.';
+        li.style.color = '#888';
+        workoutList.appendChild(li);
+    }
+
+    // Populate Record Plans
+    if (recordPlans.length > 0) {
+        recordPlans.forEach((plan, idx) => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.textContent = plan.title || 'Untitled Record Plan';
+            a.href = `RecordPlanDetails.html?planIndex=${plan.id !== undefined ? plan.id : idx}`;
+            a.style.textDecoration = 'none';
+            a.style.color = 'inherit';
+            li.appendChild(a);
+            recordList.appendChild(li);
+        });
+    } else {
+        const li = document.createElement('li');
+        li.textContent = 'No record plans found.';
+        li.style.color = '#888';
+        recordList.appendChild(li);
+    }
+
+    // Fetch exercises and favourites from localStorage
+    const exercises = JSON.parse(localStorage.getItem('exercises')) || [];
+    const favourites = JSON.parse(localStorage.getItem('favourites')) || [];
+
+    const exercisesList = document.getElementById('exercises-list');
+    const favouritesList = document.getElementById('favourites-list');
+
+    // Populate Exercises
+    if (exercises.length > 0) {
+        exercises.forEach(ex => {
+            const li = document.createElement('li');
+            li.textContent = ex.title || ex.name || 'Unnamed Exercise';
+            exercisesList.appendChild(li);
+        });
+    }
+
+    // Populate Favourites
+    if (favourites.length > 0) {
+        favourites.forEach(fav => {
+            const li = document.createElement('li');
+            li.textContent = fav.title || fav.name || 'Unnamed Favourite';
+            favouritesList.appendChild(li);
+        });
+    } else {
+        const li = document.createElement('li');
+        li.textContent = 'No favourites found.';
+        li.style.color = '#888';
+        favouritesList.appendChild(li);
+    }
+
+    // Centered header logic
+    const workoutHeader = document.querySelector('#workout-plans-header');
+    const workoutTitle = document.querySelector('#workout-plans-title');
+    const workoutBtn = document.querySelector('#workout-plans-btn');
+
+    if (workoutPlans.length === 0) {
+      workoutHeader.classList.add('plan-card-header-centered');
+      workoutTitle.classList.add('plan-title-centered');
+      workoutBtn.classList.add('plan-btn-centered');
+    } else {
+      workoutHeader.classList.remove('plan-card-header-centered');
+      workoutTitle.classList.remove('plan-title-centered');
+      workoutBtn.classList.remove('plan-btn-centered');
+    }
+});
+</script>
+</body>
+</html>

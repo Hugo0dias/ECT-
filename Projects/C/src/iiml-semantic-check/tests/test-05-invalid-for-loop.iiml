@@ -1,0 +1,4 @@
+// Test: Invalid for loop - undeclared list variable
+list of number nums is [1, 2, 3]
+for list item within invalidList    // This should cause an error due to undeclared 'invalidList'
+    place circle radius 5 at 10 10 with intensity 255

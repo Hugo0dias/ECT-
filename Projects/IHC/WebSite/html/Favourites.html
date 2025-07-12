@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Motion Lab - Favourites</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/feature.css">
+  <link rel="stylesheet" href="../css/exercises.css">
+  <link rel="stylesheet" href="../css/language-dropdown.css" />
+
+  <style>
+    .exercise-container {
+      padding: 20px;
+    }
+    .exercise-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .exercise-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: background-color 0.2s;
+      cursor: pointer;
+    }
+    .exercise-item:hover {
+      background-color: #f9f9f9;
+    }
+    .exercise-image {
+      width: 120px;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .exercise-info {
+      flex-grow: 1;
+    }
+    .exercise-name {
+      font-weight: bold;
+      font-size: 18px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .exercise-type {
+      font-size: 14px;
+      color: gray;
+    }
+    .exercise-buttons {
+      margin-top: 10px;
+      display: flex;
+      gap: 10px;
+    }
+    .remove-fav-btn {
+      padding: 8px 15px;
+      background-color: #e60000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .remove-fav-btn:hover {
+      background-color: #cc0000;
+    }
+    .add-workout-btn {
+      padding: 8px 15px;
+      background-color: #468201;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .add-workout-btn:hover {
+      background-color: #3a6c01;
+    }
+    .empty-message {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 18px;
+      color: #666;
+    }
+    .hidden {
+      display: none;
+    }
+    .go-back-container {
+      margin-top: 50px;
+      margin-left: 50px;
+    }
+    .go-back-btn {
+      background-color: #468201;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .go-back-btn:hover {
+      background-color: #356601;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <nav class="nav">
+        <a href="index.html" id="logo">
+          <img src="../images/Logo.png" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+        <a href="RecordPlans.html" class="nav-link">Record Plans</a>
+        <a href="WorkoutPlans.html" class="nav-link">Workout Plans</a>
+        <a href="Exercises.html" class="nav-link">List Of Exercises</a>
+        <a href="Favourites.html" class="nav-link">Favourites</a>
+        
+        <div class="language-dropdown">
+          <a href="../#" class="nav-link language">Language</a>
+          <div class="dropdown-content">
+            <a href="#" class="language-option" data-lang="pt">
+              <img src="../images/portugal.png" alt="Português" class="flag-icon"> Português
+            </a>
+            <a href="#" class="language-option" data-lang="en">
+              <img src="../images/united-kingdom.png" alt="English" class="flag-icon"> English
+            </a>
+          </div>
+        </div>
+        
+        <a href="myProfile.html" id="profile">
+          <img src="../images/profilings.jpg" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+      </nav>                       
+    </div>
+
+    <!-- Go Back Button -->
+    <div class="go-back-container">
+      <button onclick="goBack()" class="go-back-btn">
+        &#8592; <!-- Left-pointing arrow -->
+      </button>
+    </div>
+
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h1>Favourites</h1>
+      </div>
+
+      <div class="exercise-list" id="favouritesList">
+        <!-- Dynamic content will be inserted here -->
+      </div>
+      <p id="emptyMessage" class="empty-message hidden">You have no favourite exercises yet.</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const favouritesList = document.getElementById('favouritesList');
+      const emptyMessage = document.getElementById('emptyMessage');
+
+      function renderFavourites() {
+        favouritesList.innerHTML = ''; // Clear the list
+        const favourites = JSON.parse(localStorage.getItem('favouriteExercises')) || [];
+
+        // Show or hide the empty message based on the favourites list
+        if (favourites.length === 0) {
+          emptyMessage.classList.remove('hidden'); // Show the message if no favourites
+        } else {
+          emptyMessage.classList.add('hidden'); // Hide the message if there are favourites
+        }
+
+        // Render each favourite exercise
+        favourites.forEach(ex => {
+          console.log('Image Path:', ex.img); // Debugging: Log the image path
+          const item = document.createElement('div');
+          item.className = 'exercise-item';
+          item.setAttribute('data-name', ex.name);
+          item.setAttribute('data-type', ex.type);
+          item.setAttribute('data-img', ex.img);
+          item.onclick = () => goToExercise(ex.name);
+
+          item.innerHTML = `
+            <img src="${ex.img}" alt="${ex.name}" class="exercise-image">
+            <div class="exercise-info">
+              <span class="exercise-name">${ex.name}</span>
+              <span class="exercise-type">${ex.type}</span>
+              <div class="exercise-buttons" onclick="event.stopPropagation();">
+                <button class="remove-fav-btn">❌ Remove from Favourites</button>
+              </div>
+            </div>
+          `;
+
+          favouritesList.appendChild(item);
+        });
+
+        // Ensure the "Adicionar" button is always displayed
+        const addButtonContainer = document.createElement('div');
+        addButtonContainer.style.textAlign = 'center';
+        addButtonContainer.style.marginTop = '20px';
+
+        const addButton = document.createElement('button');
+        addButton.textContent = 'Adicionar';
+        addButton.className = 'add-exercise-btn';
+        addButton.style.padding = '10px 20px';
+        addButton.style.backgroundColor = '#468201';
+        addButton.style.color = 'white';
+        addButton.style.border = 'none';
+        addButton.style.borderRadius = '5px';
+        addButton.style.cursor = 'pointer';
+        addButton.onclick = () => {
+          window.location.href = 'Exercises.html'; // Redirect to the Exercises page
+        };
+
+        addButtonContainer.appendChild(addButton);
+
+        // Append the "Adicionar" button container to the favourites list
+        favouritesList.appendChild(addButtonContainer);
+
+        // Add event listeners to the "Remove from Favourites" buttons
+        document.querySelectorAll('.remove-fav-btn').forEach(button => {
+          button.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const item = this.closest('.exercise-item');
+            const name = item.dataset.name;
+            removeFromFavourites(name);
+            item.remove();
+
+            // Recheck if the list is empty after removal
+            if (favouritesList.children.length === 1) { // Only the "Adicionar" button remains
+              emptyMessage.classList.remove('hidden');
+            }
+          });
+        });
+      }
+
+      function goToExercise(name) {
+        const cleanName = name.replace(/\s+/g, ''); // Removes all spaces
+        window.location.href = `Exercicios/${cleanName}.html`;
+      }
+
+      function removeFromFavourites(name) {
+        let favourites = JSON.parse(localStorage.getItem('favouriteExercises')) || [];
+        favourites = favourites.filter(ex => ex.name !== name);
+        localStorage.setItem('favouriteExercises', JSON.stringify(favourites));
+      }
+
+      function addToWorkoutPlan(name, type, img) {
+        const workoutExercises = JSON.parse(localStorage.getItem('workoutExercises')) || [];
+        workoutExercises.push({ name, type, img });
+        localStorage.setItem('workoutExercises', JSON.stringify(workoutExercises));
+      }
+
+      // Initial render
+      renderFavourites();
+
+      // Update when storage changes
+      window.addEventListener('storage', () => {
+        renderFavourites();
+      });
+    });
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+  <script src="../../js/language-dropdown.js"></script>
+
+</body>
+</html>

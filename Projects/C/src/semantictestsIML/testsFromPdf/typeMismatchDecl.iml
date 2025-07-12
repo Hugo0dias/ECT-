@@ -1,0 +1,6 @@
+// Wrong types in variable declarations
+number x is "not a number"  // Error : Type mismatch: cannot assign String to number
+boolean flag is 42  // Error: Type mismatch: cannot assign number to Boolean
+image img is true  // Error : Type mismatch: cannot assign Boolean to image
+percentage p is "not a percentage"  // Error : Type mismatch: cannot assign String to percentage
+string text is 123  // Error : Type mismatch: cannot assign number to String

@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #285986;
+}
+.terms-container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.terms-container h2 {
+    margin-top: 0;
+}
+.terms-container p {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Container for the go-back button */
+.go-back-container {
+    display: flex;
+    justify-content: flex-start; /* Align the button to the left */
+    margin-bottom: 10px; /* Add spacing below the button */
+  }
+  
+  /* Go-back button */
+  .go-back-btn {
+    background-color: #468201; /* Green background */
+    color: white; /* White arrow */
+    border: none; /* Remove border */
+    width: 40px; /* Square size */
+    height: 40px; /* Square size */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 1.5em; /* Larger arrow */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex;
+    align-items: center; /* Center the arrow vertically */
+    justify-content: center; /* Center the arrow horizontally */
+  }
+  
+  .go-back-btn:hover {
+    background-color: #356b01; /* Darker green on hover */
+  }

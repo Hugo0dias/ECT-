@@ -1,0 +1,4 @@
+// Wrong type for load operation
+string x is load from "image.png"  // Error : Load operation can only be used with image type
+number y is load from "data.txt"  // Error : Load operation can only be used with image type
+boolean z is load from "test.jpg"  // Error : Load operation can only be used with image type

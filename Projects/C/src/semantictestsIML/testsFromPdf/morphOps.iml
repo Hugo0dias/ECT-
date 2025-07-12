@@ -1,0 +1,9 @@
+image original is load from "morph_test.pgm"
+list of number kernel is [1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+image eroded is original erode by kernel
+image dilated is original dilate by kernel
+image opened is original open by kernel
+image closed is original close by kernel
+image tophat is original top hat by kernel
+image blackhat is original black hat by kernel

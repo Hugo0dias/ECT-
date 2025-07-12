@@ -1,0 +1,4 @@
+// Invalid string-to-type conversions
+//number x is number("not_a_number")  // Error : Invalid number string: "not_a_number"
+boolean flag is boolean("maybe")  // Error : Boolean must be "true" or "false"
+percentage p is percentage("invalid%")  // Error : Invalid percentage format (e.g., "50%")

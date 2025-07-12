@@ -1,0 +1,5 @@
+// Test: Invalid list access - accessing non-list variable
+number x is 10
+number y is x[0]    // This line attempts to access the first element of 'x' as if it were a list, but 'x' is a number
+image size 100 by 100 background 0
+place circle radius y at 50 50 with intensity 255

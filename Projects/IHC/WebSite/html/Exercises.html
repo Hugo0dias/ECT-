@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motion Lab - List of Exercises</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/feature.css">
+  <link rel="stylesheet" href="../css/exercises.css">
+  <link rel="stylesheet" href="../css/language-dropdown.css" />
+  <style>
+    .go-back-container {
+      margin: 50px;
+    }
+
+    .go-back-btn {
+      background-color: #468201;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .go-back-btn:hover {
+      background-color: #356601;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <nav class="nav">
+        <a href="index.html" id="logo">
+          <img src="../images/Logo.png" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+        <a href="RecordPlans.html" class="nav-link">Record Plans</a>
+        <a href="WorkoutPlans.html" class="nav-link">Workout Plans</a>
+        <a href="Exercises.html" class="nav-link">List Of Exercises</a>
+        <a href="Favourites.html" class="nav-link">Favourites</a>
+        
+        <div class="language-dropdown">
+          <a href="../#" class="nav-link language">Language</a>
+          <div class="dropdown-content">
+            <a href="#" class="language-option" data-lang="pt">
+              <img src="../images/portugal.png" alt="Português" class="flag-icon"> Português
+            </a>
+            <a href="#" class="language-option" data-lang="en">
+              <img src="../images/united-kingdom.png" alt="English" class="flag-icon"> English
+            </a>
+          </div>
+        </div>
+        
+        <a href="myProfile.html" id="profile">
+          <img src="../images/profilings.jpg" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+      </nav>                       
+    </div>
+
+    <!-- Go Back Button -->
+    <div class="go-back-container">
+      <button onclick="goBack()" class="go-back-btn">
+        &#8592; <!-- Left-pointing arrow -->
+      </button>
+    </div>
+
+    <div class="exercise-container">
+      <div class="exercise-header">
+        <h1>Exercises</h1>
+        <div class="sort-by">
+          <span>Sort by</span>
+          <select id="sortExercises">
+            <option value="name">Name (A-Z)</option>
+            <option value="name-desc">Name (Z-A)</option>
+            <option value="type">Type</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="exercise-list" id="exerciseList">
+        <a href="Exercicios/DumbbellBenchPress.html" class="exercise-item" data-type="chest">
+          <button class="favourite-btn" onclick="toggleFavourite(event, 'Dumbbell Bench Press', 'chest', '../images/dumbbell-bench-press.jpg')">❤️</button>
+          <img src="../images/dumbbell-bench-press.jpg" alt="Dumbbell Bench Press" class="exercise-image">
+          <div class="exercise-info">
+            <span class="exercise-name">Dumbbell Bench Press</span>
+            <span class="exercise-type">Chest</span>
+          </div>
+        </a>
+        <a href="Exercicios/LyingDumbbellExtension.html" class="exercise-item" data-type="triceps">
+          <button class="favourite-btn" onclick="toggleFavourite(event, 'Lying Dumbbell Extension', 'triceps', '../images/lying-dumbbell-extension.jpg')">❤️</button>
+          <img src="../images/lying-dumbbell-extension.jpg" alt="Lying Dumbbell Extension" class="exercise-image">
+          <div class="exercise-info">
+            <span class="exercise-name">Lying Dumbbell Extension</span>
+            <span class="exercise-type">Triceps</span>
+          </div>
+        </a>
+        <a href="Exercicios/ShoulderPress.html" class="exercise-item" data-type="shoulders">
+          <button class="favourite-btn" onclick="toggleFavourite(event, 'Shoulder Press', 'shoulders', '../images/shoulder-press.jpg')">❤️</button>
+          <img src="../images/shoulder-press.jpg" alt="Shoulder Press" class="exercise-image">
+          <div class="exercise-info">
+            <span class="exercise-name">Shoulder Press</span>
+            <span class="exercise-type">Shoulders</span>
+          </div>
+        </a>
+        <a href="Exercicios/Squat.html" class="exercise-item" data-type="legs">
+          <button class="favourite-btn" onclick="toggleFavourite(event, 'Squat', 'legs', '../images/squat.jpg')">❤️</button>
+          <img src="../images/squat.jpg" alt="Squat" class="exercise-image">
+          <div class="exercise-info">
+            <span class="exercise-name">Squat</span>
+            <span class="exercise-type">Legs</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- Scripts -->
+  <script src="../js/exercise-sort.js"></script>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+  
+  <script>
+    // Function to check if the page was accessed from Create_Record_Plan.html
+    function isFromCreateRecordPlan() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('from') === 'createRecordPlan';
+    }
+
+    // Function to check if the page was accessed from Create_Workout_Plan.html
+    function isFromCreateWorkoutPlan() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('from') === 'createWorkoutPlan';
+    }
+
+    // Modify behavior based on the origin
+    if (isFromCreateRecordPlan()) {
+      // Enable exercise selection for the record plan
+      function selectExercise(name, type, img) {
+        // Retrieve the existing exercises from localStorage
+        const selectedExercises = JSON.parse(localStorage.getItem('selectedExercises')) || [];
+        
+        // Add the new exercise to the list
+        selectedExercises.push({ name, type, img });
+        
+        // Save the updated list back to localStorage
+        localStorage.setItem('selectedExercises', JSON.stringify(selectedExercises));
+
+        // Redirect back to Create_Record_Plan.html
+        window.location.href = "Create_Record_Plan.html";
+      }
+
+      // Add event listeners to exercise items
+      document.querySelectorAll('.exercise-item').forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          const name = item.querySelector('.exercise-name').textContent;
+          const type = item.getAttribute('data-type');
+          const img = item.querySelector('img').getAttribute('src');
+          selectExercise(name, type, img);
+        });
+      });
+    } else if (isFromCreateWorkoutPlan()) {
+      // Enable exercise selection for the workout plan
+      function selectExercise(name, type, img) {
+        // Retrieve the existing exercises from localStorage
+        const selectedExercises = JSON.parse(localStorage.getItem('workoutExercises')) || [];
+        
+        // Add the new exercise to the list
+        selectedExercises.push({ name, type, img });
+        
+        // Save the updated list back to localStorage
+        localStorage.setItem('workoutExercises', JSON.stringify(selectedExercises));
+
+        // Redirect back to Create_Workout_Plan.html
+        window.location.href = "Create_Workout_Plan.html";
+      }
+
+      // Add event listeners to exercise items
+      document.querySelectorAll('.exercise-item').forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          const name = item.querySelector('.exercise-name').textContent;
+          const type = item.getAttribute('data-type');
+          const img = item.querySelector('img').getAttribute('src');
+          selectExercise(name, type, img);
+        });
+      });
+    } else {
+      // Redirect to the detailed exercise page
+      document.querySelectorAll('.exercise-item').forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          const name = item.querySelector('.exercise-name').textContent;
+          const exercisePage = `Exercicios/${name.replace(/\s+/g, '')}.html`;
+          window.location.href = exercisePage;
+        });
+      });
+    }
+  </script>
+  <script src="../js/language-dropdown.js"></script>
+  <script>
+function toggleFavourite(event, name, type, img) {
+  event.stopPropagation();
+  event.preventDefault();
+
+  let favourites = JSON.parse(localStorage.getItem('favouriteExercises')) || [];
+  const exists = favourites.some(ex => ex.name === name);
+
+  if (exists) {
+    favourites = favourites.filter(ex => ex.name !== name);
+    event.currentTarget.classList.remove('active');
+  } else {
+    favourites.push({ name, type, img });
+    event.currentTarget.classList.add('active');
+  }
+  localStorage.setItem('favouriteExercises', JSON.stringify(favourites));
+}
+
+// On page load, mark favourites
+document.addEventListener('DOMContentLoaded', () => {
+  const favourites = JSON.parse(localStorage.getItem('favouriteExercises')) || [];
+  document.querySelectorAll('.exercise-item').forEach(item => {
+    const name = item.querySelector('.exercise-name').textContent;
+    const btn = item.querySelector('.favourite-btn');
+    if (btn && favourites.some(ex => ex.name === name)) {
+      btn.classList.add('active');
+    }
+  });
+});
+</script>
+</body>
+</html>

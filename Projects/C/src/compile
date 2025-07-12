@@ -1,0 +1,38 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    echo "Usage: ./compile <file.iml>"
+    exit 1
+fi
+
+INPUT_FILE="$1"
+OUTPUT_FILE="${INPUT_FILE%.*}.java"
+
+echo "Compiling: $INPUT_FILE"
+
+echo "Running semantic analysis..."
+javac RunSemanticTestsIMLMain.java
+
+# Capture both output and exit status of semantic analysis
+SEMANTIC_OUTPUT=$(java RunSemanticTestsIMLMain < "$INPUT_FILE" 2>&1)
+SEMANTIC_EXIT_CODE=$?
+
+# Check if there was any output (which indicates errors)
+if [ ! -z "$SEMANTIC_OUTPUT" ] || [ $SEMANTIC_EXIT_CODE -ne 0 ]; then
+    echo "$SEMANTIC_OUTPUT" 
+    echo "Semantic analysis failed - compilation aborted"
+    exit 1
+fi
+
+echo "Semantic analysis passed"
+
+echo "Generating code..."
+java IMLCompiler "$INPUT_FILE"         
+
+if [ $? -eq 0 ]; then
+    echo "Code generation successful"
+    echo "$OUTPUT_FILE"
+else
+    echo "Code generation failed"
+    exit 1
+fi

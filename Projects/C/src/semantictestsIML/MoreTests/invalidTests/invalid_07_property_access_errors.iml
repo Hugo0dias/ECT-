@@ -1,0 +1,11 @@
+// ERRO: Acesso a propriedades de tipos incorretos
+number x is 42
+string text is "hello"
+
+number width is columns of x           // ERRO: number não tem propriedade columns
+number len is length of text           // ERRO: string não tem propriedade length
+number height is rows of "invalid"     // ERRO: string não tem propriedade rows
+
+// ERRO: Propriedades inexistentes
+image i is load from "test.pgm"
+number invalid_prop is depth of i      // ERRO: propriedade depth não existe

@@ -1,0 +1,4 @@
+// Test: List type mismatch - mixed types in list literal
+list of number nums is [1, 2, [3, 4]]   // This should cause a type mismatch error
+image size 100 by 100 background 0
+place circle radius 10 at 50 50 with intensity 255

@@ -1,0 +1,8 @@
+number x is 10
+string text is "hello"
+image img is load from "test.pgm"
+
+// Comparing incompatible types
+boolean result1 is x > text  // Error : Cannot compare incompatible types: number and String
+boolean result2 is img == text  // Error : Cannot compare incompatible types: Image and String
+boolean result3 is x != img  // Error : Cannot compare incompatible types: number and Image

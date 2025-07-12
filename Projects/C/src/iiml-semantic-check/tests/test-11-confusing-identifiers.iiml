@@ -1,0 +1,6 @@
+// Test: Using confusing but valid identifier names
+number Number is 10
+number READ is 20
+number List is Number + READ
+image size 100 by 100 background 0
+place rect width List height Number at 50 50 with intensity 255

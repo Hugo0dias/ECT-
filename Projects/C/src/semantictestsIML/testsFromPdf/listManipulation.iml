@@ -1,0 +1,12 @@
+list of number data is [10, 20, 30, 40, 50]
+number list_size is length of data
+number first_element is data[0]
+number last_element is data[list_size - 1]
+
+data append 60
+data remove 2
+number new_size is length of data
+
+output "Original size: " + string(list_size)
+output "New size: " + string(new_size)
+output "First: " + string(first_element)

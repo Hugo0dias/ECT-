@@ -1,0 +1,5 @@
+string text is "hello"
+number x is 10
+
+// Morphological chain with wrong types
+string result is text erode by x  // Error : Morphological operations require image as left operand

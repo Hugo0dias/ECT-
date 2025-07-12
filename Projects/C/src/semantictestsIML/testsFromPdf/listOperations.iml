@@ -1,0 +1,8 @@
+list of number nums is [1, 2, 3, 4, 5]
+list of string words is ["hello", "world", "test"]
+list of boolean flags is [true, false, true]
+list of number empty is []
+
+nums append 6
+nums remove 0
+words append "new"

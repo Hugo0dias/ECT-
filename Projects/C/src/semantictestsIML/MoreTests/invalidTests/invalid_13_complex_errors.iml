@@ -1,0 +1,13 @@
+// ERRO: Múltiplos erros semânticos
+image i is load from 123              // ERRO: path inválido
+number undefined_result is unknown + 5  // ERRO: variável não declarada
+
+if i > 0 then                          // ERRO: comparação de image com number
+    string wrong is i .+ j             // ERRO: j não declarada, operação inválida
+    wrong store into "output.pgm"      // ERRO: string não pode ser stored
+done
+
+// ERRO: Loop mal formado
+for image x within nums do             // ERRO: nums não declarada
+    draw x + 1                         // ERRO: soma de image com number
+done

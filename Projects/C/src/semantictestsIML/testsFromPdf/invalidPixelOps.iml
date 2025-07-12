@@ -1,0 +1,7 @@
+string text is "hello"
+number x is 10
+
+// Pixel operations on non-images
+boolean result1 is any pixel text .== 255  // Error : Pixel operations can only be applied to images
+number count1 is count pixel 128 in x  // Error : Count pixel operation can only be applied to images
+boolean result2 is all pixel x .> 100  // Error : Pixel operations can only be applied to images

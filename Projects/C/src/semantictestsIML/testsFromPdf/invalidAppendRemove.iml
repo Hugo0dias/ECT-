@@ -1,0 +1,5 @@
+list of number nums is [1, 2, 3]
+
+// Remove with non-numeric index
+nums remove "string"  // Error : List index must be a number
+nums remove true  // Error : List index must be a number

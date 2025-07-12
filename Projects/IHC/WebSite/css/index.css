@@ -1,0 +1,466 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2fde6;
+  }
+  
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.container {
+    max-width: 1500px;
+    margin: 40px auto; 
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0; 
+    border-bottom: 2px solid #468201;
+}
+.header img {
+    height: 50px;
+}
+.nav {
+    display: flex;
+    justify-content: space-between; /* spreads children across full width */
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+}
+
+/* all buttons stretch evenly */
+.nav-link {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    color: #468201;
+    font-weight: bold;
+    border: 2px solid #468201;
+    border-radius: 10px;
+    background-color: white;
+    padding: 15px 0;
+    transition: 0.3s ease;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    box-sizing: border-box;
+}
+
+/* Hover effect */
+.nav-link:hover {
+    background-color: #468201;
+    color: white;
+}
+
+/* Make logo square and fixed-size */
+.nav-link.logo {
+    flex: 0 0 100px;
+    height: 100px;
+    padding: 0;
+}
+
+/* Logo image */
+.nav-link.logo img {
+    width: 100px;
+    height: 20px;
+}
+
+/* Language smaller */
+.nav-link.language {
+    flex: 0 0 auto;              /* Don't grow or shrink */
+    width: 80px;                 /* Smaller fixed width */
+    font-size: 0.8em;
+    height: 50px;
+    padding: 5px 10px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+ 
+
+/* My Profile square */
+.nav-link.profile {
+    flex: 0 0 60px;
+    height: 100px;
+    padding: 0;
+}
+
+
+
+.nav a {
+    text-decoration: none;
+    color: #468201; 
+    font-weight: bold;
+}
+.nav a:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    text-align: center;
+    margin: 70px 0;
+}
+.hero h1 {
+    font-size: 2.5em;
+    margin-bottom: 0px;
+}
+.hero p {
+    font-size: 1.2em;
+    margin-bottom: 40px;
+}
+.hero a {
+    padding: 15px 30px;
+    background-color: #468201; 
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+}
+.hero a:hover {
+    background-color: #468201; 
+}
+.features {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 50px;
+    gap: 0px;
+}
+.feature {
+    text-align: center;
+    padding: 40px; /* Reduced padding to decrease spacing inside the block */
+    background-color: #e7ecf3;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    width: 12%; /* Keep the block size unchanged */
+}
+.feature img {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+}
+.feature h3 {
+    margin-bottom: 5px;
+    font-size: 2em;
+    padding: -20px;
+}
+.feature p {
+    font-size: 1em;
+    color: #555;
+}
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f7f7f7; 
+}
+.footer-left, .footer-right {
+    display: flex;
+    align-items: center;
+}
+.footer-left .social-icons a {
+    margin-right: 10px; 
+}
+.footer-right .contact-info, .footer-right .footer-links {
+    margin-left: 20px;
+}
+.footer-right .contact-info a, .footer-right .footer-links a {
+    text-decoration: none;
+    color: black;
+    padding: 0 10px;
+}
+.footer-right .contact-info a:hover, .footer-right .footer-links a:hover {
+    text-decoration: underline;
+}
+.footer-right p {
+    margin: 5px 0; 
+}
+
+.sidebar {
+    width: 200px;
+    background-color: white;
+    border-left: 3px solid #468201;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 10px 0;
+    box-shadow: -2px 0 5px rgba(0,0,0,0.1);
+  }
+  
+  .sidebar-item {
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    color: #468201;
+    border: 1px solid #468201;
+    margin: 5px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    transition: background 0.3s;
+  }
+  
+  .sidebar-item:hover {
+    background-color: #468201;
+    color: white;
+  }
+  
+  .logo {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .pt {
+    font-size: 0.9em;
+  }
+  
+  .profile {
+    margin-top: auto;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 40px;
+    background-color: white;
+  }
+
+/* Container for the go-back button */
+.go-back-container {
+    display: flex;
+    justify-content: flex-start; /* Align the button to the left */
+    margin-bottom: 10px; /* Add spacing below the button */
+  }
+  
+  /* Go-back button */
+  .go-back-btn {
+    background-color: #468201; /* Green background */
+    color: white; /* White arrow */
+    border: none; /* Remove border */
+    width: 40px; /* Square size */
+    height: 40px; /* Square size */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 1.5em; /* Larger arrow */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex;
+    align-items: center; /* Center the arrow vertically */
+    justify-content: center; /* Center the arrow horizontally */
+  }
+  
+  .go-back-btn:hover {
+    background-color: #356b01; /* Darker green on hover */
+  }
+
+/* Plans Overview Block */
+.plans-overview {
+  margin-left: 225px;
+  justify-content: center;
+  width: 1000px;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(255, 255, 255, 0.07);
+  padding: 20px 24px 24px 24px;
+  margin-bottom: 48px;
+}
+
+.plans-overview h2 {
+  text-align: center;
+  color: #356601;
+  margin-bottom: 20px;
+  font-size: 2em;
+  letter-spacing: 1px;
+  margin-top: 0px;
+}
+
+.plans-cards {
+  display: flex;
+  gap: 64px;              /* aumenta o espaço entre os cards */
+  justify-content: space-evenly; /* dispersa horizontalmente */
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1100px;      /* limita a largura máxima para não ficar exagerado em ecrãs grandes */
+}
+
+.plan-card {
+  background: #f2f5f2;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(53,102,1,0.09);
+  padding: 22px 18px 18px 18px;
+  flex: 1 1 320px;        /* cards crescem até 320px cada */
+  max-width: 380px;       /* aumenta o máximo para ficarem mais largos */
+  min-width: 270px;
+  margin: 0 0;            /* remove margens laterais extras */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: box-shadow 0.2s;
+}
+
+.plan-card:hover {
+  box-shadow: 0 6px 24px rgba(53,102,1,0.16);
+}
+
+.plan-card-header {
+  font-size: 1.3em;
+  padding-top: 5px;
+  padding-bottom: 10px;
+  padding-right: 15px;
+  padding-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.plan-icon {
+  width: 36px;
+  height: 36px;
+  margin-right: 10px;
+}
+
+.plan-title {
+  color: #356601;
+  font-size: 1.2em;
+  font-weight: bold;
+  flex: 1;
+  margin-left: 8px;
+}
+
+.plan-create-btn {
+  background: #468201;
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1em;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 2px 8px rgba(70,130,1,0.07);
+  margin-left: 10px;
+}
+
+.plan-create-btn:hover {
+  background: #356b01;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.plans-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;         /* Make the list horizontal */
+  gap: 12px;             /* Space between plan names */
+  flex-wrap: wrap;       /* Allow wrapping if too many plans */
+  justify-content: flex-start;
+}
+
+.plans-list li {
+  background: #e7fcde;
+  margin-bottom: 0;      /* Remove bottom margin for horizontal */
+  padding: 10px 18px;
+  border-radius: 6px;
+  border-color: #356601;
+  color: #356601;
+  font-weight: 500;
+  font-size: 1em;
+  transition: background 0.2s;
+  white-space: nowrap;   /* Prevent text from breaking into two lines */
+}
+
+.plans-list li:last-child {
+  margin-bottom: 0;
+}
+
+.plans-list li:hover {
+  background: #e6f1d7;
+}
+
+/* --- Workout & Record Plans (default .plans-list styles remain as is) --- */
+
+/* --- List of Exercises --- */
+#exercises-list {
+  background: #eaf6ff;
+  border-radius: 8px;
+  padding: 10px 0 10px 10px;
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#exercises-list li {
+  background: #d0eaff;
+  color: #1766a6;
+  /* border: 1px solid #b3d8f7; */ /* Remove blue border */
+  border: none;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+#exercises-list li:hover {
+  background: #b3d8f7;
+}
+
+/* --- Favourites --- */
+#favourites-list {
+  background: #fff6e5;
+  border-radius: 8px;
+  padding: 10px 0 10px 10px;
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+#favourites-list li {
+  background: #ffe0b2;
+  color: #b26a00;
+  border: 1px solid #ffd699;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+#favourites-list li:hover {
+  background: #ffd699;
+}
+
+/* Centered header for Exercises and Favourites */
+.plan-card-header-centered {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-bottom: 16px;
+  gap: 10px;
+}
+
+.plan-title-centered {
+  padding-top: 15px;
+  padding-bottom: 10px;
+  text-align: center;
+  width: 100%;
+  justify-content: center;
+  display: flex;
+  font-size: 1.5em;
+}
+
+/* Increase the size of the View All button for centered cards */
+.plan-btn-centered {
+  display: block;
+  margin: 0 auto;
+  margin-top: 4px;
+  float: none;
+  font-size: 1.15em;
+  padding: 12px 32px;
+}

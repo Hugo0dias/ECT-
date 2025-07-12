@@ -1,0 +1,11 @@
+number x is 5
+number z is number("10")
+string name is "test"
+image img is load from "image.pgm"
+boolean flag is true
+boolean b is boolean("true")
+percentage p is 50%
+percentage q is percentage("75%")
+list of number numbers is [1, 2, 3]
+
+// DONE. PASSED TESTS

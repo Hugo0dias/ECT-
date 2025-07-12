@@ -1,0 +1,5 @@
+// Variable already declared before run
+// number x is 5
+// number x is run from read "Enter program: "  // Error : Variable 'x' already declared
+
+image existing is run from read 5  

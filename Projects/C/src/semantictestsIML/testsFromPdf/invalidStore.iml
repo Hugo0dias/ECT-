@@ -1,0 +1,8 @@
+number x is 10
+string text is "hello"
+boolean flag is true
+
+// Storing non-images
+x store into "output.txt"  // Error : Store operation can only be used with image or list variables
+text store into "output.png"  // Error : Store operation can only be used with image or list variables
+flag store into "output.jpg"  // Error : Store operation can only be used with image or list variables

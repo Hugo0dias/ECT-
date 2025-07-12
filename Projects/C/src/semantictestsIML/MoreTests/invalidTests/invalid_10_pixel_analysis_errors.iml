@@ -1,0 +1,9 @@
+// ERRO: Análise de pixels com tipos incorretos
+boolean result1 is any pixel "text" .> 0.5     // ERRO: string não é imagem
+number count1 is count pixel 1.0 in 42         // ERRO: number não é imagem
+boolean result2 is all pixel i .> "invalid"    // ERRO: comparação com string
+
+// ERRO: Operadores de comparação pixel incorretos
+image i is load from "test.pgm"
+boolean wrong1 is any pixel i + 0.5            // ERRO: operador + em vez de .>
+boolean wrong2 is all pixel i == 1.0           // ERRO: operador == em vez de .==

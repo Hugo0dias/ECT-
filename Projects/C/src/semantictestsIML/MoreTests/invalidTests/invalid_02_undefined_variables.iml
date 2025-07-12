@@ -1,0 +1,8 @@
+// ERRO: Uso de variáveis não declaradas
+image result is unknown_img open by kernel     // ERRO: unknown_img não declarada
+number size is columns of missing_image        // ERRO: missing_image não declarada
+output undefined_var                           // ERRO: undefined_var não declarada
+
+// ERRO: Uso antes da declaração
+number y is x + 5                              // ERRO: x não foi declarada ainda
+number x is 10                                 // Declaração tardia

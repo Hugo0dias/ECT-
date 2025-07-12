@@ -1,0 +1,7 @@
+number x is 10
+string text is "hello"
+
+// Logical operations on non-booleans
+boolean result1 is x and text  // Error : Logical operation requires boolean operands
+boolean result2 is x or 5  // Error : Logical operation requires boolean operands
+boolean result3 is not x  // Error : Logical operation requires boolean operands

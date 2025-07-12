@@ -1,0 +1,8 @@
+number result1 is 5 + 5         
+number result2 is 2 * 3        
+number result3 is 20 - 10       
+number result4 is 10 / 2
+string result5 is "Hello" + " World" 
+number result6 is 10 * 10%     
+
+// DONE. PASSED TESTS

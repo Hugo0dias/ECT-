@@ -1,0 +1,4 @@
+// Using variables that haven't been declared
+output undeclared_var // Error: undeclared variable
+number x is y + 5 // Error: undeclared variable y
+image result is unknown_image .+ 10 // Error: undeclared variable unknown_image

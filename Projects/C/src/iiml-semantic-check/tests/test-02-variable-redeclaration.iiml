@@ -1,0 +1,5 @@
+// Test: Variable redeclaration
+number x is 10
+number x is 20  // This should be an error, as x is already declared
+image size 100 by 100 background 0
+place circle radius x at 50 50 with intensity 255

@@ -1,0 +1,7 @@
+number x is 10
+string text is "hello"
+
+// Flip operations on non-images
+number result1 is | x  // Error : Flip operations can only be applied to images
+string result2 is + text  // Error : Flip operations can only be applied to images
+string result3 is - text  // Error : Flip operations can only be applied to images

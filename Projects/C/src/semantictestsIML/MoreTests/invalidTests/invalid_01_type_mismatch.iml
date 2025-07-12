@@ -1,0 +1,10 @@
+// ERRO: Incompatibilidade de tipos em declarações
+number x is "hello world"              // ERRO: string atribuída a number
+image i is 42                          // ERRO: number atribuída a image
+percentage p is "50%"                  // ERRO: string atribuída a percentage
+boolean b is 123                       // ERRO: number atribuída a boolean
+
+// ERRO: Tentativa de operação aritmética em tipos incompatíveis
+image img is load from "test.pgm"
+number result is img + 10              // ERRO: soma aritmética com imagem
+string text is 5 + 3                   // ERRO: resultado number atribuído a string

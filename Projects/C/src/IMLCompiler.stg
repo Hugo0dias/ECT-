@@ -1,0 +1,1031 @@
+main(name, stat) ::= <<
+import ij.IJ;
+import ij.ImagePlus;
+import ij.process.ImageProcessor;
+import ij.plugin.filter.RankFilters;
+import ij.plugin.filter.Binary;
+import ij.io.Opener;
+import ij.io.FileSaver;
+import ij.process.Blitter;
+import ij.ImageStack;
+import ij.*;
+import ij.process.ByteProcessor;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.*;
+
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
+import java.io.*;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Instant;
+import org.antlr.v4.runtime.*;
+import org.antlr.v4.runtime.tree.*;
+
+import org.stringtemplate.v4.*;
+
+public class <name> {
+   public static void main(String[] args) {
+      <stat; separator="\n">
+   }
+
+
+    static class MorphologyWithImageJ {
+
+        public static ImagePlus processIIML(String filePath) {
+            
+            try (InputStream fileInput = new FileInputStream(filePath)) {
+               CharStream input = CharStreams.fromStream(fileInput);
+               GrammarIIMLLexer lexer = new GrammarIIMLLexer(input);
+               CommonTokenStream tokens = new CommonTokenStream(lexer);
+               GrammarIIMLParser parser = new GrammarIIMLParser(tokens);
+
+               ParseTree tree = parser.program();
+
+               if (parser.getNumberOfSyntaxErrors() == 0) {
+                  IIMLImageGenerator visitor = new IIMLImageGenerator();
+                  return (ImagePlus) visitor.visit(tree);
+               } else {
+                  System.err.println("Syntax errors found.");
+               }
+            } catch (IOException | RecognitionException e) {
+               e.printStackTrace();
+            }
+            return null;
+        }
+
+        public static ImagePlus runSec(String filePath) {
+            return processIIML(filePath);
+        }
+
+        public static String ToString(Object input) {
+            if (input == null) return "null";
+            if (input instanceof ImagePlus) {
+                return "ImagePlus[" + ((ImagePlus) input).getTitle() + "]";
+            }
+            return input.toString();
+        }
+    
+        public static ImagePlus toImagePlus(Object input) {
+            if (input instanceof ImagePlus) {
+                return (ImagePlus) input;
+            } else if (input instanceof Number) {
+                int value = ((Number) input).intValue();
+                ByteProcessor bp = new ByteProcessor(1, 1);
+                bp.set(0, 0, value);
+                return new ImagePlus("ConvertedNumber", bp);
+            } else if (input instanceof Boolean) {
+                int v = (Boolean) input ? 255 : 0;
+                ByteProcessor bp = new ByteProcessor(1, 1);
+                bp.set(0, 0, v);
+                return new ImagePlus("ConvertedBoolean", bp);
+            } else if (input instanceof String) {
+                // Assumir que é um caminho para imagem
+                return new ImagePlus((String) input);
+            }
+            return null;
+        }
+    
+        public static Number toNumber(Object input) {
+            if (input instanceof Number) {
+                return (Number) input;
+            } else if (input instanceof String) {
+                try {
+                    return Double.parseDouble((String) input);
+                } catch (NumberFormatException e) {
+                    return 0;
+                }
+            } else if (input instanceof Boolean) {
+                return (Boolean) input ? 1 : 0;
+            } else if (input instanceof ImagePlus) {
+                return ((ImagePlus) input).getProcessor().getPixel(0, 0);
+            }
+            return 0;
+        }
+    
+        public static Double toDouble(Object input) {
+            Number n = toNumber(input);
+            return n.doubleValue();
+        }
+    
+        public static Boolean toBoolean(Object input) {
+            if (input instanceof Boolean) {
+                return (Boolean) input;
+            } else if (input instanceof Number) {
+                return ((Number) input).doubleValue() != 0.0;
+            } else if (input instanceof String) {
+                String s = ((String) input).trim().toLowerCase();
+                return s.equals("true") || s.equals("1") || s.equals("yes");
+            } else if (input instanceof ImagePlus) {
+                int pixel = ((ImagePlus) input).getProcessor().getPixel(0, 0);
+                return pixel != 0;
+            }
+            return false;
+        }
+
+        public static ImagePlus FlipHorizontal(ImagePlus img) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+            ip.flipHorizontal();  // Flip along vertical axis (left ↔ right)
+            return new ImagePlus("Flipped Horizontal", ip);
+        }
+
+        public static ImagePlus FlipVertical(ImagePlus img) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+            ip.flipVertical();  // Flip along horizontal axis (top ↔ bottom)
+            return new ImagePlus("Flipped Vertical", ip);
+        }
+
+        public static ImagePlus FlipVerticalAndHorizontal(ImagePlus img) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+            ip.flipHorizontal();
+            ip.flipVertical();
+            return new ImagePlus("Flipped Both", ip);
+        }
+        
+        public static ImagePlus blackHat(ImagePlus imp, Object kernel) {
+            // 1. Ensure 8-bit grayscale
+            if (imp.getType() != ImagePlus.GRAY8) {
+                IJ.run(imp, "8-bit", "");
+            }
+
+            // 2. Duplicate the original image
+            ImagePlus result = imp.duplicate();
+            ImageProcessor ip = result.getProcessor();
+
+            // 3. Apply morphological CLOSING (dilation + erosion)
+            if (kernel == null) {
+                // Default circular kernel
+                RankFilters rf = new RankFilters();
+                rf.rank(ip, 2.0, RankFilters.CLOSE); // radius=2.0
+            } 
+            else if (kernel instanceof List) {
+                // Custom kernel from List
+                @SuppressWarnings("unchecked")
+                List\<List\<Integer\>\> kernelList = (List\<List\<Integer\>\>) kernel;
+                int size = kernelList.size();
+                double radius = size / 2.0;
+
+                RankFilters rf = new RankFilters();
+                rf.rank(ip, radius, RankFilters.CLOSE);
+            }
+
+            // 4. Subtract original from closed (Black Hat)
+            ImageProcessor original = imp.getProcessor();
+            for (int y = 0; y \< ip.getHeight(); y++) {
+                for (int x = 0; x \< ip.getWidth(); x++) {
+                    int diff = ip.get(x, y) - original.get(x, y); // Note reversed order vs Top-Hat
+                    ip.set(x, y, Math.max(0, diff)); // Clamp to 0-255
+                }
+            }
+
+            result.setTitle("BlackHat Result");
+            return result;
+        }
+        public static ImagePlus topHat(ImagePlus imp, Object kernel) {
+            // 1. Ensure we have an 8-bit grayscale image
+            if (imp.getType() != ImagePlus.GRAY8) {
+                IJ.run(imp, "8-bit", "");
+            }
+
+            // 2. Duplicate the original image
+            ImagePlus result = imp.duplicate();
+            ImageProcessor ip = result.getProcessor();
+
+            // 3. Apply morphological opening
+            if (kernel == null) {
+                // Default circular kernel
+                RankFilters rf = new RankFilters();
+                rf.rank(ip, 2.0, RankFilters.OPEN); // radius=2.0
+            } 
+            else if (kernel instanceof List) {
+                // Custom kernel from List
+                @SuppressWarnings("unchecked")
+                List\<List\<Integer\>\> kernelList = (List\<List\<Integer\>\>) kernel;
+                int size = kernelList.size();
+                double radius = size / 2.0;
+
+                // Apply opening with square kernel
+                RankFilters rf = new RankFilters();
+                rf.rank(ip, radius, RankFilters.OPEN);
+            }
+
+            // 4. Subtract opened from original (Top-Hat)
+            ImageProcessor original = imp.getProcessor();
+            for (int y = 0; y \< ip.getHeight(); y++) {
+                for (int x = 0; x \< ip.getWidth(); x++) {
+                    int diff = original.get(x, y) - ip.get(x, y);
+                    ip.set(x, y, Math.max(0, diff));
+                }
+            }
+
+            result.setTitle("TopHat Result");
+            return result;
+        }
+
+        // Convert List\<List\<Integer\>\> to ImagePlus
+        // Versão corrigida da função fromList
+        public static ImagePlus fromList(List\<List\<Integer\>\> matrix) {
+            int height = matrix.size();
+            int width = matrix.get(0).size();
+            ByteProcessor bp = new ByteProcessor(width, height);
+
+            for (int y = 0; y \< height; y++) {
+                List\<Integer\> row = matrix.get(y);  // Especificamos o tipo List<Integer>
+                for (int x = 0; x \< width; x++) {
+                    int pixelValue = row.get(x);    // Conversão automática de Integer para int
+                    bp.set(x, y, pixelValue);      // Usando set() em vez de putPixel
+                }
+            }
+            return new ImagePlus("Converted", bp);
+        }
+
+        public static ImagePlus dilate(ImagePlus input, Object kernel) {
+            ImageProcessor ip = input.getProcessor().duplicate();
+
+            ImagePlus kernelImage = null;
+
+            if (kernel == null) {
+                // Default behavior with no kernel
+                ip.dilate();  // ImageJ's basic erosion
+                return new ImagePlus("Eroded", ip);
+            } else if (kernel instanceof ImagePlus) {
+                kernelImage = (ImagePlus) kernel;
+                // For now, ignoring custom kernel shape since ImageJ core erode() doesn't take one
+                ip.dilate();
+            } else if (kernel instanceof List) {
+                try {
+                    @SuppressWarnings("unchecked")
+                    List\<List\<Integer\>\> kernelList = (List\<List\<Integer\>\>) kernel;
+                    kernelImage = fromList(kernelList);
+                    ip.dilate();  // Or apply logic using kernelImage if needed
+                } catch (Exception e) {
+                    System.err.println("Invalid kernel List format");
+                    ip.dilate();
+                }
+            } else {
+                System.err.println("Unsupported kernel type: " + kernel.getClass());
+                ip.dilate(); // fallback
+            }
+
+            return new ImagePlus("Eroded", ip);
+        }
+    
+        public static ImagePlus erode(ImagePlus input, Object kernel) {
+            ImageProcessor ip = input.getProcessor().duplicate();
+    
+            ImagePlus kernelImage = null;
+    
+            if (kernel == null) {
+                // Default behavior with no kernel
+                ip.erode();  // ImageJ's basic erosion
+                return new ImagePlus("Eroded", ip);
+            } else if (kernel instanceof ImagePlus) {
+                kernelImage = (ImagePlus) kernel;
+                // For now, ignoring custom kernel shape since ImageJ core erode() doesn't take one
+                ip.erode();
+            } else if (kernel instanceof List) {
+                try {
+                    @SuppressWarnings("unchecked")
+                    List\<List\<Integer\>\> kernelList = (List\<List\<Integer\>\>) kernel;
+                    kernelImage = fromList(kernelList);
+                    ip.erode();  // Or apply logic using kernelImage if needed
+                } catch (Exception e) {
+                    System.err.println("Invalid kernel List format");
+                    ip.erode();
+                }
+            } else {
+                System.err.println("Unsupported kernel type: " + kernel.getClass());
+                ip.erode(); // fallback
+            }
+    
+            return new ImagePlus("Eroded", ip);
+        }
+
+        public static ImagePlus open(ImagePlus input, Object kernel) {
+            ImageProcessor ip = input.getProcessor().duplicate();
+
+            ImagePlus kernelImage = null;
+
+            if (kernel == null) {
+                // Default behavior with no kernel
+                open(input, null);  // ImageJ's basic erosion
+                return new ImagePlus("Open", ip);
+            } else if (kernel instanceof ImagePlus) {
+                kernelImage = (ImagePlus) kernel;
+                // For now, ignoring custom kernel shape since ImageJ core erode() doesn't take one
+                open(input, kernelImage);
+            } else if (kernel instanceof List) {
+                try {
+                    @SuppressWarnings("unchecked")
+                    List\<List\<Integer\>\> kernelList = (List\<List\<Integer\>\>) kernel;
+                    kernelImage = fromList(kernelList);
+                    open(input, kernelImage);  // Or apply logic using kernelImage if needed
+                } catch (Exception e) {
+                    System.err.println("Invalid kernel List format");
+                    open(input, kernel);
+                }
+            } else {
+                System.err.println("Unsupported kernel type: " + kernel.getClass());
+                ip.dilate(); // fallback
+            }
+
+            return new ImagePlus("Open", ip);
+        }
+
+        public static ImagePlus close(ImagePlus input, Object kernel) {
+            ImageProcessor ip = input.getProcessor().duplicate();
+
+            ImagePlus kernelImage = null;
+
+            if (kernel == null) {
+                // Default behavior with no kernel
+                close(input, null);  // ImageJ's basic erosion
+                return new ImagePlus("Close", ip);
+            } else if (kernel instanceof ImagePlus) {
+                kernelImage = (ImagePlus) kernel;
+                // For now, ignoring custom kernel shape since ImageJ core erode() doesn't take one
+                close(input, kernelImage);
+            } else if (kernel instanceof List) {
+                try {
+                    @SuppressWarnings("unchecked")
+                    List\<List\<Integer\>\> kernelList = (List\<List\<Integer\>\>) kernel;
+                    kernelImage = fromList(kernelList);
+                    close(input, kernelImage);  // Or apply logic using kernelImage if needed
+                } catch (Exception e) {
+                    System.err.println("Invalid kernel List format");
+                    close(input, kernel);
+                }
+            } else {
+                System.err.println("Unsupported kernel type: " + kernel.getClass());
+                ip.dilate(); // fallback
+            }
+
+            return new ImagePlus("Close", ip);
+        }
+
+        public static ImagePlus adjustVerticalAndHorizontalScale(ImagePlus img, double scale) {
+            ImageProcessor ip = img.getProcessor();
+            int newWidth = (int) Math.round(ip.getWidth() * scale);
+            int newHeight = (int) Math.round(ip.getHeight() * scale);
+            ImageProcessor resized = ip.resize(newWidth, newHeight);
+            return new ImagePlus("rescaled", resized);
+        }
+
+        public static ImagePlus adjustVerticalAndHorizontalScale(ImagePlus img, double scaleX, double scaleY) {
+            ImageProcessor ip = img.getProcessor();
+            int newWidth = (int) Math.round(ip.getWidth() * scaleX);
+            int newHeight = (int) Math.round(ip.getHeight() * scaleY);
+            ImageProcessor resized = ip.resize(newWidth, newHeight);
+            return new ImagePlus("rescaled", resized);
+        }
+
+        public static ImagePlus dilate(ImagePlus img, ImagePlus kernel) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+            Binary binary = new Binary();
+            binary.setup("dilate", img);
+            binary.run(ip);
+            return new ImagePlus("dilated", ip);
+        }
+
+        public static ImagePlus divide(ImagePlus img1, ImagePlus img2) {
+            if (img1 == null || img2 == null) {
+                System.err.println("Uma das imagens é nula.");
+                return null;
+            }
+        
+            if (img1.getWidth() != img2.getWidth() || img1.getHeight() != img2.getHeight()) {
+                System.err.println("As imagens devem ter o mesmo tamanho para divisão.");
+                return null;
+            }
+        
+            ImageProcessor proc1 = img1.getProcessor().duplicate();
+            ImageProcessor proc2 = img2.getProcessor();
+        
+            proc1.copyBits(proc2, 0, 0, Blitter.DIVIDE);
+            return new ImagePlus("Divided Image", proc1);
+        }
+
+
+        public static int countPixel(Double targetValue, ImagePlus image) {
+            if (image == null || targetValue == null) {
+                throw new IllegalArgumentException("Image or value cannot be null.");
+            }
+
+            ImageProcessor proc = image.getProcessor();
+            int width = proc.getWidth();
+            int height = proc.getHeight();
+            int count = 0;
+
+            for (int y = 0; y \< height; y++) {
+                for (int x = 0; x \< width; x++) {
+                    int pixelValue = proc.getPixel(x, y);
+                    if (pixelValue == targetValue.intValue()) {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        public static ImagePlus sub(ImagePlus a, ImagePlus b) {
+            ImageProcessor procA = a.getProcessor().duplicate();
+            ImageProcessor procB = b.getProcessor();
+            procA.copyBits(procB, 0, 0, Blitter.SUBTRACT);
+            ImagePlus i = new ImagePlus("subtracted", procA);
+            return binarize(i);
+        }
+
+        
+        
+
+        public static ImagePlus binarize(ImagePlus image) {
+            ImageProcessor ip = image.getProcessor().duplicate();
+            int width = ip.getWidth();
+            int height = ip.getHeight();
+            for (int y = 0; y \< height; y++) {
+                for (int x = 0; x \< width; x++) {
+                    double val = ip.getPixelValue(x, y);
+                    ip.putPixelValue(x, y, Math.abs(val) \> 1e-3 ? 255 : 0);
+                }
+            }
+            return new ImagePlus("binarized", ip);
+        }
+
+
+        public static ImagePlus erode(ImagePlus img, ImagePlus kernel) {
+            ImageProcessor ip = img.getProcessor().duplicate(); // duplica para não alterar a original
+            Binary binary = new Binary();
+            binary.setup("erode", img);
+            binary.run(ip);
+            return new ImagePlus("eroded", ip);
+        }
+
+
+
+        public static boolean AnyPixelgreaterThan(ImagePlus img, int threshold) {
+            ImageProcessor ip = img.getProcessor();
+            int width = ip.getWidth();
+            int height = ip.getHeight();
+
+            for (int y = 0; y \< height; y++) {
+                for (int x = 0; x \< width; x++) {
+                    int pixelValue = ip.getPixel(x, y);
+                    if (pixelValue > threshold) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static boolean AnyPixellessThan(ImagePlus img, int threshold) {
+            ImageProcessor ip = img.getProcessor();
+            int width = ip.getWidth();
+            int height = ip.getHeight();
+
+            for (int y = 0; y \< height; y++) {
+                for (int x = 0; x \< width; x++) {
+                    if (ip.getPixel(x, y) \< threshold) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static boolean AnyPixelequalTo(ImagePlus img, int value) {
+            ImageProcessor ip = img.getProcessor();
+            int width = ip.getWidth();
+            int height = ip.getHeight();
+
+            for (int y = 0; y \< height; y++) {
+                for (int x = 0; x \< width; x++) {
+                    if (ip.getPixel(x, y) == value) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public static boolean AnyPixeldifferentThan(ImagePlus img, int value) {
+            ImageProcessor ip = img.getProcessor();
+            int width = ip.getWidth();
+            int height = ip.getHeight();
+
+            for (int y = 0; y \< height; y++) {
+                for (int x = 0; x \< width; x++) {
+                    if (ip.getPixel(x, y) != value) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+        public static boolean AnyPixellessOrEqualThan(ImagePlus img, int threshold) {
+            ImageProcessor ip = img.getProcessor();
+            int width = ip.getWidth();
+            int height = ip.getHeight();
+
+            for (int y = 0; y \< height; y++) {
+                for (int x = 0; x \< width; x++) {
+                    if (ip.getPixel(x, y) \<= threshold) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+
+        public static boolean AnyPixelgreaterOrEqualThan(ImagePlus img, int threshold) {
+            ImageProcessor ip = img.getProcessor();
+            int width = ip.getWidth();
+            int height = ip.getHeight();
+                
+            for (int y = 0; y \< height; y++) {
+                for (int x = 0; x \< width; x++) {
+                    if (ip.getPixel(x, y) \>= threshold) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private interface PixelPredicate {
+            boolean test(int pixelValue);
+        }
+
+        public static boolean allPixelGreaterThan(Object input, int threshold) {
+            return apply(input, p -\> p \> threshold);
+        }
+
+        public static boolean allPixelLessThan(Object input, int threshold) {
+            return apply(input, p -\> p \< threshold);
+        }
+
+        public static boolean allPixelEqualTo(Object input, int value) {
+            return apply(input, p -\> p == value);
+        }
+
+        public static boolean allPixelDifferentThan(Object input, int value) {
+            return apply(input, p -\> p != value);
+        }
+
+        public static boolean allPixelLessOrEqualThan(Object input, int value) {
+            return apply(input, p -\> p \<= value);
+        }
+
+        public static boolean allPixelGreaterOrEqualThan(Object input, int value) {
+            return apply(input, p -\> p \>= value);
+        }
+
+        private static boolean apply(Object input, PixelPredicate predicate) {
+            if (input instanceof List) {
+                List\<?\> list = (List\<?\>) input;
+                for (Object obj : list) {
+                    int val = (obj instanceof Boolean) ? ((Boolean) obj ? 1 : 0) : (int) obj;
+                    if (!predicate.test(val)) return false;
+                }
+                return true;
+            } else if (input instanceof ImagePlus) {
+                ImageProcessor proc = ((ImagePlus) input).getProcessor();
+                int width = proc.getWidth();
+                int height = proc.getHeight();
+                for (int y = 0; y \< height; y++) {
+                    for (int x = 0; x \< width; x++) {
+                        int pixelVal = proc.getPixel(x, y);
+                        if (!predicate.test(pixelVal)) return false;
+                    }
+                }
+                return true;
+            } else {
+                throw new IllegalArgumentException("Input must be either a List or an ImagePlus.");
+            }
+        }
+
+
+        public static ImagePlus openImage(String path) {
+            return IJ.openImage(path);
+        }
+
+        public static void showImage(ImagePlus img, String title) {
+            img.setTitle(title);
+            img.show();
+        }
+
+        public static ImagePlus morphOperation(ImagePlus img, String op, int kernelSize) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+
+            switch (op.toLowerCase()) {
+                case "open":
+                    new Binary().setup("open", null);
+                    new Binary().run(ip);
+                    break;
+                case "close":
+                    new Binary().setup("close", null);
+                    new Binary().run(ip);
+                    break;
+                case "erode":
+                    ip.erode();
+                    break;
+                case "dilate":
+                    ip.dilate();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unsupported operation: " + op);
+            }
+
+            return new ImagePlus("Morph Result", ip);
+        }
+
+        public static void saveImage(ImagePlus img, String path) {
+            new FileSaver(img).saveAsPgm(path);
+        }
+
+        public static int columns(ImagePlus img) {
+            return img.getWidth();
+        }
+
+        public static int rows(ImagePlus img) {
+            return img.getHeight();
+        }
+
+        public static ImagePlus adjustHorizontalScale(ImagePlus img, double scale) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+            int newWidth = (int) Math.round(ip.getWidth() * scale);
+            ImageProcessor resized = ip.resize(newWidth, ip.getHeight(), true);
+            ImagePlus result = new ImagePlus(img.getTitle()+" (h-scaled)", resized);
+            result.setCalibration(img.getCalibration().copy());
+            return result;
+        }
+        
+        public static ImagePlus adjustVerticalScale(ImagePlus img, double scale) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+            int newHeight = (int) Math.round(ip.getHeight() * scale);
+            ImageProcessor resized = ip.resize(ip.getWidth(), newHeight, true);
+            ImagePlus result = new ImagePlus(img.getTitle()+" (v-scaled)", resized);
+            result.setCalibration(img.getCalibration().copy());
+            return result;
+        }
+
+        public static ImagePlus multiply(double scalar, ImagePlus img) {
+            ImageProcessor proc = img.getProcessor().convertToFloat().duplicate();
+            proc.multiply(scalar);
+            return new ImagePlus("multiplied", proc);
+        }
+
+        public static ImagePlus multiply(ImagePlus img, double scalar) {
+            return multiply(scalar, img); // delega para a versão correta
+        }
+
+
+        public static ImagePlus add(ImagePlus img1, ImagePlus img2) {
+            if (img1 == null || img2 == null) {
+                System.err.println("Uma das imagens é nula.");
+                return null;
+            }
+        
+            // Verifica se as imagens têm o mesmo tamanho
+            int width1 = img1.getWidth();
+            int height1 = img1.getHeight();
+            int width2 = img2.getWidth();
+            int height2 = img2.getHeight();
+        
+            if (width1 != width2 || height1 != height2) {
+                System.err.println("As imagens devem ter o mesmo tamanho para serem somadas.");
+                return null;
+            }
+        
+            ImageProcessor proc1 = img1.getProcessor().duplicate();
+            ImageProcessor proc2 = img2.getProcessor();
+        
+            proc1.copyBits(proc2, 0, 0, Blitter.ADD);  // Soma pixel a pixel
+        
+            return new ImagePlus("Added Image", proc1);
+        }
+
+        public static ImagePlus open(ImagePlus img, ImagePlus kernel) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+            Binary binary = new Binary();
+            binary.setup("open", img);
+            binary.run(ip);
+            return new ImagePlus("opened", ip);
+        }
+
+        public static ImagePlus close(ImagePlus img, ImagePlus kernel) {
+            ImageProcessor ip = img.getProcessor().duplicate();
+            Binary binary = new Binary();
+            binary.setup("close", img);
+            binary.run(ip);
+            return new ImagePlus("closed", ip);
+        }
+
+        public static String read(String prompt) {
+            System.out.print(prompt);
+            Scanner scanner = new Scanner(System.in);
+            String path = scanner.nextLine();
+            return path;
+        }
+
+        public static ImagePlus run(String prompt) {
+            System.out.print(prompt);
+            return MorphologyWithImageJ.loadImage(prompt);
+        }
+
+        // Dentro da classe MorphologyWithImageJ
+        public static ImagePlus runSecondary(String type, ImagePlus img, ImagePlus kernel) {
+            // Exemplo: apenas retorna o kernel, ou implementa a lógica que quiseres
+            return kernel;
+        }
+
+        public static ImagePlus loadImage(String path) {
+            
+            path = "../examples/" + path;  // corrigir path relativo à raiz
+            System.out.println("Imagem salva com sucesso em: " + path);
+
+            ImagePlus image = IJ.openImage(path);
+            if (image == null) {
+                System.out.println("Erro: Não foi possível carregar a imagem em " + path);
+            }
+            return image;
+        }
+
+
+        public static void draw(ImagePlus image) {
+            if (image == null) {
+                System.err.println("Erro: imagem nula. Nada a desenhar.");
+                return;
+            }
+            image.show();  // Mostra a imagem em uma janela do ImageJ
+        }
+
+        public static void storeImage(List\<ImagePlus\> images, String path) {
+            if (images == null || images.isEmpty()) {
+                System.err.println("Erro: lista de imagens vazia.");
+                return;
+            }
+
+            int width = images.get(0).getWidth();
+            int height = images.get(0).getHeight();
+            ImageStack stack = new ImageStack(width, height);
+
+            for (ImagePlus img : images) {
+                stack.addSlice(img.getProcessor());
+            }
+
+            ImagePlus result = new ImagePlus("animation", stack);
+            path = "../examples/" + path;
+
+            boolean success = new FileSaver(result).saveAsGif(path);
+            if (success) {
+                System.out.println("GIF salvo com sucesso em: " + path);
+            } else {
+                System.err.println("Erro ao salvar o GIF.");
+            }
+        }
+
+
+        public static void storeImage(ImagePlus image, String path) {
+            if (image == null) {
+                System.err.println("Erro: imagem nula. Nada a salvar.");
+                return;
+            }
+        
+            path = "../examples/" + path;
+            boolean success = new FileSaver(image).saveAsPgm(path); // Salva como PGM (ou troca por saveAsJpeg, etc.)
+        
+            if (success) {
+                System.out.println("Imagem salva com sucesso em: " + path);
+            } else {
+                System.err.println("Erro ao salvar imagem em: " + path);
+            }
+        }
+
+        public static void output(ImagePlus image) {
+            if (image == null) {
+                System.err.println("Erro: imagem nula. Nada a imprimir.");
+                return;
+            }
+
+            System.out.println("=== Metadados da Imagem ===");
+            System.out.println("Título: " + image.getTitle());
+            System.out.println("Largura: " + image.getWidth());
+            System.out.println("Altura: " + image.getHeight());
+            System.out.println("Profundidade de bits: " + image.getBitDepth());
+            System.out.println("Número de canais: " + image.getNChannels());
+            System.out.println("Número de slices: " + image.getNSlices());
+            System.out.println("Número de frames: " + image.getNFrames());
+        }
+
+    }
+
+}
+
+>>
+
+varDecl(type, id, expr) ::= <<
+<type> <id> = <expr>;
+>>
+
+listDecl(type, id, Initializer) ::= <<
+List\<<type> <id> = new ArrayList\<\>(<Initializer>);
+>>
+
+ListInitializer(expr) ::= <<
+Arrays.asList(<expr; separator=", ">)
+>>
+
+declareType(type) ::= <<
+<type>\>
+>>
+
+ListTypeSpec(type) ::= <<
+List\<<type>\>
+>>
+
+AnyPixelExpr(id, expr, op) ::= <<
+MorphologyWithImageJ.<op>(<id>, <expr>)
+>>
+
+pixelComparison(expr) ::= <<
+<expr>
+>>
+
+FlipExpr(expr, method) ::= <<
+MorphologyWithImageJ.<method>(<expr>)
+>>
+
+Scale(left, method, right) ::= <<
+MorphologyWithImageJ.<method>(<left>, <right>)
+>>
+
+assignment(id, expr) ::= <<   
+<id> = <expr>;
+>>
+
+loadImage(type, id, source) ::= <<
+<type>Plus <id> = MorphologyWithImageJ.loadImage(<source>);
+>>
+
+StoreImage(id, expr) ::= <<
+MorphologyWithImageJ.storeImage(<id>, <expr>);
+>>
+
+open(img, kernel) ::= <<
+MorphologyWithImageJ.open(<img>, <kernel>)
+>>
+
+close(img, kernel) ::= <<
+MorphologyWithImageJ.close(<img>, <kernel>)
+>>
+
+
+
+ReadStmt(input) ::= <<
+MorphologyWithImageJ.read(<input>)
+>>
+
+morphStmt(id, operation, value) ::= <<
+<id> = MorphologyWithImageJ.morph(<id>, <operation>, <value>);
+>>
+
+drawImage(id) ::= <<
+MorphologyWithImageJ.draw(<id>);
+>>
+
+drawFigure(figure, args) ::= <<
+MorphologyWithImageJ.drawFigure(<figure><if(args)>: <args><endif>);
+>>
+
+RunSecondary(type, ID, Path) ::= <<
+<type> <ID> = MorphologyWithImageJ.runSec(<Path>);
+>>
+
+outputStmt(msg) ::= <<
+MorphologyWithImageJ.output(<msg>);
+>>
+
+ifStmt(cond, thenBranch, elseBranch) ::= <<
+if (<cond>) {
+<thenBranch; separator="\n">
+}<if(elseBranch)>
+else {
+<elseBranch; separator="\n">
+}
+<endif>
+>>
+
+forStmt(type, id, expr, body) ::= <<
+for (<type> <id> : <expr>) {
+<body; separator="\n">
+}
+>>
+
+UntilStmt(cond, body) ::= <<
+while (<cond>) {
+<body; separator="\n">
+}
+>>
+
+listAppend(id, value) ::= <<
+<id>.append(<value>);
+>>
+
+listRemove(id, value) ::= <<
+<id>.remove(<value>);
+>>
+
+typeConversion(type, expr) ::= <<
+<type>(<expr>)
+>>
+
+ParenExpr(expr)::= <<
+<expr>
+>>
+
+literal(value) ::= <<
+<value>
+>>
+
+binaryExpr(left, op, right) ::= <<
+(<left> <op> <right>)
+>>
+
+parens(expr) ::= <<
+(<expr>)
+>>
+
+unaryExpr(op, expr) ::= <<
+MorphologyWithImageJ.<op>(<expr>)
+>>
+
+propertyAccessExpr(property) ::= <<
+<property>
+>>
+
+propertyAccess(property, id) ::= <<
+MorphologyWithImageJ.<property>(<id>)
+>>
+
+
+listAccess(list, index) ::= <<
+<list>[<index>]
+>>
+
+morphOpChain(left, op, right) ::= <<
+(<left> <op> <right>)
+>>
+
+allPixel(image, cond) ::= <<
+allPixel(<image>, <cond>)
+>>
+
+anyPixel(image, cond) ::= <<
+anyPixel(<image>, <cond>)
+>>
+
+PixelMulDiv(left, method, right) ::= <<
+MorphologyWithImageJ.<method>(<left>,<right>)
+>>
+
+PixelAddSub(left, method, right) ::= <<
+MorphologyWithImageJ.<method>(<left>,<right>)
+>>
+
+AddSubArithmetic(left, op, right) ::= <<
+<left><op><right>
+>>
+
+MultDivArithmetic(left, op, right) ::= <<
+<left><op><right>
+>>
+
+countPixel(value, image) ::= <<
+MorphologyWithImageJ.countPixel(<value>, <image>)
+>>
+
+identifier(name) ::= <<
+<name>
+>>
+
+args(args) ::= <<
+<args; separator=", ">
+>>
+
+morphOp(value) ::= <<
+<value>
+>>
+
+NotExpr(op, expr) ::= <<
+MorphologyWithImageJ.<op>(<expr>)
+>>

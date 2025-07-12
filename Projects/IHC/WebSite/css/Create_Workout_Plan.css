@@ -1,0 +1,290 @@
+.create-workout-form {
+    background-color: #f9f9f9;
+    padding: 30px;
+    margin: 40px auto;
+    border-radius: 10px;
+    max-width: 800px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.create-workout-form input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    font-size: 1em;
+}
+
+#exercise-list {
+    margin-top: 20px;
+}
+
+.exercise-entry {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.exercise-entry input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+}
+
+#add-exercise-btn {
+    background-color: #468201;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#add-exercise-btn:hover {
+    background-color: #356b01;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 900px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.close {
+    float: right;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.close:hover {
+    color: black;
+}
+
+.modal-exercise-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.modal-exercise {
+    width: 250px;
+    background: #f5f5f5;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+}
+
+.modal-exercise img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.select-exercise {
+    background-color: #468201;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* General Styles */
+.title-box h1 {
+    color: #468201;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.title-box input {
+    font-size: 1.5em;
+    padding: 15px;
+    width: 80%;
+    border-radius: 10px;
+    border: 2px solid #468201;
+    text-align: center;
+}
+
+.add-exercise-box {
+    text-align: center;
+}
+
+/* Exercise Block Styles */
+.exercise-block {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* Enable positioning for child elements */
+}
+
+.exercise-header {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.exercise-header img {
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.exercise-header h3 {
+    color: #468201;
+    margin: 0;
+    text-align: center;
+}
+
+.exercise-details {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.inputs {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column; /* Stack each label-input pair vertically */
+    gap: 15px; /* Add spacing between each label-input pair */
+    flex: 1;
+}
+
+.inputs label {
+    display: flex;
+    flex-direction: row; /* Align label and input side by side */
+    align-items: center; /* Vertically align the label and input */
+    gap: 5px; /* Add spacing between the label and input */
+}
+
+.inputs input {
+    margin-left: 60px;
+    margin-top: 15px;
+    width: 80px; /* Adjust the width for better alignment */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.notes {
+    margin-top: 15px;
+    flex: 1;
+}
+
+.notes label {
+    display: flex;
+    flex-direction: column; /* Stack the label above the textarea */
+    gap: 10px; /* Add spacing between the label and the textarea */
+}
+
+.notes textarea {
+    width: 500px;
+    height: 100px;
+    margin-right: 100px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    padding: 10px; /* Add padding inside the textarea for better readability */
+}
+
+.exercise-rest {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.exercise-rest input {
+    width: 1200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.remove-btn {
+    position: absolute; /* Position the button relative to the block */
+    top: 10px; /* Position it 10px from the top */
+    right: 10px; /* Position it 10px from the right */
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px; /* Make the button square with rounded corners */
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; /* Set a fixed width */
+    height: 30px; /* Set a fixed height */
+}
+
+.remove-btn:hover {
+    background-color: #c0392b;
+}
+
+.submit-box {
+    text-align: center;
+    margin-top: 20px;
+}
+/* Container for the go-back button */
+.go-back-container {
+    display: flex;
+    justify-content: flex-start; /* Align the button to the left */
+    margin-bottom: 10px; /* Add spacing below the button */
+  }
+  
+  /* Go-back button */
+  .go-back-btn {
+    background-color: #468201; /* Green background */
+    color: white; /* White arrow */
+    border: none; /* Remove border */
+    width: 40px; /* Square size */
+    height: 40px; /* Square size */
+    border-radius: 5px; /* Slightly rounded corners */
+    font-size: 1.5em; /* Larger arrow */
+    cursor: pointer; /* Pointer cursor on hover */
+    display: flex;
+    align-items: center; /* Center the arrow vertically */
+    justify-content: center; /* Center the arrow horizontally */
+  }
+  
+  .go-back-btn:hover {
+    background-color: #356b01; /* Darker green on hover */
+  }

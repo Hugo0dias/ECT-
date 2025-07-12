@@ -1,0 +1,12 @@
+// ERRO: Redeclaração de variáveis
+number x is 5
+string x is "test"                     // ERRO: x já foi declarada como number
+
+image img is load from "test.pgm"
+number img is 42                       // ERRO: img já foi declarada como image
+
+// ERRO: Redeclaração em diferentes escopos (se não permitido)
+list of number nums is [1, 2, 3]
+for number i within nums do
+    number nums is 0                   // ERRO: conflito de nome com lista externa
+done

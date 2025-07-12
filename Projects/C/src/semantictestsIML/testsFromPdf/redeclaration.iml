@@ -1,0 +1,6 @@
+// Declaring the same variable twice
+number x is 5
+string x is "hello" // Error: Variable 'x' already declared
+
+image img is load from "test.png"
+boolean img is true // Error: Variable 'img' already declared

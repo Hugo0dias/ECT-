@@ -1,0 +1,8 @@
+// Test: Multiple confusing variable names and edge cases
+number Image is 10
+number Place is 20  
+number Width is Image + Place
+list of number Circle is [1, 2, 3]
+image size 100 by 100 background 0
+for list Background within Circle
+    place rect width Width height Image at Place Place with intensity 255

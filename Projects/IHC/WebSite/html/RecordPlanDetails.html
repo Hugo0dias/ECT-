@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plan Details</title>
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/RecordPlanDetails.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="../css/language-dropdown.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <style>
+    .go-back-container {
+      margin-top: 50px;
+      margin-right: 50px;
+      margin-left: 50px;
+    }
+
+    .go-back-btn {
+      background-color: #468201;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .go-back-btn:hover {
+      background-color: #356601;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <nav class="nav">
+        <a href="index.html" id="logo">
+          <img src="../images/Logo.png" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+        <a href="./RecordPlans.html" class="nav-link">Record Plans</a>
+        <a href="./WorkoutPlans.html" class="nav-link">Workout Plans</a>
+        <a href="./Exercises.html" class="nav-link">List Of Exercises</a>
+        <a href="./Favourites.html" class="nav-link">Favourites</a>
+        
+        <div class="language-dropdown">
+          <a href="../#" class="nav-link language">Language</a>
+          <div class="dropdown-content">
+            <a href="#" class="language-option" data-lang="pt">
+              <img src="../images/portugal.png" alt="Português" class="flag-icon"> Português
+            </a>
+            <a href="#" class="language-option" data-lang="en">
+              <img src="../images/united-kingdom.png" alt="English" class="flag-icon"> English
+            </a>
+          </div>
+        </div>
+        
+        <a href="../myProfile.html" id="profile">
+          <img src="../images/profilings.jpg" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+      </nav>                       
+    </div>
+
+    <div class="main-area">
+      <div class="go-back-container">
+        <button onclick="goBack()" class="go-back-btn">
+          &#8592; <!-- Left-pointing arrow -->
+        </button>
+        <h1 id="plan-title">Workout Plan</h1>
+      </div>
+      <div class="plan-header">
+        <div class="plan-buttons">
+          <input type="text" id="date-picker" class="date-picker" placeholder="Select Date">
+          <span id="selected-date" class="selected-date"></span>
+          <button onclick="checkRecords()" class="check-records-btn">Check Records</button>
+        </div>
+      </div>
+      <div id="exercise-container" class="exercise-container">
+        <!-- Exercise cards will be dynamically added here -->
+      </div>
+      <button onclick="saveWorkoutData()" class="save-btn">Save</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+  
+  <script>
+    function displayPlanDetails() {
+      const plan = JSON.parse(localStorage.getItem('currentPlan'));
+      const container = document.getElementById('exercise-container');
+      const title = document.getElementById('plan-title');
+
+      if (!plan) {
+        container.innerHTML = '<p>No plan details found.</p>';
+        return;
+      }
+
+      title.textContent = plan.title;
+
+      plan.exercises.forEach((exercise, index) => {
+        const exerciseCard = document.createElement('div');
+        exerciseCard.className = 'exercise-card';
+        exerciseCard.innerHTML = `
+          <div class="exercise-content">
+            <div class="exercise-header">
+              <img src="${exercise.img}" alt="${exercise.name}" class="exercise-image">
+              <h3>${exercise.name} (${exercise.type})</h3>
+            </div>
+            <div class="set-container" id="set-container-${index}">
+              <div class="set-entry">
+                <h4>Set 1</h4>
+                <label>Reps: <input type="number" class="reps-input" value="0" /></label>
+                <label>Weight (Kg): <input type="number" class="cargo-input" value="0" /></label>
+              </div>
+            </div>
+          </div>
+          <label class="global-notes">
+            Notes: <textarea id="global-notes-${index}" class="notes-textarea" placeholder="No notes provided"></textarea>
+          </label>
+          <button onclick="addSet(${index})" class="add-set-btn">Add Set</button>
+        `;
+        container.appendChild(exerciseCard);
+      });
+    }
+
+    function addSet(index) {
+      const setContainer = document.getElementById(`set-container-${index}`);
+      const setCount = setContainer.querySelectorAll('.set-entry').length + 1;
+
+      const newSet = document.createElement('div');
+      newSet.className = 'set-entry';
+      newSet.innerHTML = `
+        <button class="delete-set-btn" onclick="deleteSet(this)">-</button>
+        <h4>Set ${setCount}</h4>
+        <label>Reps: <input type="number" class="reps-input" /></label>
+        <label>Weight (Kg): <input type="number" class="cargo-input" /></label>
+      `;
+      setContainer.appendChild(newSet);
+    }
+
+    function deleteSet(button) {
+      const setEntry = button.parentElement; // Get the parent `.set-entry` div
+      setEntry.remove(); // Remove the set from the DOM
+    }
+
+    function saveWorkoutData() {
+      // Get the selected date
+      const selectedDate = document.getElementById('date-picker').value;
+
+      // Check if a date is selected
+      if (!selectedDate) {
+        alert("Please select a date before saving the workout data.");
+        return; // Exit the function if no date is selected
+      }
+
+      // Validate that all Reps and Cargo inputs have values
+      const repsInputs = document.querySelectorAll('.reps-input');
+      const cargoInputs = document.querySelectorAll('.cargo-input');
+
+      for (let i = 0; i < repsInputs.length; i++) {
+        if (!repsInputs[i].value || !cargoInputs[i].value) {
+          alert("Please fill in all Reps and Cargo inputs before saving.");
+          return; // Exit the function if any input is empty
+        }
+      }
+
+      
+
+      const plan = JSON.parse(localStorage.getItem('currentPlan'));
+      const workoutData = JSON.parse(localStorage.getItem('workoutData')) || {};
+
+      workoutData[selectedDate] = workoutData[selectedDate] || {};
+      workoutData[selectedDate][plan.title] = plan.exercises.map((exercise, index) => {
+        const sets = Array.from(document.querySelectorAll(`#set-container-${index} .set-entry`)).map(set => ({
+          reps: set.querySelector('.reps-input').value || 0,
+          cargo: set.querySelector('.cargo-input').value || 0,
+        }));
+        const notes = document.getElementById(`global-notes-${index}`).value || '';
+        return { name: exercise.name, type: exercise.type, sets, notes };
+      });
+
+      localStorage.setItem('workoutData', JSON.stringify(workoutData));
+
+      // Redirect to the "Record Plans" page
+      window.location.href = 'RecordPlans.html'; // Replace with the actual path to your "Record Plans" page
+    }
+
+    function openDatePicker() {
+      const datePicker = document.getElementById('date-picker');
+      datePicker.style.display = 'block'; // Make the calendar visible
+      datePicker.focus(); // Focus on the date picker to open it
+    }
+
+    function handleDateChange(event) {
+      const selectedDate = event.target.value; // Get the selected date
+      const selectedDateDisplay = document.getElementById('selected-date');
+      selectedDateDisplay.textContent = `Selected Date: ${selectedDate}`; // Display the selected date
+    }
+
+    function checkRecords() {
+      // Redirect to the "Check Records" page
+      window.location.href = 'CheckRecords.html'; // Ensure the path is correct relative to this file
+    }
+
+    window.onload = displayPlanDetails;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const datePicker = flatpickr("#date-picker", {
+        dateFormat: "Y-m-d", // Format: Year-Month-Day
+        allowInput: true, // Allow manual input
+        onChange: function (selectedDates, dateStr) {
+          const selectedDateDisplay = document.getElementById("selected-date");
+          selectedDateDisplay.textContent = `Selected Date: ${dateStr}`; // Display the selected date
+        },
+      });
+
+      window.openDatePicker = function () {
+        datePicker.open(); // Open the Flatpickr calendar programmatically
+      };
+    });
+  </script>
+  <script src="../js/language-dropdown.js"></script>
+
+</body>
+</html>

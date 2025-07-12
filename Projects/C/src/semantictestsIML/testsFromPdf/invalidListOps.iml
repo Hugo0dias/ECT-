@@ -1,0 +1,8 @@
+number x is 10
+string text is "hello"
+image img is load from "test.pgm"
+
+// List operations on non-lists
+x append 5  // Error : Append operation can only be used with list variables
+text remove 0 // Error : Remove operation can only be used with list variables
+number element is img[2] // Error: Index operation can only be used with lists

@@ -1,0 +1,10 @@
+string text is "hello"
+boolean flag is true
+image img is load from "test.pgm"
+
+
+// Arithmetic with wrong types
+number result1 is text + 5 // Error : Arithmetic operations require numeric operands
+number result2 is flag * 2 // Error : Arithmetic operations require numeric operands
+number result3 is img - 10 // Error : Arithmetic operations require numeric operands
+number result4 is 5 / 0 // Error: Division by zero

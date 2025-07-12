@@ -1,0 +1,6 @@
+image img is load from "test.pgm"
+string text is "hello"
+
+// Non-numeric pixel comparison values
+boolean result1 is any pixel img .== text  // Error : Pixel comparison requires numeric value
+boolean result2 is all pixel img .> true  // Error : Pixel comparison requires numeric value

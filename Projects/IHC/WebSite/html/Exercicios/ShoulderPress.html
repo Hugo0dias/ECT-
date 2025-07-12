@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" 
+      data-name="Shoulder Press" 
+      data-type="Shoulders" 
+      data-img="/images/shoulder-press.jpg">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shoulder Press Exercise | OneBox</title>
+  <link rel="stylesheet" href="../../css/index.css" />
+  <link rel="stylesheet" href="../../css/feature.css" />
+  <link rel="stylesheet" href="../../css/exercise-detail.css" />
+  <link rel="stylesheet" href="../../css/language-dropdown.css" />
+  <style>
+    .go-back-container {
+      margin: 50px;
+    }
+
+    .go-back-btn {
+      background-color: #468201;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .go-back-btn:hover {
+      background-color: #356601;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <nav class="nav">
+        <a href="../index.html" id="logo">
+          <img src="../../images/Logo.png" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+        <a href="../RecordPlans.html" class="nav-link">Record Plans</a>
+        <a href="../WorkoutPlans.html" class="nav-link">Workout Plans</a>
+        <a href="../Exercises.html" class="nav-link">List Of Exercises</a>
+        <a href="../Favourites.html" class="nav-link">Favourites</a>
+        
+        <div class="language-dropdown">
+          <a href="../#" class="nav-link language">Language</a>
+          <div class="dropdown-content">
+            <a href="#" class="language-option" data-lang="pt">
+              <img src="../../images/portugal.png" alt="Português" class="flag-icon"> Português
+            </a>
+            <a href="#" class="language-option" data-lang="en">
+              <img src="../../images/united-kingdom.png" alt="English" class="flag-icon"> English
+            </a>
+          </div>
+        </div>
+        
+        <a href="../myProfile.html" id="profile">
+          <img src="../../images/profilings.jpg" alt="Logo" style="width: 100px; height: auto; padding-left: 30px;">
+        </a>
+      </nav>                       
+    </div>
+
+    <!-- Go Back Button -->
+    <div class="go-back-container">
+      <button onclick="goBack()" class="go-back-btn">
+        &#8592; <!-- Left-pointing arrow -->
+      </button>
+      <div class="exercise-header">
+        <h1>Shoulder Press</h1>
+        <p><strong>Primary Muscles:</strong> Deltoids, Triceps, Upper Chest</p>
+      </div>
+      <div class="exercise-actions">
+        <button class="check-record-btn" id="checkRecordBtn">Personal Record</button>
+        <button class="favourite-btn" id="favouriteBtn">❤️ Add to Favourites</button>
+        <span id="favouriteStatus" class="favourite-status hidden">✔️ In your favourites</span>
+      </div>
+    </div>
+
+    <div class="exercise-detail-container">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/QAQ64hK4Xxs" frameborder="0" allowfullscreen></iframe>
+      </div>
+
+      
+      
+      <div class="instructions">
+        <h3>Instructions</h3>
+        <ol>
+          <li>Sit on a bench with back support or stand with feet shoulder-width apart</li>
+          <li>Hold dumbbells at shoulder height with palms facing forward</li>
+          <li>Keep core engaged and maintain a slight arch in your lower back</li>
+          <li>Press the weights upward until arms are fully extended overhead</li>
+          <li>Slowly lower back to starting position with control</li>
+          <li>Avoid locking elbows at the top and keep movement controlled</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+  <script src="../../js/exercise-detail.js"></script>
+  <script src="../../js/language-dropdown.js"></script>
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

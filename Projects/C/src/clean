@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Clean ANTLR4 generated files
+echo "Cleaning ANTLR4 generated files..."
+antlr4-clean
+
+# Remove all IML_*.java files
+echo "Removing IML_*.java files..."
+find . -name "IML_*.java" -type f -delete
+
+echo "Cleanup complete."

@@ -1,0 +1,14 @@
+*.o
+__pycache__
+.vscode
+.idea
+.antlr
+~*
+.idea
+~*
+*.pyc
+*.class
+*.jar
+!src/lib/*.jar
+*.pdf
+*.md

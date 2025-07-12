@@ -1,0 +1,23 @@
+1) A pessoa quer marcar o progresso que faz no ginasio (Exercicios)
+
+2) A pessoa esta cansada de fazer um exercicio de costas, que faz há 2 anos e quer renovar, i.e substituir um exercicio do seu plano de treino (Alterar um exercicio especifico Plano de treino)
+
+	a) pesquisar/informar por exercicios de costas que nunca tenha feito
+	b) ver os exercícios disponíveis
+	c) escolher um exercício que seja do seu agrado
+	d) quando for ao ginásio vai aplicar o exercício que viu
+	e) caso tenha sido útil, atualiza o plano de treino
+
+3) A pessoa nao tem certeza sobre a execucao de um exercicio
+
+	a) vai pesquisar o exercício em questão
+	b) vê e aprende a forma correta de executar o exercício
+	c) vai ao ginásio e replica a execução da melhor forma
+	d) utilizador fica livre de lesões e tem um aumento de ganhos de massa muscular
+	
+4) A pessoa tem o ginasio fechado ao fim de semana e gostava de criar um plano de treino para fazer exercicios em casa
+
+	
+
+5) A pessoa gostava de guardar os exercicios que gosta
+

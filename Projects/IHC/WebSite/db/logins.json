@@ -1,0 +1,27 @@
+{
+  "logins": [
+    {
+      "name": "admin",
+      "email": "admin@onebox.com",
+      "password": "admin",
+      "isAdministrator": true,
+      "isDistributor": false,
+      "bio": "I am an administrator"
+    },
+    {
+      "name": "user",
+      "email": "user@domain.com",
+      "password": "user",
+      "isAdministrator": false,
+      "isDistributor": false,
+      "bio": "I am a user"
+    },
+    {
+      "name": "distributor",
+      "email": "distributor@dist-comp.com",
+      "password": "distributor",
+      "isAdministrator": false,
+      "isDistributor": true
+    }
+  ]
+}

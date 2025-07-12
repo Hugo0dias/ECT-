@@ -1,0 +1,11 @@
+number x is 10
+boolean flag is true
+
+// Iterating over non-iterable types
+for number i within x do  // Error : For loop can only iterate over lists or strings
+    output i
+done
+
+for string s within flag do  // Error : For loop can only iterate over lists or strings
+    output s
+done

@@ -1,0 +1,5 @@
+// Test: Negative values in figure dimensions
+number s is 100
+image size s by s background 0
+place circle radius -5 at 50 50 with intensity 255
+place rect width -10 height 20 at 30 30 with intensity 128

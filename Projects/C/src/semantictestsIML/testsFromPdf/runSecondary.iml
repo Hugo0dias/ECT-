@@ -1,0 +1,8 @@
+string program_path is "helper_program.iml"
+number result is run from read "Enter program to run: "
+image generated is run from read "Enter image generator: "
+
+output "Secondary program result: " + string(result)
+draw generated
+
+// DONE. PASSED TESTS

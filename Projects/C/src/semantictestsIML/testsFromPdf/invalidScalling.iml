@@ -1,0 +1,6 @@
+string text is "hello"
+boolean flag is true
+
+// Scaling operations on non-images
+string result1 is text +* 50  // Error : Scaling operations require image as left operand
+boolean result2 is flag |* 150%  // Error : Scaling operations require image as left operand

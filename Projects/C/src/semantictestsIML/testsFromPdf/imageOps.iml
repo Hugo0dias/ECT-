@@ -1,0 +1,10 @@
+image img1 is load from "input.pgm"
+image img2 is load from read "Enter image path: "
+image result is img1 .+ img2
+image scaled is img1 +* 50
+image flipped is | img1
+image flipped1 is + img1
+image flipped2 is - img1
+
+img1 store into "output.pgm"
+draw img1

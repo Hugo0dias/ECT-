@@ -1,0 +1,8 @@
+number x is 5
+string name is "test"
+boolean flag is true
+
+// Wrong types in assignments
+x is "string value" // Error : Type mismatch in assignment: cannot assign String to number
+name is 42  // Error : Type mismatch in assignment: cannot assign number to String
+flag is "not boolean"  //Error : Type mismatch in assignment: cannot assign String to Boolean

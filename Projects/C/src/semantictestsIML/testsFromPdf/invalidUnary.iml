@@ -1,0 +1,7 @@
+string text is "hello"
+boolean flag is true
+
+// Wrong unary operations
+number result1 is -text  // Error : Unary arithmetic operations require numeric operands
+number result2 is +flag  // Error : Unary arithmetic operations require numeric operands
+image result3 is .- text  // Error : Image negation requires image operand

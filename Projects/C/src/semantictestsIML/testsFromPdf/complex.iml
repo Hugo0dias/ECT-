@@ -1,0 +1,19 @@
+image img is load from "complex.pgm"
+list of number processing_steps is [1, 2, 3]
+
+for number step within processing_steps do
+    if step == 1 then
+        img is img erode by img
+    done
+    if step == 2 then
+        img is img |* 150%
+    done
+    if step == 3 then
+        img is / img
+    done
+done
+
+img store into "processed.pgm"
+draw img
+
+// DONE. PASSED TESTS

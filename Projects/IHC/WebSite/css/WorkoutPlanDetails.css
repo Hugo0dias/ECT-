@@ -1,0 +1,324 @@
+.exercise-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Increase spacing between blocks */
+  align-items: center; /* Center the blocks horizontally */
+  padding: 20px;
+}
+
+.exercise-detail {
+  display: flex;
+  gap: 30px; /* Increase spacing between the image and details */
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 30px; /* Increase padding inside the block */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%; /* Make the block take 80% of the container width */
+  max-width: 1050px; /* Set a maximum width for larger screens */
+}
+
+
+.exercise-detail.view-mode {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+  background: #f6fff0;
+  border-radius: 10px;
+  margin-top: 0px;
+  box-shadow: 0 2px 8px rgba(70,130,1,0.10);
+  padding: 18px 14px;
+  border: 1.5px dashed #468201;
+}
+
+.exercise-detail.edit-mode {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 24px;
+  background: #f6fff0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(70,130,1,0.10);
+  padding: 18px 14px;
+  border: 1.5px dashed #468201;
+}
+
+
+.exercise-image img {
+  width: 300px; /* Increase the size of the image */
+  height: 300px; /* Maintain a square aspect ratio */
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.exercise-image.edit-mode img {
+  width: 350px; /* Increase the width of the image */
+  height: 450px; /* Increase the height of the image */
+  transition: all 0.3s ease; /* Smooth transition for size change */
+}
+
+/* Image containers */
+.exercise-image-view img,
+.exercise-image-edit img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background: #fafafa;
+}
+
+.exercise-info {
+  display: flex; /* Use flexbox to align details and notes side by side */
+  flex-direction: row; /* Align items horizontally */
+  gap: 10px; /* Reduce spacing between the details and notes blocks */
+  flex: 1;
+}
+
+.exercise-info-view,
+.exercise-info-edit {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exercise-details.edit-mode {
+  flex: 1; /* Reduce the space allocated for the main details */
+  margin-left: -20px;
+  margin-top: 50px;
+
+}
+
+.exercise-details.view-mode {
+  flex: 1; /* Reduce the space allocated for the main details */
+  margin-left: 10px;
+  margin-top: 20px;
+
+}
+
+
+.exercise-notes {
+  flex: 1; /* Default size */
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  height: 210px; /* Default height */
+  margin-right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease; /* Smooth transition for size changes */
+}
+
+.exercise-notes.edit-mode {
+  width: 100%; /* Expand width in edit mode */
+  height: 280px; /* Increase height in edit mode */
+  padding: 30px; /* Add more padding for better spacing */
+  transition: all 0.3s ease; /* Smooth transition for size change */
+}
+
+.exercise-notes h4 {
+  margin: 0 0 10px;
+  color: #468201;
+  font-size: 1.5em;
+  padding-left: 5px;
+}
+
+.exercise-notes p {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+
+.exercise-info h3 {
+  margin: 20px 0 15px;
+  color: #468201;
+  font-size: 1.9em; /* Increase the font size of the exercise name */
+  padding-bottom: 20px;
+  padding-left: 20px;
+}
+
+.exercise-info ul {
+  list-style: none;
+  padding-left:35px;
+  margin: 0;
+
+}
+
+
+
+.exercise-info ul li {
+  margin-bottom: 10px;
+  font-size: 1.5em; /* Slightly increase the font size of the details */
+}
+
+.title-container {
+  display: flex; /* Use flexbox to align the title and button side by side */
+  align-items: center; /* Vertically align the title and button */
+  justify-content: center; /* Center the container horizontally */
+  gap: 40px; /* Increase spacing between the title and the button */
+  margin-bottom: 20px; /* Add spacing below the title container */
+  margin-top: 0px;
+  padding-left: 100px;
+}
+
+#plan-title {
+  text-align: center; /* Center the title horizontally */
+  /*color: #468201; /* Set the title color to green */
+  color: #000000;
+  font-size: 2.5em; /* Increase the font size */
+  font-weight: bold; /* Make the title bold */
+  margin: 0; /* Remove default margins */
+  text-decoration: underline; /* Add an underline to the title */
+}
+
+#edit-button {
+  background-color: #ff5e00; /* Green background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Add padding for a better look */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1em; /* Adjust font size */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  font-weight: bold; /* Make the button text bold */
+  width: 100px;
+}
+
+#edit-button:hover {
+  background-color: #356601; /* Darker green on hover */
+}
+
+#cancel-button {
+  background-color: #ccc; /* Light gray background */
+  color: black; /* Black text */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Add padding for a better look */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1em; /* Adjust font size */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  font-weight: bold; /* Make the button text bold */
+}
+
+#cancel-button:hover {
+  background-color: #999; /* Darker gray on hover */
+}
+
+.edit-input {
+  width: 80%;
+  padding: 5px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.edit-input.notes-input {
+  width: 100%; /* Make the notes box take the full width of its container */
+  height: 240px; /* Increase the height of the notes box */
+  padding: 20px; /* Add padding for better readability */
+  font-size: 1.5em; /* Keep the font size consistent */
+  border: 1px solid #ccc; /* Add a border */
+  border-radius: 5px; /* Rounded corners */
+  box-sizing: border-box; /* Ensure padding doesn't affect width/height */
+  resize: vertical; /* Allow vertical resizing if needed */
+}
+
+/* Container for the go-back button */
+.go-back-container {
+  display: flex;
+  justify-content: flex-start; /* Align the button to the left */
+  margin-bottom: 10px; /* Add spacing below the button */
+}
+
+/* Go-back button */
+.go-back-btn {
+  background-color: #468201; /* Green background */
+  color: white; /* White arrow */
+  border: none; /* Remove border */
+  width: 40px; /* Square size */
+  height: 40px; /* Square size */
+  border-radius: 5px; /* Slightly rounded corners */
+  font-size: 1.5em; /* Larger arrow */
+  cursor: pointer; /* Pointer cursor on hover */
+  display: flex;
+  align-items: center; /* Center the arrow vertically */
+  justify-content: center; /* Center the arrow horizontally */
+}
+
+.go-back-btn:hover {
+  background-color: #356b01; /* Darker green on hover */
+}
+
+/* Beautiful Save button styling */
+#save-button {
+  background-color: #468201;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 12px rgba(70,130,1,0.15);
+  transition: background 0.2s, transform 0.2s;
+  cursor: pointer;
+  margin-left: 10px;
+  display: none; /* Default hidden, shown in edit mode */
+}
+
+#save-button:hover {
+  background-color: #356601;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(70,130,1,0.22);
+}
+
+.exercise-title-overlay {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(70, 130, 1, 0.85);
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  text-align: center;
+  max-width: 90%;
+  white-space: pre-line;
+}
+
+.exercise-title-above {
+  margin-bottom: 25px;
+  margin-left: 10px;
+  margin-top: 0px;
+  color: #468201;
+  font-size: 2em;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Example: Edit mode notes box */
+.exercise-info-edit .notes-input {
+  width: 100%;
+  min-height: 40px;
+  border-radius: 6px;
+  border: 1px solid #b6e2b6;
+  padding: 6px;
+  background: #fff;
+}
+
+/* Example: View mode notes */
+.exercise-info-view .notes {
+  color: #666;
+  font-style: italic;
+  margin-top: 6px;
+}

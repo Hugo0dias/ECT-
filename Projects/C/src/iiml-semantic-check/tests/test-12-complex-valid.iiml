@@ -1,0 +1,6 @@
+// Test: Complex valid program with lists and loops
+number s is 100
+image size s by s background 0
+list of list of number centers is [[20, 20], [80, 20], [20, 80], [80, 80]]  // List of centers
+for list center within centers  // Loop through each center
+    place rect width 10 height 10 at center[0] center[1] with intensity 255 // Place a rectangle at each center

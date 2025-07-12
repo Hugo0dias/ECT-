@@ -1,0 +1,12 @@
+number threshold is number(read "Enter threshold: ")
+image img is load from read "Enter filename: "
+
+boolean valid is threshold > 0 and threshold < 256
+
+if valid then
+    boolean has_bright_pixels is any pixel img .> threshold
+    img store into "processed_image.pgm"
+    output "Processing complete"
+else
+    output "Invalid threshold value"
+done
