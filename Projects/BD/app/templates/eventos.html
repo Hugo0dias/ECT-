@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Numismatic Events</h1>
+
+    <a href="{{ url_for('adicionar_evento') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> Add Event
+    </a>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h2>All Events</h2>
+                </div>
+                <div class="card-body">
+                    {% if eventos %}
+                        <div class="list-group">
+                            {% for evento in eventos %}
+                                <a href="{{ url_for('evento_details', event_id=evento.ID) }}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ evento.Name }}</h5>
+                                        <small>{{ evento.Start_Date }} to {{ evento.End_Date }}</small>
+                                    </div>
+                                    <p class="mb-1">Location: {{ evento.Localization }}</p>
+                                    
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>No events available at this time.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2>My Events</h2>
+                </div>
+                <div class="card-body">
+                    {% if eventos_participando %}
+                        <div class="list-group">
+                            {% for evento in eventos_participando %}
+                                <a href="{{ url_for('evento_details', event_id=evento.ID) }}" class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <h5 class="mb-1">{{ evento.Name }}</h5>
+                                        <small>{{ evento.Start_Date }}</small>
+                                    </div>
+                                    <p class="mb-1">{{ evento.Localization }}</p>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p>You are not participating in any events.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.join-event').forEach(button => {
+        button.addEventListener('click', async function(e) {
+            e.preventDefault();
+            const eventId = this.getAttribute('data-event-id');
+            const button = this;
+            
+            button.disabled = true;
+            button.innerHTML = `
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Processing...
+            `;
+            
+            try {
+                const response = await fetch('/join_event/' + eventId, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'text/plain'
+                    }
+                });
+                
+                const result = await response.text();
+                
+                if (response.ok && result === "success") {
+                    // Replace button with badge
+                    const container = button.closest('small');
+                    if (container) {
+                        container.innerHTML = '<span class="badge bg-success">You are participating</span>';
+                    }
+                    
+                    // Reload events list after 1 second
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    let errorMsg = "Error joining event";
+                    if (result === "not_logged_in") errorMsg = "Please log in first";
+                    if (result === "already_joined") errorMsg = "You are already participating in this event";
+                    if (result.startsWith("error:")) errorMsg = "Error: " + result.substring(6);
+                    
+                    alert(errorMsg);
+                    button.disabled = false;
+                    button.textContent = 'Join';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Connection error');
+                button.disabled = false;
+                button.textContent = 'Join';
+            }
+        });
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="my-4">Pesquisa de Moedas</h2>
+    
+    <form method="POST" class="mb-5">
+        <div class="row g-3">
+            <!-- Filtros -->
+            <div class="col-md-3">
+                <label for="coin_id" class="form-label">ID da Moeda</label>
+                <input type="number" class="form-control" id="coin_id" name="coin_id" 
+                       value="{{ filters.coin_id if filters and filters.coin_id }}">
+            </div>
+            
+            <div class="col-md-3">
+                <label for="value" class="form-label">Valor</label>
+                <input type="number" step="0.01" class="form-control" id="value" name="value" 
+                       value="{{ filters.value if filters and filters.value }}">
+            </div>
+            
+            <div class="col-md-3">
+                <label for="country_name" class="form-label">País</label>
+                <input type="text" class="form-control" id="country_name" name="country_name" 
+                       value="{{ filters.country_name if filters and filters.country_name }}">
+            </div>
+            
+            <div class="col-md-3">
+                <label for="collection_id" class="form-label">ID da Coleção</label>
+                <input type="number" class="form-control" id="collection_id" name="collection_id" 
+                       value="{{ filters.collection_id if filters and filters.collection_id }}">
+            </div>
+            
+            <div class="col-md-3">
+                <label for="mintage_min" class="form-label">Tiragem Mínima</label>
+                <input type="number" class="form-control" id="mintage_min" name="mintage_min" 
+                       value="{{ filters.mintage_min if filters and filters.mintage_min }}">
+            </div>
+            
+            <div class="col-md-3">
+                <label for="mintage_max" class="form-label">Tiragem Máxima</label>
+                <input type="number" class="form-control" id="mintage_max" name="mintage_max" 
+                       value="{{ filters.mintage_max if filters and filters.mintage_max }}">
+            </div>
+            
+            <div class="col-md-3">
+                <label for="condition" class="form-label">Condição</label>
+                <select class="form-select" id="condition" name="condition">
+                    <option value="">Todas</option>
+                    {% for cond in conditions %}
+                    <option value="{{ cond }}" 
+                            {% if filters and filters.condition == cond %}selected{% endif %}>
+                        {{ cond }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-md-3">
+                <label for="material" class="form-label">Material</label>
+                <select class="form-select" id="material" name="material">
+                    <option value="">Todos</option>
+                    {% for mat in materials %}
+                    <option value="{{ mat }}" 
+                            {% if filters and filters.material == mat %}selected{% endif %}>
+                        {{ mat }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-md-3">
+                <label for="finishing" class="form-label">Acabamento</label>
+                <select class="form-select" id="finishing" name="finishing">
+                    <option value="">Todos</option>
+                    {% for fin in finishings %}
+                    <option value="{{ fin }}" 
+                            {% if filters and filters.finishing == fin %}selected{% endif %}>
+                        {{ fin }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="col-md-3">
+                <label for="price_min" class="form-label">Preço Mínimo</label>
+                <input type="number" step="0.01" class="form-control" id="price_min" name="price_min" 
+                       value="{{ filters.price_min if filters and filters.price_min }}">
+            </div>
+            
+            <div class="col-md-3">
+                <label for="price_max" class="form-label">Preço Máximo</label>
+                <input type="number" step="0.01" class="form-control" id="price_max" name="price_max" 
+                       value="{{ filters.price_max if filters and filters.price_max }}">
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Pesquisar</button>
+            <a href="{{ url_for('search_coins') }}" class="btn btn-secondary">Limpar Filtros</a>
+        </div>
+    </form>
+
+    <!-- Resultados -->
+    {% if coins %}
+        <h3 class="mb-3">Resultados ({{ coins|length }} moedas encontradas)</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>País</th>
+                        <th>Valor</th>
+                        <th>Material</th>
+                        <th>Condição</th>
+                        <th>Tiragem</th>
+                        <th>Preço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for coin in coins %}
+                    <tr>
+                        <td>{{ coin.id }}</td>
+                        <td>{{ coin.country_name }}</td>
+                        <td>{{ coin.value }}</td>
+                        <td>{{ coin.material }}</td>
+                        <td>{{ coin.condition }}</td>
+                        <td>{{ coin.mintage }}</td>
+                        <td>{{ coin.market_price }}</td>
+                        <td>
+                            <a href="{{ url_for('coin_details', coin_id=coin.id) }}" 
+                               class="btn btn-sm btn-info">Detalhes</a>
+                            <a href="{{ url_for('edit_coin', coin_id=coin.id) }}" 
+                               class="btn btn-sm btn-warning">Editar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% elif request.method == 'POST' %}
+        <div class="alert alert-info">Nenhuma moeda encontrada com os critérios especificados.</div>
+    {% endif %}
+</div>
+{% endblock %}

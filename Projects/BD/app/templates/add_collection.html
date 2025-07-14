@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar Coleção{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4"><i class="bi bi-plus-circle"></i> Adicionar Nova Coleção</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}">
+              {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Utilizador (NIF)</label>
+            
+            <!-- Mostrar só texto, sem input para o utilizador mexer -->
+            <p>{{ current_user_nif }}</p>
+
+            <!-- Campo hidden para enviar o NIF no form -->
+            <input type="hidden" name="nif_user" value="{{ current_user_nif }}" />
+        </div>
+
+
+        <div class="mb-3">
+            <label for="creation_date" class="form-label">Data de Criação</label>
+            <input type="date" class="form-control" id="creation_date" name="creation_date" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="code_type" class="form-label">Tipo de Coleção</label>
+            <select class="form-select" id="code_type" name="code_type" required>
+                {% for tipo in types %}
+                    <option value="{{ tipo[0] }}">{{ tipo[0] }} - {{ tipo[1] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            <i class="bi bi-check-circle"></i> Adicionar Coleção
+        </button>
+        <a href="{{ url_for('colecoes') }}" class="btn btn-secondary ms-2">
+            <i class="bi bi-arrow-left-circle"></i> Voltar
+        </a>
+    </form>
+</div>
+{% endblock %}

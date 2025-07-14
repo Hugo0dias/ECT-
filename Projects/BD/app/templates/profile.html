@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+
+        <!-- Perfil -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0"><i class="bi bi-person-circle me-2"></i>User Profile</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong><i class="bi bi-person me-2"></i>Name:</strong> {{ full_name }}</p>
+                        <p><strong><i class="bi bi-envelope me-2"></i>Email:</strong> {{ user.Email }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong><i class="bi bi-calendar me-2"></i>Date of Birth:</strong> {{ user.BDate }}</p>
+                        <p><strong><i class="bi bi-telephone me-2"></i>Phone:</strong> {{ user.Phone }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Totais -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><i class="bi bi-coin me-2"></i>Total New Coins (No duplicates)</h5>
+                        <p class="display-6 text-primary">{{ total_coins }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><i class="bi bi-star me-2"></i>Commemorative Coins</h5>
+                        <p class="display-6 text-primary">{{ total_comemorativas }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Collections -->
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="bi bi-collection me-2"></i>Collections</h3>
+            </div>
+            <div class="card-body">
+                {% if colecoes %}
+                    <div class="accordion" id="collectionsAccordion">
+                        {% for colecao in colecoes %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ colecao.id }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapse{{ colecao.id }}" aria-expanded="false" 
+                                    aria-controls="collapse{{ colecao.id }}">
+                                    <span class="badge bg-primary me-2">ID: {{ colecao.id }}</span>
+                                    <strong>{{ colecao.designation }}</strong>
+                                    <span class="ms-auto me-3">Value: €{{ '%.2f'|format(colecao.total_value) }}</span>
+                                </button>
+                            </h2>
+                            <div id="collapse{{ colecao.id }}" class="accordion-collapse collapse" 
+                                aria-labelledby="heading{{ colecao.id }}" data-bs-parent="#collectionsAccordion">
+                                <div class="accordion-body">
+                                    <p><small class="text-muted">Created on: 
+                                        {% if colecao.creation_date is string %}
+                                            {{ colecao.creation_date }}
+                                        {% else %}
+                                            {{ colecao.creation_date.strftime('%d/%m/%Y') }}
+                                        {% endif %}
+                                    </small></p>
+                                    
+                                    <h6>Authors:</h6>
+                                    {% if colecao.autores %}
+                                    <ul class="list-group list-group-flush mb-3">
+                                        {% for autor in colecao.autores %}
+                                        <li class="list-group-item">
+                                            {{ autor.Fname }} {{ autor.Lname }} 
+                                            <span class="badge bg-secondary">{{ autor.FaceType }}</span>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% else %}
+                                    <p class="text-muted">No authors registered</p>
+                                    {% endif %}
+                                    
+                                    <a href="{{ url_for('ver_colecao', colecao_id=colecao.id) }}" 
+                                        class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-eye"></i> View Collection
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="alert alert-info mb-0">
+                        <i class="bi bi-info-circle"></i> No collections found.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Moedas por país/currency -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="bi bi-globe me-2"></i>Coins by Country/Currency</h3>
+            </div>
+            <div class="card-body">
+                {% if currencies %}
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Currency</th>
+                                <th>Code</th>
+                                <th>Period</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for curr in currencies %}
+                                {% if curr.Country_Name %}  <!-- Só mostra se Country_Name não for None -->
+                                <tr>
+                                    <td>{{ curr.Country_Name }}</td>
+                                    <td>{{ curr.Currency_Name if curr.Currency_Name else '-' }}</td>
+                                    <td>{{ curr.ISO_Code if curr.ISO_Code else '-' }}</td>
+                                    <td>
+                                        {% if curr.Date_First_Edition %}
+                                            {{ curr.Date_First_Edition }}
+                                            {% if curr.Date_Last_Edition %}
+                                            - {{ curr.Date_Last_Edition }}
+                                            {% else %}
+                                            (current)
+                                            {% endif %}
+                                        {% else %}
+                                            -
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="alert alert-info mb-0">
+                    <i class="bi bi-info-circle"></i> No coins found.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Top Valuable Collections -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="bi bi-trophy me-2"></i>Top Valuable Collections</h3>
+            </div>
+            <div class="card-body">
+                {% if colecao_valor %}
+                <div class="list-group">
+                    {% for row in colecao_valor %}
+                    <div class="list-group-item d-flex justify-content-between align-items-start">
+                        <div class="ms-2 me-auto">
+                            <div class="fw-bold">{{ row.Designation }}</div>
+                            <small>ID: {{ row.Colecao_ID }} | Created: 
+                                {% if row.Creation_Date is string %}
+                                    {{ row.Creation_Date }}
+                                {% else %}
+                                    {{ row.Creation_Date.strftime('%d/%m/%Y') }}
+                                {% endif %}
+                            </small>
+                        </div>
+                        <span class="badge bg-success rounded-pill fs-6">€{{ "%.2f"|format(row.Valor_Total) }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-info mb-0">
+                    <i class="bi bi-info-circle"></i> No collections with value.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Materiais -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="bi bi-gem me-2"></i>Materials in Collection</h3>
+            </div>
+            <div class="card-body">
+                {% if materiais %}
+                <div class="d-flex flex-wrap gap-2">
+                    {% for mat in materiais %}
+                    <span class="badge bg-secondary fs-6">{{ mat.Material }}</span>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-info mb-0">
+                    <i class="bi bi-info-circle"></i> No materials found.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Eventos -->
+        <div class="card mb-5">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0"><i class="bi bi-calendar-event me-2"></i>Event Participation</h3>
+            </div>
+            <div class="card-body">
+                {% if eventos %}
+                <div class="list-group">
+                    {% for ev in eventos %}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ ev.EventName }}</h5>
+                            <small>{{ ev.Start_Date }} to {{ ev.End_Date }}</small>
+                        </div>
+                        <p class="mb-1"><i class="bi bi-geo-alt"></i> {{ ev.Localization }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="alert alert-info mb-0">
+                    <i class="bi bi-info-circle"></i> No event participation found.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

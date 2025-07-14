@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes do Autor{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="mb-0"><i class="bi bi-person-badge"></i> Detalhes do Autor</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Informações Pessoais</h4>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>NIF:</strong> {{ autor.NIF }}</li>
+                        <li class="list-group-item"><strong>Nome:</strong> {{ autor.Fname }} {{ autor.Lname }}</li>
+                        <li class="list-group-item"><strong>Nacionalidade:</strong> {{ autor.Nacionality }}</li>
+                        <li class="list-group-item"><strong>Data de Nascimento:</strong> {{ autor.BDate }}</li>
+                        <li class="list-group-item"><strong>Idade:</strong> {{ autor.Age }} anos</li>
+                    </ul>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Faces Comuns -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0"><i class="bi bi-coin"></i> Faces Comuns</h4>
+        </div>
+        <div class="card-body">
+            {% if faces_comuns %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID Moeda</th>
+                                <th>Descrição</th>
+                                <th>Versão</th>
+                                <th>Coleção</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for face in faces_comuns %}
+                            <tr>
+                                <td>{{ face.Coin_ID }}</td>
+                                <td>{{ face.Description }}</td>
+                                <td>{{ face.Version if face.Version else '-' }}</td>
+                                <td>#{{ face.ID_Colection }} ({{ face.Creation_Date }})</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">O autor não possui faces comuns associadas.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Faces Nacionais -->
+    <div class="card">
+        <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0"><i class="bi bi-flag"></i> Faces Nacionais</h4>
+        </div>
+        <div class="card-body">
+            {% if faces_nacionais %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID Moeda</th>
+                                <th>Descrição</th>
+                                <th>Ano</th>
+                                <th>Comemorativa</th>
+                                <th>Mint Mark</th>
+                                <th>Coleção</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for face in faces_nacionais %}
+                            <tr>
+                                <td>{{ face.Coin_ID }}</td>
+                                <td>{{ face.Description }}</td>
+                                <td>{{ face.Year }}</td>
+                                <td>{% if face.Comemorative %}Sim{% else %}Não{% endif %}</td>
+                                <td>{{ face.Mint_Mark if face.Mint_Mark else '-' }}</td>
+                                <td>#{{ face.ID_Colection }} ({{ face.Creation_Date }})</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info">O autor não possui faces nacionais associadas.</div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div class="mt-3">
+        <a href="{{ url_for('Authors') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Voltar à lista de autores
+        </a>
+    </div>
+</div>
+{% endblock %}

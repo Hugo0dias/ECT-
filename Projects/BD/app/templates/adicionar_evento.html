@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Adicionar Evento{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Adicionar Novo Evento</h2>
+    
+    <div class="card mt-3">
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('adicionar_evento') }}">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome do Evento</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required maxlength="25">
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="data_inicio" class="form-label">Data de Início</label>
+                        <input type="date" class="form-control" id="data_inicio" name="data_inicio" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="data_fim" class="form-label">Data de Fim</label>
+                        <input type="date" class="form-control" id="data_fim" name="data_fim" required>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="localizacao" class="form-label">Localização</label>
+                    <input type="text" class="form-control" id="localizacao" name="localizacao" required maxlength="40">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Criar Evento</button>
+                <a href="{{ url_for('eventos') }}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

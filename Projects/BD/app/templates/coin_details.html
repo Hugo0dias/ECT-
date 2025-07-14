@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}Detalhes da Moeda #{{ coin.ID }}{% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ url_for('list_all_coins') }}">Moedas</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Moeda #{{ coin.ID }}</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Informações Básicas -->
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Informações Básicas</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>ID:</strong> {{ coin.ID }}</p>
+                            <p><strong>Valor:</strong> {{ coin.Value }} €</p>
+                            <p><strong>País:</strong> {{ coin.Country_Name }}</p>
+                            <p><strong>Material:</strong> {{ coin.Material }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Condição:</strong> 
+                                <span class="badge 
+                                    {% if coin.Condition == 'UNC' %}bg-success
+                                    {% elif coin.Condition == 'AU' %}bg-primary
+                                    {% elif coin.Condition == 'VF' %}bg-info
+                                    {% else %}bg-secondary{% endif %}">
+                                    {{ coin.Condition }}
+                                </span>
+                            </p>
+                            <p><strong>Acabamento:</strong> {{ coin.Finishing }}</p>
+                            <p><strong>Cunhagem:</strong> {{ coin.Mintage if coin.Mintage else 'N/A' }}</p>
+                            <p><strong>Preço de Mercado:</strong> {{ coin.Market_Price }} €</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informações da Currency -->
+            {% if currency_info %}
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h3 class="mb-0">Informações da Moeda (Currency)</h3>
+                </div>
+                <div class="card-body">
+                    <p><strong>Nome:</strong> {{ currency_info.Currency_Name }}</p>
+                    <p><strong>Código ISO:</strong> {{ currency_info.ISO_Code }}</p>
+                    <p><strong>Período de Circulação:</strong> 
+                        {{ currency_info.Date_First_Edition }}
+                        {% if currency_info.Date_Last_Edition %}
+                            - {{ currency_info.Date_Last_Edition }}
+                        {% else %}
+                            (atual)
+                        {% endif %}
+                    </p>
+                    <p><strong>Moedas Únicas do País:</strong> {{ currency_info.Number_Unique_CC_Coins }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Faces da Moeda -->
+        <div class="col-md-6">
+            <!-- Face Nacional -->
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0">Face Nacional</h3>
+                </div>
+                <div class="card-body">
+                    {% if nacional_face %}
+                        {% for face in nacional_face %}
+                            <div class="mb-3">
+                                <p><strong>Ano:</strong> {{ face.Year }}</p>
+                                <p><strong>Descrição:</strong> {{ face.Description }}</p>
+                                <p><strong>Tipo:</strong> 
+                                    <span class="badge {% if face.Comemorative %}bg-warning{% else %}bg-secondary{% endif %}">
+                                        {% if face.Comemorative %}Comemorativa{% else %}Regular{% endif %}
+                                    </span>
+                                </p>
+                                <p><strong>Mint Mark:</strong> {{ face.Mint_Mark if face.Mint_Mark else 'N/A' }}</p>
+                                
+                                {% if face.Fname %}
+                                <p><strong>Autor:</strong> {{ face.Fname }} {{ face.Lname }} ({{ face.Nacionality }})</p>
+                                {% endif %}
+                            </div>
+                            {% if not loop.last %}<hr>{% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert alert-warning">Nenhuma face nacional registrada</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Face Comum -->
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h3 class="mb-0">Face Comum</h3>
+                </div>
+                <div class="card-body">
+                    {% if common_face %}
+                        {% for face in common_face %}
+                            <div class="mb-3">
+                                <p><strong>Descrição:</strong> {{ face.Description }}</p>
+                                <p><strong>Versão:</strong> {{ face.Version if face.Version else 'N/A' }}</p>
+                                
+                                {% if face.Fname %}
+                                <p><strong>Autor:</strong> {{ face.Fname }} {{ face.Lname }} ({{ face.Nacionality }})</p>
+                                {% endif %}
+                            </div>
+                            {% if not loop.last %}<hr>{% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="alert alert-warning">Nenhuma face comum registrada</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botões de Ação -->
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between">
+                <a href="{{ url_for('list_all_coins') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Voltar à Lista
+                </a>
+                <div>
+                    <a href="{{ url_for('edit_coin', coin_id=coin.ID) }}" class="btn btn-warning me-2">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                    <form action="{{ url_for('delete_coin') }}" method="post" style="display: inline;">
+                        <input type="hidden" name="coin_id" value="{{ coin.ID }}">
+                        <input type="hidden" name="collection_id" value="{{ coin.ColectionID }}">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja excluir esta moeda?')">
+                            <i class="bi bi-trash"></i> Excluir
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

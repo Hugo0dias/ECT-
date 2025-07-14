@@ -1,0 +1,337 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- Main Collection Card -->
+    <div class="card shadow-lg">
+        <!-- Card Header -->
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h2 class="mb-0">Collection Details</h2>
+            <span class="badge bg-light text-primary fs-6">ID: {{ colecao[0] }}</span>
+        </div>
+        
+        <!-- Card Body -->
+        <div class="card-body">
+            <!-- Basic Info Section -->
+            <div class="row g-4">
+                <!-- Collection Info -->
+                <div class="col-md-6">
+                    <div class="info-card">
+                        <h5 class="section-title">
+                            <i class="bi bi-collection me-2"></i>Collection Information
+                        </h5>
+                        <div class="info-grid">
+                            <span class="info-label">Creation Date:</span>
+                            <span class="info-value">{{ colecao[1] }}</span>
+                            
+                            <span class="info-label">Type:</span>
+                            <span class="info-value">{{ colecao[2] }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- User Info -->
+                <div class="col-md-6">
+                    <div class="info-card">
+                        <h5 class="section-title">
+                            <i class="bi bi-person-circle me-2"></i>Owner Information
+                        </h5>
+                        <div class="info-grid">
+                            <span class="info-label">Collector:</span>
+                            <span class="info-value">{{ colecao[3] }} {{ colecao[4] }}</span>
+                            
+                            <span class="info-label">NIF:</span>
+                            <span class="info-value">{{ session.get('user_nif', 'N/A') }}</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Country Coverage Section -->
+                <div class="col-12">
+                    <div class="info-card highlight-card">
+                        <h5 class="section-title">
+                            <i class="bi bi-globe2 me-2"></i>Country Coverage
+                        </h5>
+                        <div class="row g-3">
+                            <div class="col-lg-6">
+                                <div class="stats-grid">
+                                    <div class="stat-item">
+                                        <span class="stat-label">Total Countries in Database</span>
+                                        <span class="stat-value badge bg-primary">{{ countries_stats.Total_Countries }}</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Countries in Your Collection</span>
+                                        <span class="stat-value badge bg-success">{{ countries_stats.TotalCountriesInColection }}</span>
+                                    </div>
+                                    <div class="stat-item">
+                                        <span class="stat-label">Missing Countries</span>
+                                        <span class="stat-value">{{ countries_stats.Total_Countries - countries_stats.TotalCountriesInColection }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                {% if missing_countries %}
+                                <div class="missing-countries">
+                                    <h6 class="mb-3"><i class="bi bi-search me-2"></i>Missing Countries</h6>
+                                    <div class="country-tags">
+                                        {% for country in missing_countries %}
+                                            <span class="country-tag">{{ country[0] }}</span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="alert alert-success d-flex align-items-center">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    <span>Congratulations! Your collection covers all available countries.</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Coins Table Section -->
+                <div class="col-12">
+                    <div class="info-card">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="section-title">
+                                <i class="bi bi-coin me-2"></i>Coins in this Collection
+                            </h5>
+                            <span class="badge bg-secondary">
+                                {{ colecao_coins|length }} item{% if colecao_coins|length != 1 %}s{% endif %}
+                            </span>
+                        </div>
+                        
+                        {% if colecao_coins %}
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Value</th>
+                                        <th>Country</th>
+                                        <th>Year</th>
+                                        <th>Condition</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for coin in colecao_coins %}
+                                    <tr>
+                                        <td><span class="badge bg-dark">{{ coin[0] }}</span></td>
+                                        <td>{{ coin[1] }}€</td>
+                                        <td>
+                                            <span class="flag-icon flag-icon-{{ coin[2]|lower }} me-2"></span>
+                                            {{ coin[2] }}
+                                        </td>
+                                        <td>{{ coin[3] }}</td>
+                                        <td>
+                                            <span class="condition-badge condition-{{ coin[4]|lower }}">
+                                                {{ coin[4] }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% else %}
+                        <div class="empty-state">
+                            <i class="bi bi-coin"></i>
+                            <p>This collection doesn't contain any coins yet.</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Card Footer -->
+        <div class="card-footer bg-light">
+            <div class="d-flex justify-content-between flex-wrap gap-3">
+                <a href="{{ url_for('user_profile') }}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Profile
+                </a>
+                
+                <div class="action-buttons">
+                    <a href="{{ url_for('add_coin') }}?collection={{ colecao[0] }}" class="btn btn-primary">
+                        <i class="bi bi-plus-circle me-1"></i> Add Coin
+                    </a>
+                    
+                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteCoinModal">
+                        <i class="bi bi-dash-circle me-1"></i> Remove Coin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Coin Modal -->
+<div class="modal fade" id="deleteCoinModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('delete_coin') }}">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Remove Coin
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-4">Please confirm the coin you want to remove from this collection:</p>
+                    
+                    <div class="mb-3">
+                        <label for="coin_id" class="form-label">Coin ID</label>
+                        <input type="number" class="form-control" name="coin_id" placeholder="Enter coin ID" required>
+                    </div>
+                    <input type="hidden" name="collection_id" value="{{ colecao[0] }}">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash me-1"></i> Confirm Removal
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Main Card Styling */
+    .card {
+        border-radius: 12px;
+        overflow: hidden;
+        border: none;
+    }
+    
+    .card-header {
+        padding: 1.25rem 1.75rem;
+    }
+    
+    /* Section Styling */
+    .info-card {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        height: 100%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .highlight-card {
+        background-color: #f8f9fa;
+        border-left: 4px solid #0d6efd;
+    }
+    
+    .section-title {
+        color: #495057;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Info Grid Layout */
+    .info-grid {
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        gap: 0.75rem 1rem;
+    }
+    
+    .info-label {
+        font-weight: 500;
+        color: #6c757d;
+    }
+    
+    .info-value {
+        color: #212529;
+    }
+    
+    /* Stats Grid */
+    .stats-grid {
+        display: grid;
+        gap: 1rem;
+    }
+    
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem;
+        background: white;
+        border-radius: 6px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    
+    .stat-label {
+        font-weight: 500;
+    }
+    
+    .stat-value {
+        font-weight: 600;
+    }
+    
+    /* Country Tags */
+    .country-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        max-height: 150px;
+        overflow-y: auto;
+        padding-right: 0.5rem;
+    }
+    
+    .country-tag {
+        background: #e9ecef;
+        padding: 0.35rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+    }
+    
+    /* Table Enhancements */
+    .table {
+        --bs-table-hover-bg: rgba(13, 110, 253, 0.05);
+    }
+    
+    .condition-badge {
+        padding: 0.35rem 0.65rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 500;
+    }
+    
+    .condition-unc { background-color: #d1e7dd; color: #0f5132; }
+    .condition-vf { background-color: #cfe2ff; color: #084298; }
+    .condition-f { background-color: #fff3cd; color: #664d03; }
+    .condition-vg { background-color: #ffecb5; color: #664d03; }
+    .condition-g { background-color: #e2e3e5; color: #41464b; }
+    .condition-b { background-color: #f8d7da; color: #842029; }
+    .condition-vb { background-color: #f1aeb5; color: #58151c; }
+    
+    /* Empty State */
+    .empty-state {
+        text-align: center;
+        padding: 2rem;
+        color: #6c757d;
+    }
+    
+    .empty-state i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #dee2e6;
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .card-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+</style>
+
+{% endblock %}

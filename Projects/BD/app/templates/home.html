@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Página Inicial{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto text-center">
+        <h1 class="display-4 mb-4">Bem-vindo ao CoinCollector</h1>
+        <p class="lead">Sistema de gestão de coleções numismáticas</p>
+        
+        <div class="row mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-coin fs-1 text-primary"></i>
+                        <h5 class="card-title mt-3">Minhas Moedas</h5>
+                        <p class="card-text">Visualize e gerencie sua coleção de moedas</p>
+                        <a href="/user_coins/105678901" class="btn btn-primary">Acessar</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-calendar-event fs-1 text-primary"></i>
+                        <h5 class="card-title mt-3">Eventos</h5>
+                        <p class="card-text">Confira os próximos eventos numismáticos</p>
+                        <a href="/eventos_futuros" class="btn btn-primary">Ver Eventos</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <i class="bi bi-search fs-1 text-primary"></i>
+                        <h5 class="card-title mt-3">Pesquisa Avançada</h5>
+                        <p class="card-text">Encontre moedas com filtros específicos</p>
+                        <a href="/moedas_filtradas" class="btn btn-primary">Pesquisar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Autores e Faces{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h2><i class="bi bi-people"></i> Estatísticas de Autores</h2>
+        
+        <div class="row mt-4">
+            <!-- Autores Faces Comuns -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5><i class="bi bi-globe"></i> Autores com Mais Faces Comuns</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if autores_comuns %}
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Autor</th>
+                                            <th>Faces</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for autor in autores_comuns %}
+                                        <tr>
+                                            <td>{{ autor[1] }} {{ autor[2] }}</td>
+                                            <td class="text-end">{{ autor[3] }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info">Nenhum autor encontrado</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Autores Faces Nacionais -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h5><i class="bi bi-flag"></i> Autores com Mais Faces Nacionais</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if autores_nacionais %}
+                            <div class="table-responsive">
+                                <table class="table table-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Autor</th>
+                                            <th>Faces</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for autor in autores_nacionais %}
+                                        <tr>
+                                            <td>{{ autor[1] }} {{ autor[2] }}</td>
+                                            <td class="text-end">{{ autor[3] }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info">Nenhum autor encontrado</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Autores Ambos -->
+            <div class="col-md-4">
+                <div class="card h-100">
+                    <div class="card-header bg-warning text-dark">
+                        <h5><i class="bi bi-stars"></i> Autores com Contribuição em Ambos</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if autores_ambos %}
+                            <ul class="list-group">
+                                {% for autor in autores_ambos %}
+                                <li class="list-group-item">{{ autor[1] }} {{ autor[2] }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <div class="alert alert-info">Nenhum autor encontrado</div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

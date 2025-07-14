@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Autores{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4"><i class="bi bi-people-fill"></i> Autores</h2>
+
+    <!-- Filtros -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Filtros</h5>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="nif" class="form-label">NIF:</label>
+                            <input type="text" class="form-control" id="nif" name="nif" 
+                                value="{{ filters.nif }}" placeholder="Digite o NIF">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" id="nome" name="nome" 
+                                value="{{ filters.nome }}" placeholder="Digite o nome">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="nacionalidade" class="form-label">Nacionalidade:</label>
+                            <select class="form-select" id="nacionalidade" name="nacionalidade">
+                                <option value="">Todas</option>
+                                {% for nacionalidade in nacionalidades %}
+                                    <option value="{{ nacionalidade }}" {% if filters.nacionalidade == nacionalidade %}selected{% endif %}>{{ nacionalidade }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="idade" class="form-label">Idade máxima:</label>
+                            <input type="number" class="form-control" id="idade" name="idade" 
+                                value="{{ filters.idade }}" placeholder="Idade máxima" min="0">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label for="colecao_id" class="form-label">Coleção:</label>
+                            <select class="form-select" id="colecao_id" name="colecao_id">
+                                <option value="">Todas as coleções</option>
+                                {% for colecao in colecoes %}
+                                    <option value="{{ colecao.ID }}" {% if filters.colecao_id|string == colecao.ID|string %}selected{% endif %}>
+                                        {{ colecao.ID }} - {{ colecao.Creation_Date }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12 d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary me-2">
+                            <i class="bi bi-funnel"></i> Aplicar Filtros
+                        </button>
+                        <a href="{{ url_for('Authors') }}" class="btn btn-secondary">
+                            <i class="bi bi-arrow-counterclockwise"></i> Limpar
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="card">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">
+                {% if filters.tipo_consulta == 'pre_90' %}
+                    Autores Pré-90 na Coleção
+                {% elif filters.tipo_consulta == 'currency_autores' %}
+                    Moedas Representadas por Autores
+                {% elif filters.tipo_consulta == 'autores_sem_moeda_nacional' %}
+                    Autores sem Moedas da Sua Nacionalidade
+                {% else %}
+                    Todos os Autores
+                {% endif %}
+            </h5>
+        </div>
+        
+        <div class="card-body">
+            {% if autores %}
+                {% if filters.tipo_consulta == 'currency_autores' %}
+                    <!-- Visualização para moedas por autores -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Moeda</th>
+                                    <th>Código ISO</th>
+                                    <th>Total Autores</th>
+                                    <th>Autores</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for autor in autores %}
+                                <tr>
+                                    <td>{{ autor.Currency_Name }}</td>
+                                    <td>{{ autor.ISO_Code }}</td>
+                                    <td>{{ autor.total_autores }}</td>
+                                    <td>{{ autor.autores }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                {% else %}
+                    <!-- Visualização padrão para autores -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>NIF</th>
+                                    <th>Nome</th>
+                                    <th>Nacionalidade</th>
+                                    <th>Data Nasc.</th>
+                                    <th>Idade</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for autor in autores %}
+                                <tr>
+                                    <td>{{ autor.NIF }}</td>
+                                    <td>{{ autor.Fname }} {{ autor.Lname }}</td>
+                                    <td>{{ autor.Nacionality }}</td>
+                                    <td>{{ autor.BDate }}</td>
+                                    <td>{{ autor.Age }}</td>
+                                    <td>
+                                        <a href="{{ url_for('author_details', nif=autor.NIF) }}" class="btn btn-sm btn-outline-primary">
+                                            <i class="bi bi-eye"></i> Ver
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+                {% endif %}
+            {% else %}
+                <div class="alert alert-info">Nenhum autor encontrado com os filtros aplicados.</div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+// Mostrar/ocultar campos com base no tipo de consulta
+document.getElementById('tipo_consulta').addEventListener('change', function() {
+    const tipo = this.value;
+    document.getElementById('colecao_id').disabled = (tipo !== 'pre_90');
+});
+// Inicializar estado dos campos
+window.onload = function() {
+    document.getElementById('tipo_consulta').dispatchEvent(new Event('change'));
+};
+
+function updateFormFields() {
+    const tipo = document.getElementById('tipo_consulta').value;
+
+    document.getElementById('colecao_id').disabled = (tipo !== 'pre_90');
+    document.getElementById('nacionalidade').disabled = (tipo !== 'todos');
+    document.getElementById('ano_nascimento').disabled = (tipo !== 'todos');
+}
+
+document.getElementById('tipo_consulta').addEventListener('change', updateFormFields);
+window.onload = updateFormFields;
+</script>
+{% endblock %}

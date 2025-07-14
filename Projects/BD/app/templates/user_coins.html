@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Coleções{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4"><i class="bi bi-collection"></i> Coleções</h2>
+
+    <!-- Botão para adicionar nova coleção -->
+    <div class="mb-4">
+        <a href="{{ url_for('add_collection') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Adicionar Coleção
+        </a>
+    </div>
+
+    {% if colecoes %}
+        <div class="row">
+            {% for colecao in colecoes %}
+            <div class="col-md-4 mb-4">
+                <div class="card collection-card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">Coleção: {{ colecao['id'] }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Data de Criação:</span>
+                            <span>{{ colecao['creation_date'] }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">Tipo:</span>
+                            <span>{{ colecao['type'] }}</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-muted">Total de Moedas:</span>
+                            <span>{{ colecao['total_coins'] }}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <span class="text-muted">Total de Moedas Comemorativas:</span>
+                            <span>{{ colecao['total_CC_coins'] }}</span>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <div class="btn-group" role="group">
+                                <a href="{{ url_for('ver_colecao', colecao_id=colecao['id']) }}" class="btn btn-outline-primary">
+                                    Ver Moedas
+                                </a>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ colecao['id'] }}">
+                                    <i class="bi bi-trash"></i> Remover
+                                </button>
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Delete Confirmation Modal -->
+            <div class="modal fade" id="deleteModal{{ colecao['id'] }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ colecao['id'] }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header bg-danger text-white">
+                            <h5 class="modal-title" id="deleteModalLabel{{ colecao['id'] }}">Confirmar Remoção</h5>
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Tem certeza que deseja remover a coleção <strong>{{ colecao['id'] }}</strong>?</p>
+                            <p class="text-danger"><i class="bi bi-exclamation-triangle-fill"></i> Esta ação é irreversível e removerá todas as moedas associadas!</p>
+                            <form id="deleteForm{{ colecao['id'] }}" action="{{ url_for('delete_collection') }}" method="POST">
+                                <input type="hidden" name="collection_id" value="{{ colecao['id'] }}">
+                                <div class="mb-3">
+                                    <label for="confirmationNumber{{ colecao['id'] }}" class="form-label">
+                                        Digite <strong>{{ colecao['id'] }}</strong> para confirmar:
+                                    </label>
+                                    <input type="text" class="form-control" id="confirmationNumber{{ colecao['id'] }}" 
+                                           name="confirmation_number" required>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" form="deleteForm{{ colecao['id'] }}" class="btn btn-danger">
+                                <i class="bi bi-trash-fill"></i> Confirmar Remoção
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">Nenhuma coleção encontrada.</div>
+    {% endif %}
+</div>
+
+<style>
+    .collection-card {
+        transition: transform 0.2s;
+    }
+    .collection-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+</style>
+
+<script>
+// Client-side validation to ensure the confirmation number matches the collection ID
+document.querySelectorAll('[id^="deleteForm"]').forEach(form => {
+    form.addEventListener('submit', function(e) {
+        const collectionId = this.querySelector('input[name="collection_id"]').value;
+        const confirmationInput = this.querySelector('input[name="confirmation_number"]');
+        
+        if (confirmationInput.value !== collectionId) {
+            e.preventDefault();
+            alert('O número de confirmação não corresponde ao ID da coleção!');
+            confirmationInput.focus();
+        }
+    });
+});
+</script>
+{% endblock %}

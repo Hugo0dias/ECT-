@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Add New Coin</h2>
+    
+    <form method="POST" action="{{ url_for('add_coin') }}" class="needs-validation" novalidate>
+        <div class="row g-3">
+            <!-- Basic Information Section -->
+            <div class="col-md-6">
+                <h4 class="mb-3">Basic Information</h4>
+                
+                <div class="mb-3">
+                    <label for="value" class="form-label">Value*</label>
+                    <input type="number" step="0.01" class="form-control" id="value" name="value" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="country_name" class="form-label">Country*</label>
+                    <select class="form-select" id="country_name" name="country_name" required>
+                        <option value="Germany">Germany</option>
+                        <option value="France">France</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Finland">Finland</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Slovakia">Slovakia</option>
+                        <option value="Slovenia">Slovenia</option>
+                        <option value="Estonia">Estonia</option>
+                        <option value="Latvia">Latvia</option>
+                        <option value="Lithuania">Lithuania</option>
+                        <option value="Cyprus">Cyprus</option>
+                        <option value="Malta">Malta</option>
+                        <option value="Greece">Greece</option>
+                        <option value="Luxembourg">Luxembourg</option>
+                        <option value="Vatican">Vatican</option>
+                        <option value="San Marino">San Marino</option>
+                        <option value="Monaco">Monaco</option>
+                        <option value="Andorra">Andorra</option>
+                        <option value="Croatia">Croatia</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-3" id="other_country_container" style="display: none;">
+                    <label for="other_country" class="form-label">Specify Country</label>
+                    <input type="text" class="form-control" id="other_country" name="other_country">
+                </div>  
+                
+                <div class="mb-3">
+                    <label for="collection_id" class="form-label">Collection*</label>
+                    <select class="form-select" id="collection_id" name="collection_id" required>
+                        <option value="" selected disabled>Select a collection...</option>
+                        {% for colecao in colecoes %}
+                        <option value="{{ colecao }}">Collection #{{ colecao }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Please select a valid collection.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="mintage" class="form-label">Mintage</label>
+                    <input type="number" class="form-control" id="mintage" name="mintage">
+                </div>
+            </div>
+            
+            <!-- Characteristics Section -->
+            <div class="col-md-6">
+                <h4 class="mb-3">Characteristics</h4>
+                
+                <div class="mb-3">
+                    <label for="condition" class="form-label">Condition*</label>
+                    <select class="form-select" id="condition" name="condition" required>
+                        <option value="" selected disabled>Select...</option>
+                        <option value="VB">VB - Very Good</option>
+                        <option value="B">B - Good</option>
+                        <option value="G">G - Good</option>
+                        <option value="VG">VG - Very Good</option>
+                        <option value="F">F - Fine</option>
+                        <option value="VF">VF - Very Fine</option>
+                        <option value="AU">AU - Almost Uncirculated</option>
+                        <option value="UNC">UNC - Uncirculated</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="material" class="form-label">Material*</label>
+                    <select class="form-select" id="material" name="material" required>
+                        <option value="CuproNiquel" selected>Cupronickel</option>
+                        <option value="Silver">Silver</option>
+                        <option value="Gold">Gold</option>
+                        <option value="Aluminum Bronze">Aluminum Bronze</option>
+                        <option value="Steel">Steel</option>
+                        <option value="Platinum">Platinum</option>
+                        <option value="Nickel-brass">Nickel-brass</option>
+                        <option value="Bimetallic">Bimetallic</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="finishing" class="form-label">Finishing*</label>
+                    <select class="form-select" id="finishing" name="finishing" required>
+                        <option value="Normal" selected>Normal</option>
+                        <option value="Proof">Proof</option>
+                        <option value="FDC">First Day Cover (FDC)</option>
+                        <option value="BU">Brilliant Uncirculated (BU)</option>
+                        <option value="BNC">Brilliant Uncirculated (BNC)</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="market_price" class="form-label">Market Price (€)</label>
+                    <input type="number" step="0.01" class="form-control" id="market_price" name="market_price" value="0.0">
+                </div>
+            </div>
+            
+            <!-- National Face Section -->
+            <div class="col-md-6 mt-4">
+                <h4 class="mb-3">National Face</h4>
+                
+                <div class="mb-3">
+                    <label for="year" class="form-label">Year*</label>
+                    <input type="number" class="form-control" id="year" name="year" min="1900" max="2100" required>
+                    <div class="invalid-feedback">Please enter a valid year.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="nf_description" class="form-label">Description*</label>
+                    <textarea class="form-control" id="nf_description" name="nf_description" rows="2" required></textarea>
+                    <div class="invalid-feedback">Please enter a description.</div>
+                </div>
+                
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="comemorative" name="comemorative" value="1">
+                    <label class="form-check-label" for="comemorative">Commemorative Coin</label>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="mint_mark" class="form-label">Mint Mark*</label>
+                    <input type="text" class="form-control" id="mint_mark" name="mint_mark" required>
+                    <div class="invalid-feedback">Please enter the mint mark.</div>
+                </div>
+            </div>
+            
+            <!-- Common Face Section -->
+            <div class="col-md-6 mt-4">
+                <h4 class="mb-3">Common Face</h4>
+                
+                <div class="mb-3">
+                    <label for="cf_description" class="form-label">Description*</label>
+                    <textarea class="form-control" id="cf_description" name="cf_description" rows="2" required></textarea>
+                    <div class="invalid-feedback">Please enter a description.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="cf_version" class="form-label">Version*</label>
+                    <select class="form-select" id="cf_version" name="cf_version" required>
+                        <option value="A2008" selected>A2008</option>
+                        <option value="B2008">B2008</option>
+                        <option value="NULL">NULL</option>
+                    </select>
+                    <div class="invalid-feedback">Please enter the version.</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">Add Coin</button>
+            <a href="{{ url_for('list_all_coins') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+// Frontend form validation
+(function() {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    
+    Array.from(forms).forEach(form => {
+        form.addEventListener('submit', event => {
+            if (!form.checkValidity()) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            
+            form.classList.add('was-validated');
+        }, false);
+    });
+})();
+
+document.getElementById('country_name').addEventListener('change', function() {
+    const otherContainer = document.getElementById('other_country_container');
+    if (this.value === 'Other') {
+        otherContainer.style.display = 'block';
+    } else {
+        otherContainer.style.display = 'none';
+    }
+});
+</script>
+
+<style>
+.form-section {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+</style>
+
+{% endblock %}

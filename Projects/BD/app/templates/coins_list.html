@@ -1,0 +1,251 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Coin List</h2>
+
+    <div class="col-md-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2><i class="bi bi-search"></i> Advanced Coin Search</h2>
+            <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#filtersCollapse">
+                <i class="bi bi-funnel"></i> Filters
+            </button>
+        </div>
+
+        <div class="card mb-4 collapse show" id="filtersCollapse">
+            <div class="card-body">
+                <form method="POST" id="searchForm">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label for="id_colecao" class="form-label">Collection ID</label>
+                            <input type="number" class="form-control" id="id_colecao" name="id_colecao" 
+                                   value="{{ form_data.id_colecao if form_data }}">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="pais" class="form-label">Country</label>
+                            <input type="text" class="form-control" id="pais" name="pais" 
+                                   value="{{ form_data.pais if form_data }}" placeholder="e.g. Portugal">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="material" class="form-label">Material</label>
+                            <select class="form-select" id="material" name="material">
+                                <option value="Todos">All</option>
+                                <option value="Silver" {% if form_data and form_data.material == 'Silver' %}selected{% endif %}>Silver</option>
+                                <option value="Gold" {% if form_data and form_data.material == 'Gold' %}selected{% endif %}>Gold</option>
+                                <option value="CuproNiquel" {% if form_data and form_data.material == 'CuproNiquel' %}selected{% endif %}>Cupronickel</option>
+                                <option value="Aluminum Bronze" {% if form_data and form_data.material == 'Aluminum Bronze' %}selected{% endif %}>Aluminum Bronze</option>
+                                <option value="Steel" {% if form_data and form_data.material == 'Steel' %}selected{% endif %}>Steel</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="condicao" class="form-label">Condition</label>
+                            <select class="form-select" id="condicao" name="condicao">
+                                <option value="Todas">All</option>
+                                <option value="UNC" {% if form_data and form_data.condicao == 'UNC' %}selected{% endif %}>Uncirculated (UNC)</option>
+                                <option value="AU" {% if form_data and form_data.condicao == 'AU' %}selected{% endif %}>Almost Uncirculated (AU)</option>
+                                <option value="VF" {% if form_data and form_data.condicao == 'VF' %}selected{% endif %}>Very Fine (VF)</option>
+                                <option value="F" {% if form_data and form_data.condicao == 'F' %}selected{% endif %}>Fine (F)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="mintage_min" class="form-label">Minimum Mintage</label>
+                            <input type="number" class="form-control" id="mintage_min" name="mintage_min" 
+                                   value="{{ form_data.mintage_min if form_data }}" min="0">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="mintage_max" class="form-label">Maximum Mintage</label>
+                            <input type="number" class="form-control" id="mintage_max" name="mintage_max" 
+                                   value="{{ form_data.mintage_max if form_data }}" min="0">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="preco_min" class="form-label">Minimum Price (€)</label>
+                            <input type="number" class="form-control" id="preco_min" name="preco_min" 
+                                   value="{{ form_data.preco_min if form_data }}" min="0" step="0.01">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="preco_max" class="form-label">Maximum Price (€)</label>
+                            <input type="number" class="form-control" id="preco_max" name="preco_max" 
+                                   value="{{ form_data.preco_max if form_data }}" min="0" step="0.01">
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="acabamento" class="form-label">Finishing</label>
+                            <select class="form-select" id="acabamento" name="acabamento">
+                                <option value="Todos">All</option>
+                                <option value="Proof" {% if form_data and form_data.acabamento == 'Proof' %}selected{% endif %}>Proof</option>
+                                <option value="Normal" {% if form_data and form_data.acabamento == 'Normal' %}selected{% endif %}>Normal</option>
+                                <option value="FDC" {% if form_data and form_data.acabamento == 'FDC' %}selected{% endif %}>FDC</option>
+                                <option value="BU" {% if form_data and form_data.acabamento == 'BU' %}selected{% endif %}>BU</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="comemorativa" class="form-label">Commemorative</label>
+                            <select class="form-select" id="comemorativa" name="comemorativa">
+                                <option value="Todas">All</option>
+                                <option value="Sim" {% if form_data and form_data.comemorativa == 'Sim' %}selected{% endif %}>Yes</option>
+                                <option value="Nao" {% if form_data and form_data.comemorativa == 'Nao' %}selected{% endif %}>No</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-12 mt-3">
+                            <button type="submit" class="btn btn-primary me-2">
+                                <i class="bi bi-search"></i> Search
+                            </button>
+                            <!-- Use type="button" to prevent default reset, then handle reset + submit in JS -->
+                            <button type="button" class="btn btn-outline-secondary" onclick="clearForm()">
+                                <i class="bi bi-eraser"></i> Clear
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if coins %}
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span>
+                            {% if show_results %}
+                                Search Results
+                            {% else %}
+                                All Coins
+                            {% endif %}
+                        </span>
+                        <small>{{ coins|length }} coins found</small>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Country</th>
+                                    <th>Material</th>
+                                    <th>Condition</th>
+                                    <th>Value</th>
+                                    <th>Mintage</th>
+                                    <th>Market Price</th>
+                                    <th>Finishing</th>
+                                    <th>Collection</th>
+                                    <th>Commemorative</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for coin in coins %}
+                                <tr>
+                                    <td>{{ coin.ID }}</td>
+                                    <td>{{ coin.Country_Name }}</td>
+                                    <td>{{ coin.Material }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if coin.Condition == 'UNC' %}bg-success
+                                            {% elif coin.Condition == 'AU' %}bg-primary
+                                            {% elif coin.Condition == 'VF' %}bg-info
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ coin.Condition }}
+                                        </span>
+                                    </td>
+                                    <td>{{ coin.Value }} €</td>
+                                    <td>
+                                        {% if coin.Mintage is not none %}
+                                            {% if coin.Mintage < 10000 %}
+                                                <span class="badge bg-danger">{{ coin.Mintage }} (Rare)</span>
+                                            {% else %}
+                                                {{ coin.Mintage }}
+                                            {% endif %}
+                                        {% else %}
+                                            <span class="text-muted">N/A</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="fw-bold text-success">
+                                        {% if coin.Market_Price is not none %}
+                                            {{ coin.Market_Price }} €
+                                        {% else %}
+                                            <span class="text-muted">N/A</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ coin.Finishing if coin.Finishing is not none else 'N/A' }}</td>
+                                    <td>{{ coin.ColectionID }}</td>
+                                    <td>
+                                        {% if coin.Comemorative == 1 %}
+                                            <span class="badge bg-warning text-dark"><i class="bi bi-star-fill"></i> Yes</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary"><i class="bi bi-dash-circle"></i> No</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url_for('coin_details', coin_id=coin.ID) }}" class="btn btn-sm btn-info">
+                                                <i class="bi bi-eye"></i>
+                                            </a>
+                                            <a href="{{ url_for('edit_coin', coin_id=coin.ID) }}" class="btn btn-sm btn-warning">
+                                                <i class="bi bi-pencil"></i>
+                                            </a>
+                                           <form action="{{ url_for('delete_coin') }}" method="post" style="display: inline;">
+                                                <input type="hidden" name="coin_id" value="{{ coin.ID }}">
+                                                <input type="hidden" name="collection_id" value="{{ coin.ColectionID }}">
+                                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="alert alert-warning">
+                <i class="bi bi-exclamation-triangle"></i> 
+                {% if show_results %}
+                    No coins found matching the criteria.
+                {% else %}
+                    No coins found.
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+
+    <a href="{{ url_for('add_coin') }}" class="btn btn-success mt-3">
+        <i class="bi bi-plus-circle"></i> Add New Coin
+    </a>
+</div>
+
+<script>
+function clearForm() {
+    const form = document.querySelector('form');
+
+    // Limpa todos os inputs de texto e number
+    form.querySelectorAll('input[type="text"], input[type="number"]').forEach(input => input.value = '');
+
+    // Reseta selects para o valor "Todos" ou "Todas"
+    form.querySelectorAll('select').forEach(select => {
+        const options = Array.from(select.options);
+        const defaultOption = options.find(opt => opt.value.toLowerCase() === 'todos' || opt.value.toLowerCase() === 'todas');
+        if (defaultOption) {
+            select.value = defaultOption.value;
+        } else {
+            // Caso não encontre "Todos"/"Todas", selecione o primeiro
+            select.selectedIndex = 0;
+        }
+    });
+
+    // Submete o formulário para mostrar todos os resultados sem filtro
+    form.submit();
+}
+</script>
+{% endblock %}
